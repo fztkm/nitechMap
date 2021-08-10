@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/map_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  static String id = 'welcome_screen';
+
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -23,10 +26,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             height: 60.0,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, MapScreen.id);
+            },
             child: Text('Log in'),
           ),
-          TextButton(onPressed: () {}, child: Text('Sign in')),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, MapScreen.id);
+              },
+              child: Text('Sign in')),
         ],
       ),
     );
