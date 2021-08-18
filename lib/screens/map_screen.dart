@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'timetable_screen.dart';
 
 class MapScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  var photo = 'images/nekochan0.jpg';
+  var photo = 'images/1goukan.svg';
   var currentIndex = 0;
 
   void changePhoto(int index) {
@@ -26,8 +26,10 @@ class _MapScreenState extends State<MapScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          child: PhotoView(
-            imageProvider: AssetImage(photo),
+          child: PhotoView.customChild(
+            child: SvgPicture.asset('images/1goukan.svg'),
+            backgroundDecoration: BoxDecoration(color: Colors.white),
+            customSize: MediaQuery.of(context).size * 2,
           ),
         ),
       ),

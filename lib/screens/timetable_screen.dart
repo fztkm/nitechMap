@@ -4,7 +4,7 @@ class TimeTableScreen extends StatelessWidget {
   static String id = 'timetabele_screen';
   static var weekdays = ['月', '火', '水', '木', '金'];
 
-  var timeTabel = ['微積', '線形代数', 'プログラミング', 'コンピュータアーキテクチャ', 'abc'];
+  final timeTabel = ['微積', '線形代数', 'プログラミング', 'コンピュータアーキテクチャ', 'abc'];
 
   List<Expanded> classroomCards() {
     return List.generate(
