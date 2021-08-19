@@ -12,6 +12,9 @@ class NitechMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        accentColor: Colors.amber[400],
+      ),
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         MapScreen.id: (context) => MapScreen(),
