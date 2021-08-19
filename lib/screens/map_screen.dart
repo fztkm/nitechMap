@@ -10,12 +10,12 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  var photo = 'images/1goukan.svg';
+  var svgPhoto = 'images/11gou.svg';
   var currentIndex = 0;
 
   void changePhoto(int index) {
     setState(() {
-      photo = 'images/nekochan$index.jpg';
+      svgPhoto = 'images/0${index}gou.svg';
       currentIndex = index;
     });
   }
@@ -24,13 +24,23 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('NitMap'),
+      ),
       body: SafeArea(
-        child: Container(
-          child: PhotoView.customChild(
-            child: SvgPicture.asset('images/1goukan.svg'),
-            backgroundDecoration: BoxDecoration(color: Colors.white),
-            customSize: MediaQuery.of(context).size * 2,
-          ),
+        child: Stack(
+          children: [
+            Container(
+              child: PhotoView.customChild(
+                child: SvgPicture.asset(svgPhoto),
+                backgroundDecoration: BoxDecoration(color: Colors.white),
+                customSize: MediaQuery.of(context).size * 1.8,
+              ),
+            ),
+            Container(
+              child: Text('hey'),
+            )
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
