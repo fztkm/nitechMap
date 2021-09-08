@@ -10,18 +10,19 @@ class EditCard extends StatefulWidget {
 class _EditCardState extends State<EditCard> {
   Container inputField() {
     return Container(
-        padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
-        width: MediaQuery.of(context).size.width * 0.65,
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: '講義'),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: '講義室番号'),
-            ),
-          ],
-        ));
+      padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
+      width: MediaQuery.of(context).size.width * 0.65,
+      child: Column(
+        children: [
+          TextField(
+            decoration: InputDecoration(labelText: '講義'),
+          ),
+          TextField(
+            decoration: InputDecoration(labelText: '講義室番号'),
+          ),
+        ],
+      ),
+    );
   }
 
   List<Container> inputFieldList() {

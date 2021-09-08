@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'timetable_screen.dart';
@@ -27,6 +28,10 @@ class _MapScreenState extends State<MapScreen> {
     Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('Nitech Map'),
+      ),
+      drawer: MainDrawer(),
       body: SafeArea(
         child: Stack(
           children: [
@@ -34,7 +39,7 @@ class _MapScreenState extends State<MapScreen> {
               child: PhotoView.customChild(
                 child: SvgPicture.asset(svgPhoto),
                 backgroundDecoration: BoxDecoration(color: Colors.white),
-                customSize: MediaQuery.of(context).size * 1.8,
+                customSize: MediaQuery.of(context).size * 2.2,
               ),
             ),
             Positioned(
@@ -117,7 +122,7 @@ class _MapScreenState extends State<MapScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor,
         onPressed: () {
-          Navigator.pushNamed(context, TimeTableScreen.id);
+          Navigator.pushReplacementNamed(context, TimeTableScreen.id);
         },
         child: Icon(Icons.apps_rounded),
       ),

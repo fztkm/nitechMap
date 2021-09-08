@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/screens/edit_timetable_screen.dart';
+import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import '../widgets/edit_card.dart';
 
 class TimeTableScreen extends StatelessWidget {
@@ -65,7 +67,8 @@ class TimeTableScreen extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8),
           child: TextButton.icon(
             onPressed: () {
-              startEditing(context);
+              // startEditing(context);
+              Navigator.of(context).pushNamed(EditTimeTableScreen.routeName);
             },
             icon: Icon(
               Icons.edit,
@@ -81,8 +84,10 @@ class TimeTableScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: appBar,
+      drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 8),
           height: (MediaQuery.of(context).size.height -
               appBar.preferredSize.height -
               MediaQuery.of(context).padding.top),
