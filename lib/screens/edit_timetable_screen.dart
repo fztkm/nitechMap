@@ -10,7 +10,19 @@ class EditTimeTableScreen extends StatefulWidget {
 class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   var _dayOfWeek = '月曜';
 
-  var options_DOW = ['月曜', '火曜', '水曜', '木曜', '金曜'];
+  var optionsDOW = ['月曜', '火曜', '水曜', '木曜', '金曜'];
+
+  final _form = GlobalKey<FormState>();
+  //ToDo provider<TimeTable>を取得して、saveで値を変更する.
+
+  void _saveTimeTable() {
+    final valid = _form.currentState!.validate();
+    if (!valid) {
+      return;
+    }
+    _form.currentState!.save(); //onSavedをトリガー
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
         title: Text('時間割編集'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _saveTimeTable,
             icon: Icon(Icons.save),
           ),
         ],
@@ -27,6 +39,8 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Form(
+          key: _form,
+          autovalidate: true,
           child: ListView(
             children: [
               Row(
@@ -51,7 +65,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                         _dayOfWeek = newValue as String;
                       });
                     },
-                    items: options_DOW
+                    items: optionsDOW
                         .map<DropdownMenuItem<String>>((e) =>
                             DropdownMenuItem<String>(value: e, child: Text(e)))
                         .toList(),
@@ -151,6 +165,9 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                     TextFormField(
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(labelText: '講義室番号'),
+                      onFieldSubmitted: (_) {
+                        _saveTimeTable();
+                      },
                     ),
                   ],
                 ),
