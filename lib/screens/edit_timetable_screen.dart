@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/providers/timetable.dart';
+import 'package:nitechmap_c0de/widgets/InputListTile.dart';
 
 class EditTimeTableScreen extends StatefulWidget {
   static const routeName = '/edit_timetable_screen';
@@ -12,6 +14,25 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
 
   var optionsDOW = ['月曜', '火曜', '水曜', '木曜', '金曜'];
 
+  DayOfWeek toDayOfWeek() {
+    switch (_dayOfWeek) {
+      case '月曜':
+        return DayOfWeek.Mon;
+      case '火曜':
+        return DayOfWeek.Tue;
+      case '水曜':
+        return DayOfWeek.Wed;
+      case '木曜':
+        return DayOfWeek.Thu;
+      case '金曜':
+        return DayOfWeek.Fry;
+      default:
+        return DayOfWeek.Mon;
+    }
+  }
+
+  List<dynamic> timeTableDate = [0, 0, 0, 0, 0];
+
   final _form = GlobalKey<FormState>();
   //ToDo provider<TimeTable>を取得して、saveで値を変更する.
 
@@ -22,6 +43,21 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
     }
     _form.currentState!.save(); //onSavedをトリガー
     Navigator.of(context).pop();
+  }
+
+  //以下の二つの関数はInputListTileに渡して使う
+  //InputListTileからtimeTableDataに代入
+  void setClassName(int classTime, String? value) {
+    if (value != null) {
+      print(value);
+      timeTableDate[classTime] = ClassData(value);
+    }
+  }
+
+  void setClassroom(int dayofweek, String? value) {
+    if (value != null && timeTableDate[0] != 0) {
+      (timeTableDate[0] as ClassData).setClassroom(value);
+    }
   }
 
   @override
@@ -72,105 +108,42 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                   ),
                 ],
               ),
-              ListTile(
-                leading: CircleAvatar(
-                  child: Text('1限'),
-                ),
-                title: Column(
-                  children: [
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義名'),
-                    ),
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義室番号'),
-                    ),
-                  ],
-                ),
+              InputListTile(
+                classTime: 1,
+                setClassName: setClassName,
+                setClassroom: setClassroom,
               ),
               Divider(
                 thickness: 1,
               ),
-              ListTile(
-                leading: CircleAvatar(
-                  child: Text('2限'),
-                ),
-                title: Column(
-                  children: [
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義名'),
-                    ),
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義室番号'),
-                    ),
-                  ],
-                ),
+              InputListTile(
+                classTime: 2,
+                setClassName: setClassName,
+                setClassroom: setClassroom,
               ),
               Divider(
                 thickness: 1,
               ),
-              ListTile(
-                leading: CircleAvatar(
-                  child: Text('3限'),
-                ),
-                title: Column(
-                  children: [
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義名'),
-                    ),
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義室番号'),
-                    ),
-                  ],
-                ),
+              InputListTile(
+                classTime: 3,
+                setClassName: setClassName,
+                setClassroom: setClassroom,
               ),
               Divider(
                 thickness: 1,
               ),
-              ListTile(
-                leading: CircleAvatar(
-                  child: Text('4限'),
-                ),
-                title: Column(
-                  children: [
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義名'),
-                    ),
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義室番号'),
-                    ),
-                  ],
-                ),
+              InputListTile(
+                classTime: 4,
+                setClassName: setClassName,
+                setClassroom: setClassroom,
               ),
               Divider(
                 thickness: 1,
               ),
-              ListTile(
-                leading: CircleAvatar(
-                  child: Text('5限'),
-                ),
-                title: Column(
-                  children: [
-                    TextFormField(
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: '講義名'),
-                    ),
-                    TextFormField(
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(labelText: '講義室番号'),
-                      onFieldSubmitted: (_) {
-                        _saveTimeTable();
-                      },
-                    ),
-                  ],
-                ),
+              InputListTile(
+                classTime: 5,
+                setClassName: setClassName,
+                setClassroom: setClassroom,
               ),
             ],
           ),
