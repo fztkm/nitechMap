@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/widgets/InputListTile.dart';
+import 'package:provider/provider.dart';
 
 class EditTimeTableScreen extends StatefulWidget {
   static const routeName = '/edit_timetable_screen';
@@ -14,7 +15,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
 
   var optionsDOW = ['月曜', '火曜', '水曜', '木曜', '金曜'];
 
-  DayOfWeek toDayOfWeek() {
+  DayOfWeek dayOfWeek() {
     switch (_dayOfWeek) {
       case '月曜':
         return DayOfWeek.Mon;
@@ -37,26 +38,33 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   //ToDo provider<TimeTable>を取得して、saveで値を変更する.
 
   void _saveTimeTable() {
-    final valid = _form.currentState!.validate();
-    if (!valid) {
-      return;
-    }
+    print('おおーい');
+    print(timeTableDate);
+    // final valid = _form.currentState!.validate();
+    // if (!valid) {
+    //   print('ここまで０ｋ');
+    //   return;
+    // }
     _form.currentState!.save(); //onSavedをトリガー
+    Provider.of<TimeTable>(context, listen: false)
+        .setTimetable(dayOfWeek(), timeTableDate);
     Navigator.of(context).pop();
   }
 
   //以下の二つの関数はInputListTileに渡して使う
   //InputListTileからtimeTableDataに代入
   void setClassName(int classTime, String? value) {
-    if (value != null) {
+    if (value != null && value != '' && value.isNotEmpty) {
       print(value);
-      timeTableDate[classTime] = ClassData(value);
+      timeTableDate[classTime - 1] = ClassData(value);
+    } else {
+      timeTableDate[classTime - 1] = 0;
     }
   }
 
-  void setClassroom(int dayofweek, String? value) {
-    if (value != null && timeTableDate[0] != 0) {
-      (timeTableDate[0] as ClassData).setClassroom(value);
+  void setClassroom(int classTime, String? value) {
+    if (timeTableDate[classTime - 1] is ClassData) {
+      timeTableDate[classTime - 1].setClassroom(value);
     }
   }
 

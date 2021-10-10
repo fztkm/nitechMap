@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/screens/edit_timetable_screen.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import '../widgets/edit_card.dart';
+import 'package:provider/provider.dart';
 
 class TimeTableScreen extends StatelessWidget {
   static String id = 'timetabele_screen';
@@ -22,27 +24,51 @@ class TimeTableScreen extends StatelessWidget {
     );
   }
 
-  List<Expanded> classroomCards() {
-    return List.generate(
-      5,
-      (index) => Expanded(
+  DayOfWeek intToDayOfWeek(int index) {
+    switch (index) {
+      case 0:
+        return DayOfWeek.Mon;
+      case 1:
+        return DayOfWeek.Tue;
+      case 2:
+        return DayOfWeek.Wed;
+      case 3:
+        return DayOfWeek.Thu;
+      case 4:
+        return DayOfWeek.Fry;
+      default:
+        return DayOfWeek.Mon;
+    }
+  }
+
+  List<Expanded> classroomCards(int dayOfWeek, TimeTable table) {
+    DayOfWeek day = intToDayOfWeek(dayOfWeek);
+    List<dynamic> tableData = table.timetable[day] as List<dynamic>;
+    return List.generate(5, (index) {
+      String className = '';
+      String classroom = '';
+      if (tableData[index] != 0) {
+        className = (tableData[index] as ClassData).className;
+        classroom = (tableData[index] as ClassData).classroom;
+      }
+      return Expanded(
         flex: 3,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 15, horizontal: 3),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(timeTabel[index]),
+              Text(className),
               SizedBox(height: 10),
-              Text('0221'),
+              Text(classroom),
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  List<Expanded> tiles(List<Expanded> classrooms, BuildContext context) {
+  List<Expanded> tiles(TimeTable timetableData, BuildContext context) {
     return List.generate(5, (index) {
       return Expanded(
         child: Row(children: [
@@ -52,7 +78,7 @@ class TimeTableScreen extends StatelessWidget {
               weekdays[index],
             ),
           ),
-          ...classrooms,
+          ...classroomCards(index, timetableData),
         ]),
       );
     });
@@ -60,6 +86,8 @@ class TimeTableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timeTableData = Provider.of<TimeTable>(context);
+
     AppBar appBar = AppBar(
       title: Text('時間割'),
       actions: [
@@ -94,7 +122,7 @@ class TimeTableScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ...tiles(classroomCards(), context),
+              ...tiles(timeTableData, context),
             ],
           ),
         ),
