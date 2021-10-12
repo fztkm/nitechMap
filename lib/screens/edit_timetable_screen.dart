@@ -47,23 +47,23 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
       final routeArg = ModalRoute.of(context)!.settings.arguments;
       switch (routeArg as int) {
         case 0:
-          timeTableDate = tt!.timetable[DayOfWeek.Mon] as List<dynamic>;
+          timeTableDate = tt!.timetable()[DayOfWeek.Mon] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Mon;
           break;
         case 1:
-          timeTableDate = tt!.timetable[DayOfWeek.Tue] as List<dynamic>;
+          timeTableDate = tt!.timetable()[DayOfWeek.Tue] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Tue;
           break;
         case 2:
-          timeTableDate = tt!.timetable[DayOfWeek.Wed] as List<dynamic>;
+          timeTableDate = tt!.timetable()[DayOfWeek.Wed] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Wed;
           break;
         case 3:
-          timeTableDate = tt!.timetable[DayOfWeek.Thu] as List<dynamic>;
+          timeTableDate = tt!.timetable()[DayOfWeek.Thu] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Thu;
           break;
         case 4:
-          timeTableDate = tt!.timetable[DayOfWeek.Fry] as List<dynamic>;
+          timeTableDate = tt!.timetable()[DayOfWeek.Fry] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Fry;
           break;
       }
@@ -106,7 +106,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   void setInitialData() {
     //曜日に応じた以前のClassDataのリストを格納
     setState(() {
-      timeTableDate = tt!.timetable[_dayOfWeek] as List<dynamic>;
+      timeTableDate = tt!.timetable()[_dayOfWeek] as List<dynamic>;
     });
   }
 

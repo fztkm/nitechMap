@@ -12,7 +12,14 @@ class NextClassData {
 
   NextClassData(BuildContext context) {
     timeTable = Provider.of<TimeTable>(context, listen: false);
+    print("コンストラクタ");
     setThisClassIdx();
+    setNextClassIdx();
+  }
+
+  bool beforeTime(int hour, int minute) {
+    DateTime time = DateTime(now.year, now.month, now.day, hour, minute);
+    return now.isBefore(time);
   }
 
   String getToday() {
@@ -30,12 +37,27 @@ class NextClassData {
   //今何コマ目か
   //
   void setThisClassIdx() {
+    //平日かどうか　休日なら0
     if (getDayOfWeek() is DayOfWeek) {
-      //TODO: 時間ごとにコマ数割り当てる。1コマ目＝１
-      _thisClassIdx = 3;
+      if (beforeTime(10, 20)) {
+        _thisClassIdx = 1;
+      } else if (beforeTime(12, 00)) {
+        _thisClassIdx = 2;
+      } else if (beforeTime(14, 30)) {
+        _thisClassIdx = 3;
+      } else if (beforeTime(16, 10)) {
+        _thisClassIdx = 4;
+      } else if (beforeTime(17, 50)) {
+        _thisClassIdx = 5;
+      } else {
+        //テストのために２にセット
+        print("_thisClassIdx : set Test Index 2");
+        _thisClassIdx = 2;
+      }
     } else {
       _thisClassIdx = 0; //土曜・日曜は0
     }
+    print("_thisClassIdx = " + _thisClassIdx.toString());
   }
 
   //次何コマ目か
@@ -44,13 +66,19 @@ class NextClassData {
     朝早くは、１コマ目を指定
     それ以外(thisClassIdx !₌ 0)ならthisClassIdx + 1を代入
     */
-    _nextClassIdx = 0; //セットしよう
+    if (_thisClassIdx == 5) {
+      _nextClassIdx = 0;
+    }
+    if (_thisClassIdx != 0) {
+      _nextClassIdx = _thisClassIdx + 1; //セットしよう
+    }
+    print("_nextClassIdx = " + _nextClassIdx.toString());
   }
 
   //曜日取得
   DayOfWeek? getDayOfWeek() {
     // int index = now.weekday; //Mon = 1, max7
-    int index = 1;
+    int index = now.weekday;
     switch (index) {
       case 1:
         print('Today is Mon');
@@ -81,11 +109,11 @@ class NextClassData {
     if (dofw != null && _thisClassIdx >= 1) {
       print('2段目までokです');
       final classData = timeTable!
-          .timetable[dofw]![_thisClassIdx - 1]; //0かClassData // １コマ目のidx=0
+          .timetable()[dofw]![_thisClassIdx - 1]; //0かClassData // １コマ目のidx=0
       if (classData is ClassData) {
         result[0] = classData.className;
         result[1] = classData.classroom;
-        print(result);
+        print("now : " + result.toString());
       }
     }
     return result;
@@ -97,10 +125,11 @@ class NextClassData {
     DayOfWeek? dofw = getDayOfWeek();
     if (dofw != null && _nextClassIdx >= 1) {
       final classData =
-          timeTable!.timetable[dofw]![_nextClassIdx + 1]; //0かClassData
+          timeTable!.timetable()[dofw]![_nextClassIdx - 1]; //0かClassData
       if (classData is ClassData) {
         result[0] = classData.className;
         result[1] = classData.classroom;
+        print("next : " + result.toString());
       }
     }
     return result;

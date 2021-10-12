@@ -25,7 +25,7 @@ enum DayOfWeek {
 
 class TimeTable with ChangeNotifier {
   //Map<String, List<0 or ClassData> >
-  Map<DayOfWeek, List<dynamic>> timetable = {
+  Map<DayOfWeek, List<dynamic>> _timetable = {
     DayOfWeek.Mon: [0, 0, 0, 0, 0],
     DayOfWeek.Tue: [0, 0, 0, 0, 0],
     DayOfWeek.Wed: [0, 0, 0, 0, 0],
@@ -33,8 +33,12 @@ class TimeTable with ChangeNotifier {
     DayOfWeek.Fry: [0, 0, 0, 0, 0],
   };
 
+  Map<DayOfWeek, List<dynamic>> timetable() {
+    return _timetable;
+  }
+
   void setTimetable(DayOfWeek day, List<dynamic> newTimeTable) {
-    timetable[day] = newTimeTable;
+    _timetable[day] = newTimeTable;
     notifyListeners();
   }
 }

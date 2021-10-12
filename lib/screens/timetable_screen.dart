@@ -50,7 +50,7 @@ class TimeTableScreen extends StatelessWidget {
 
   List<Expanded> classroomCards(int dayOfWeek, TimeTable table) {
     DayOfWeek day = intToDayOfWeek(dayOfWeek);
-    List<dynamic> tableData = table.timetable[day] as List<dynamic>;
+    List<dynamic> tableData = table.timetable()[day] as List<dynamic>;
     return List.generate(5, (index) {
       String className = '';
       String classroom = '';

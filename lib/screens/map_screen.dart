@@ -19,23 +19,68 @@ class _MapScreenState extends State<MapScreen> {
   var currentIndex = 0;
   NextClassData? next;
   bool initialized = false;
+  String timeInfo = '';
+  String name = '';
+  String className = '';
+
+  List<String> properBuildingNum = [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "06",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "18",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "56",
+    "57"
+  ];
 
   void changePhoto(int index) {
     setState(() {
       String buildingNum = "00";
+      //nextかnowかに応じて　テキスト情報を変える
       if (index == 0) {
+        timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
+        name = next!.getThisClassData()[0];
+        className = next!.getThisClassData()[1];
+        //何号館なのか数字を格納
         buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
-      } else if (index == 1) {
+      }
+      if (index == 1) {
+        timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
+        name = next!.getNextClassData()[0];
+        className = next!.getNextClassData()[1];
         buildingNum = (next!.getNextClassData()[1]).substring(0, 2);
       }
-      svgPhoto = 'images/${buildingNum}gou.svg';
+      //適切でない講義室番号のときは 00gou.svg
+      if (properBuildingNum.contains(buildingNum)) {
+        svgPhoto = 'images/${buildingNum}gou.svg';
+      } else {
+        svgPhoto = 'images/00gou.svg';
+      }
+
       currentIndex = index;
     });
   }
 
   // @override
   // void initState() {
-  //   // TODO: implement initState
   //   // Future.delayed(Duration.zero).then((_) {
   //   //   next = NextClassData(context);
   //   // });
@@ -49,11 +94,13 @@ class _MapScreenState extends State<MapScreen> {
       String buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
       svgPhoto = 'images/${buildingNum}gou.svg';
       initialized = true;
-    }
-    super.didChangeDependencies();
-  }
 
-  //TODO : 適切でない講義室番号のときは00gou.svgを選択
+      timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
+      name = next!.getThisClassData()[0];
+      className = next!.getThisClassData()[1];
+      super.didChangeDependencies();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +144,7 @@ class _MapScreenState extends State<MapScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(
-                                  '${next!.getToday()} - ${next?.getThisClassIdx()}コマ'),
+                              child: Text(timeInfo),
                             )),
                         Container(
                             decoration: BoxDecoration(
@@ -109,8 +155,7 @@ class _MapScreenState extends State<MapScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(
-                                  next?.getThisClassData()[0] as String), // 講義名
+                              child: Text(name), // 講義名
                             )),
                         Container(
                             // decoration: BoxDecoration(
@@ -120,8 +165,7 @@ class _MapScreenState extends State<MapScreen> {
                             // ),
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          child: Text(
-                              next?.getThisClassData()[1] as String), // 講義室名
+                          child: Text(className), // 講義室名
                         )),
                       ],
                     ),
