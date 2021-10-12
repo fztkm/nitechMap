@@ -93,19 +93,68 @@ class TimeTableScreen extends StatelessWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
-          child: TextButton.icon(
-            onPressed: () {
-              // startEditing(context);
-              Navigator.of(context).pushNamed(EditTimeTableScreen.routeName);
-            },
+          child: PopupMenuButton(
             icon: Icon(
               Icons.edit,
-              color: Colors.white,
-            ),
-            label: Text(
-              'Edit',
-              style: TextStyle(color: Colors.white),
-            ),
+              size: 32,
+            ), //don't specify icon if you want 3 dot menu
+            color: Colors.blue,
+            itemBuilder: (context) => [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Text(
+                  "Monday",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 1,
+                child: Text(
+                  "Tuesday",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 2,
+                child: Text(
+                  "Wednesday",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 3,
+                child: Text(
+                  "Thursday",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              PopupMenuItem<int>(
+                value: 4,
+                child: Text(
+                  "Fryday",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+            onSelected: (item) {
+              print(item);
+              Navigator.of(context)
+                  .pushNamed(EditTimeTableScreen.routeName, arguments: item);
+            },
+            // child: TextButton.icon(
+            //   onPressed: () {
+            //     // startEditing(context);
+            //     Navigator.of(context).pushNamed(EditTimeTableScreen.routeName);
+            //   },
+            //   icon: Icon(
+            //     Icons.edit,
+            //     color: Colors.white,
+            //   ),
+            //   label: Text(
+            //     'Edit',
+            //     style: TextStyle(color: Colors.white),
+            //   ),
+            // ),
           ),
         ),
       ],
