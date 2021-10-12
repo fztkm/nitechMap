@@ -18,6 +18,7 @@ class _MapScreenState extends State<MapScreen> {
   var svgPhoto = 'images/00gou.svg';
   var currentIndex = 0;
   NextClassData? next;
+  bool initialized = false;
 
   void changePhoto(int index) {
     setState(() {
@@ -32,19 +33,32 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   // Future.delayed(Duration.zero).then((_) {
+  //   //   next = NextClassData(context);
+  //   // });
+  //   super.initState();
+  // }
+
   @override
-  void initState() {
-    // TODO: implement initState
-    // Future.delayed(Duration.zero).then((_) {
-    //   next = NextClassData(context);
-    // });
-    super.initState();
+  void didChangeDependencies() {
+    if (!initialized) {
+      next = NextClassData(context);
+      String buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
+      svgPhoto = 'images/${buildingNum}gou.svg';
+      initialized = true;
+    }
+    super.didChangeDependencies();
   }
+
+  //TODO : 適切でない講義室番号のときは00gou.svgを選択
 
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
-    next = NextClassData(context);
+    // next = NextClassData(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

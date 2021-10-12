@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/widgets/InputListTile.dart';
@@ -11,31 +12,53 @@ class EditTimeTableScreen extends StatefulWidget {
 }
 
 class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
-  var _dayOfWeek = '月曜';
+  DayOfWeek _dayOfWeek = DayOfWeek.Mon;
 
-  var optionsDOW = ['月曜', '火曜', '水曜', '木曜', '金曜'];
+  var optionsDOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fry'];
 
-  DayOfWeek dayOfWeek() {
-    switch (_dayOfWeek) {
-      case '月曜':
+  DayOfWeek dayOfWeek(String value) {
+    switch (value) {
+      case 'Mon':
         return DayOfWeek.Mon;
-      case '火曜':
+      case 'Tue':
         return DayOfWeek.Tue;
-      case '水曜':
+      case 'Wed':
         return DayOfWeek.Wed;
-      case '木曜':
+      case 'Thu':
         return DayOfWeek.Thu;
-      case '金曜':
+      case 'Fry':
         return DayOfWeek.Fry;
       default:
         return DayOfWeek.Mon;
     }
   }
 
-  List<dynamic> timeTableDate = [0, 0, 0, 0, 0];
+  //Provider で　TimeTable()を取得。initialValueを渡す必要あり
 
+  List<dynamic> timeTableDate = [0, 0, 0, 0, 0];
+  TimeTable? tt;
+  bool initialized = false;
   final _form = GlobalKey<FormState>();
-  //ToDo provider<TimeTable>を取得して、saveで値を変更する.
+
+  // @override
+  // void initState() {
+  //   Future.delayed(Duration.zero)
+  //       .then((value) => tt = Provider.of<TimeTable>(context, listen: false))
+  //       .then((value) =>
+  //           timeTableDate = tt!.timetable[DayOfWeek.Mon] as List<dynamic>);
+  //   //最初は月曜日の情報を表示
+  //   super.initState();
+  // }
+
+  @override
+  void didChangeDependencies() {
+    if (!initialized) {
+      tt = Provider.of<TimeTable>(context, listen: false);
+      timeTableDate = tt!.timetable[DayOfWeek.Mon] as List<dynamic>;
+      initialized = true;
+    }
+    super.didChangeDependencies();
+  }
 
   void _saveTimeTable() {
     print('おおーい');
@@ -47,7 +70,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
     // }
     _form.currentState!.save(); //onSavedをトリガー
     Provider.of<TimeTable>(context, listen: false)
-        .setTimetable(dayOfWeek(), timeTableDate);
+        .setTimetable(_dayOfWeek, timeTableDate);
     Navigator.of(context).pop();
   }
 
@@ -66,6 +89,11 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
     if (timeTableDate[classTime - 1] is ClassData) {
       timeTableDate[classTime - 1].setClassroom(value);
     }
+  }
+
+  void setInitialData() {
+    //曜日に応じた以前のClassDataのリストを格納
+    timeTableDate = tt!.timetable[_dayOfWeek] as List<dynamic>;
   }
 
   @override
@@ -95,7 +123,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                     width: 20,
                   ),
                   DropdownButton<String>(
-                    value: _dayOfWeek,
+                    value: describeEnum(_dayOfWeek),
                     icon: Icon(Icons.arrow_drop_down),
                     iconSize: 30,
                     elevation: 16,
@@ -106,7 +134,8 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                     ),
                     onChanged: (newValue) {
                       setState(() {
-                        _dayOfWeek = newValue as String;
+                        _dayOfWeek = dayOfWeek(newValue!);
+                        setInitialData();
                       });
                     },
                     items: optionsDOW
@@ -120,6 +149,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 classTime: 1,
                 setClassName: setClassName,
                 setClassroom: setClassroom,
+                initialData: timeTableDate,
               ),
               Divider(
                 thickness: 1,
@@ -128,6 +158,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 classTime: 2,
                 setClassName: setClassName,
                 setClassroom: setClassroom,
+                initialData: timeTableDate,
               ),
               Divider(
                 thickness: 1,
@@ -136,6 +167,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 classTime: 3,
                 setClassName: setClassName,
                 setClassroom: setClassroom,
+                initialData: timeTableDate,
               ),
               Divider(
                 thickness: 1,
@@ -144,6 +176,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 classTime: 4,
                 setClassName: setClassName,
                 setClassroom: setClassroom,
+                initialData: timeTableDate,
               ),
               Divider(
                 thickness: 1,
@@ -152,6 +185,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 classTime: 5,
                 setClassName: setClassName,
                 setClassroom: setClassroom,
+                initialData: timeTableDate,
               ),
             ],
           ),

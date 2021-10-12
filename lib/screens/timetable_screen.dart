@@ -86,7 +86,7 @@ class TimeTableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeTableData = Provider.of<TimeTable>(context);
+    final timeTableData = Provider.of<TimeTable>(context, listen: true);
 
     AppBar appBar = AppBar(
       title: Text('時間割'),
