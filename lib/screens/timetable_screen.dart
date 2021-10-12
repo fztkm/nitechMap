@@ -8,6 +8,13 @@ import 'package:provider/provider.dart';
 class TimeTableScreen extends StatelessWidget {
   static String id = 'timetabele_screen';
   static var weekdays = ['月', '火', '水', '木', '金'];
+  static var list = [
+    ['M', 'o', 'n'],
+    ['T', 'u', 'e'],
+    ['W', 'e', 'd'],
+    ['T', 'h', 'u'],
+    ['F', 'r', 'y'],
+  ];
 
   final timeTabel = ['微積', '線形代数', 'プログラミング', 'コンピュータアーキテクチャ', 'abc'];
 
@@ -63,6 +70,7 @@ class TimeTableScreen extends StatelessWidget {
               Text(classroom),
             ],
           ),
+          elevation: 4.0,
         ),
       );
     });
@@ -72,11 +80,22 @@ class TimeTableScreen extends StatelessWidget {
     return List.generate(5, (index) {
       return Expanded(
         child: Row(children: [
-          SizedBox(width: 5),
-          Container(
-            child: Text(
-              weekdays[index],
-            ),
+          SizedBox(width: 3.0),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ...List.generate(3, (i) {
+                return Container(
+                  child: Text(
+                    list[index][i],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                );
+              }),
+            ],
+          ),
+          SizedBox(
+            width: 5.0,
           ),
           ...classroomCards(index, timetableData),
         ]),
@@ -89,7 +108,7 @@ class TimeTableScreen extends StatelessWidget {
     final timeTableData = Provider.of<TimeTable>(context, listen: true);
 
     AppBar appBar = AppBar(
-      title: Text('時間割'),
+      title: Text('TimeTable'),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
@@ -162,6 +181,7 @@ class TimeTableScreen extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       drawer: MainDrawer(),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8),
@@ -171,7 +191,33 @@ class TimeTableScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  ...List.generate(
+                    5,
+                    (index) => Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          (index + 1).toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               ...tiles(timeTableData, context),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

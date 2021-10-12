@@ -114,12 +114,18 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('時間割編集'),
+        title: Text('Edit - ' + describeEnum(_dayOfWeek)),
         actions: [
-          IconButton(
-            onPressed: _saveTimeTable,
-            icon: Icon(Icons.save),
-          ),
+          TextButton.icon(
+              onPressed: _saveTimeTable,
+              icon: Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
+              label: Text(
+                'Save',
+                style: TextStyle(color: Colors.white),
+              )),
         ],
       ),
       body: Padding(

@@ -26,7 +26,7 @@ class MainDrawer extends StatelessWidget {
               size: 30,
             ),
             label: Text(
-              '地図',
+              'Map',
               style: Theme.of(context)
                   .textTheme
                   .headline6!
@@ -45,7 +45,7 @@ class MainDrawer extends StatelessWidget {
               size: 30,
             ),
             label: Text(
-              '時間割',
+              'TimeTable',
               style: Theme.of(context)
                   .textTheme
                   .headline6!
