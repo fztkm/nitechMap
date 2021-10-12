@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/materials/nextClassData.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'timetable_screen.dart';
+import 'package:intl/intl.dart';
 
 class MapScreen extends StatefulWidget {
   //initで現在時間を取得して、
@@ -13,19 +15,36 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  var svgPhoto = 'images/11gou.svg';
+  var svgPhoto = 'images/00gou.svg';
   var currentIndex = 0;
+  NextClassData? next;
 
   void changePhoto(int index) {
     setState(() {
-      svgPhoto = 'images/0${index}gou.svg';
+      String buildingNum = "00";
+      if (index == 0) {
+        buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
+      } else if (index == 1) {
+        buildingNum = (next!.getNextClassData()[1]).substring(0, 2);
+      }
+      svgPhoto = 'images/${buildingNum}gou.svg';
       currentIndex = index;
     });
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    // Future.delayed(Duration.zero).then((_) {
+    //   next = NextClassData(context);
+    // });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
+    next = NextClassData(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -64,7 +83,8 @@ class _MapScreenState extends State<MapScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text('8/19-1コマ'),
+                              child: Text(
+                                  '${next!.getToday()} - ${next?.getThisClassIdx()}コマ'),
                             )),
                         Container(
                             decoration: BoxDecoration(
@@ -75,7 +95,8 @@ class _MapScreenState extends State<MapScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text('プログラミング'),
+                              child: Text(
+                                  next?.getThisClassData()[0] as String), // 講義名
                             )),
                         Container(
                             // decoration: BoxDecoration(
@@ -85,7 +106,8 @@ class _MapScreenState extends State<MapScreen> {
                             // ),
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          child: Text('0123'),
+                          child: Text(
+                              next?.getThisClassData()[1] as String), // 講義室名
                         )),
                       ],
                     ),
