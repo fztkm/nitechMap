@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class ClassData {
   String className;
@@ -33,6 +35,12 @@ class TimeTable with ChangeNotifier {
     DayOfWeek.Fry: [0, 0, 0, 0, 0],
   };
 
+  var database;
+
+  TimeTable() {
+    database = openTimeTableDatabase();
+  }
+
   Map<DayOfWeek, List<dynamic>> timetable() {
     return _timetable;
   }
@@ -40,5 +48,16 @@ class TimeTable with ChangeNotifier {
   void setTimetable(DayOfWeek day, List<dynamic> newTimeTable) {
     _timetable[day] = newTimeTable;
     notifyListeners();
+  }
+
+  //データベースに接続
+  Future<Database> openTimeTableDatabase() async {
+    return openDatabase(
+      join(await getDatabasesPath(), 'timetable_databese.db'),
+    );
+  }
+
+  Future<void> insertTimeable(DayOfWeek day, List<dynamic> newTT) {
+    return Future.delayed(Duration.zero);
   }
 }
