@@ -16,23 +16,6 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
 
   var optionsDOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fry'];
 
-  // DayOfWeek dayOfWeek(String value) {
-  //   switch (value) {
-  //     case 'Mon':
-  //       return DayOfWeek.Mon;
-  //     case 'Tue':
-  //       return DayOfWeek.Tue;
-  //     case 'Wed':
-  //       return DayOfWeek.Wed;
-  //     case 'Thu':
-  //       return DayOfWeek.Thu;
-  //     case 'Fry':
-  //       return DayOfWeek.Fry;
-  //     default:
-  //       return DayOfWeek.Mon;
-  //   }
-  // }
-
   //Provider で　TimeTable()を取得。initialValueを渡す必要あり
 
   List<dynamic> timeTableDate = [0, 0, 0, 0, 0];
@@ -73,13 +56,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   }
 
   void _saveTimeTable() {
-    print('おおーい');
     print(timeTableDate);
-    // final valid = _form.currentState!.validate();
-    // if (!valid) {
-    //   print('ここまで０ｋ');
-    //   return;
-    // }
     _form.currentState!.save(); //onSavedをトリガー
     Provider.of<TimeTable>(context, listen: false)
         .setTimetable(_dayOfWeek, timeTableDate);
