@@ -17,6 +17,10 @@ class NextClassData {
     setNextClassIdx();
   }
 
+  Future<void> setTimeTableFromDB() async {
+    timeTable!.getInitAndGetTimeTable();
+  }
+
   bool beforeTime(int hour, int minute) {
     DateTime time = DateTime(now.year, now.month, now.day, hour, minute);
     return now.isBefore(time);
@@ -105,14 +109,14 @@ class NextClassData {
   List<String> getThisClassData() {
     List<String> result = ["なし", "0000"];
     DayOfWeek? dofw = getDayOfWeek();
-    print("1段目");
     if (dofw != null && _thisClassIdx >= 1) {
-      print('2段目までokです');
       final classData = timeTable!
           .timetable()[dofw]![_thisClassIdx - 1]; //0かClassData // １コマ目のidx=0
       if (classData is ClassData) {
-        result[0] = classData.className;
-        result[1] = classData.classroom;
+        if (classData.className != "" && classData.classroom != "") {
+          result[0] = classData.className;
+          result[1] = classData.classroom;
+        }
         print("now : " + result.toString());
       }
     }
