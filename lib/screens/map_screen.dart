@@ -51,30 +51,42 @@ class _MapScreenState extends State<MapScreen> {
     "57"
   ];
 
+  //講義室名から何号館のsvg画像が必要かをパスで返す
+  String getImageString(String roomName) {
+    var imageString;
+    String buildingNum = roomName.substring(0, 2);
+    //先頭の二文字がproperBuildingNumに含まれていれば、それが何号館に対応する
+    if (properBuildingNum.contains(buildingNum)) {
+      imageString = "images/${buildingNum}gou.svg";
+    } else if (buildingNum == "4-" ||
+        buildingNum == "4ー" ||
+        buildingNum == "4 ") {
+      imageString = "images/04gou.svg";
+    } else if (buildingNum == "2-" ||
+        buildingNum == "2ー" ||
+        buildingNum == "2 ") {
+      imageString = "images/02gou.sve";
+    } else if (roomName.contains("講堂") || roomName.contains("ラーニングコモンズ")) {
+      //講堂2階ラーニングコモンズ はNitechHallの画像
+      imageString = "images/nithall.svg";
+    }
+    return imageString;
+  }
+
   void changePhoto(int index) {
     setState(() {
-      String buildingNum = "00";
       //nextかnowかに応じて　テキスト情報を変える
       if (index == 0) {
         timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
         name = next!.getThisClassData()[0];
         className = next!.getThisClassData()[1];
-        //何号館なのか数字を格納
-        buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
       }
       if (index == 1) {
         timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
         name = next!.getNextClassData()[0];
         className = next!.getNextClassData()[1];
-        buildingNum = (next!.getNextClassData()[1]).substring(0, 2);
       }
-      //適切でない講義室番号のときは 00gou.svg
-      if (properBuildingNum.contains(buildingNum)) {
-        svgPhoto = 'images/${buildingNum}gou.svg';
-      } else {
-        svgPhoto = 'images/00gou.svg';
-      }
-
+      svgPhoto = getImageString(name);
       currentIndex = index;
     });
   }
@@ -92,12 +104,8 @@ class _MapScreenState extends State<MapScreen> {
     if (!initialized) {
       next = NextClassData(context);
       await next!.setTimeTableFromDB();
-      String buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
-      if (properBuildingNum.contains(buildingNum)) {
-        svgPhoto = 'images/${buildingNum}gou.svg';
-      } else {
-        svgPhoto = 'images/00gou.svg';
-      }
+      String roomName = next!.getThisClassData()[1];
+      svgPhoto = getImageString(roomName);
       initialized = true;
 
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
