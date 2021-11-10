@@ -77,6 +77,7 @@ class TimeTable with ChangeNotifier {
   void setTimetable(DayOfWeek day, List<dynamic> newTimeTable) {
     _timetable[day] = newTimeTable;
     notifyListeners();
+    getinitDatabase().then((_) => insertTimeable(day, newTimeTable));
   }
 
   //一番最初にやる。データベースに接続する
@@ -124,23 +125,30 @@ class TimeTable with ChangeNotifier {
   //全データをセット 授業単位で作られたmapのリスト keys= {"day", "time", "name", "room"}
   void setAllData(List<Map<String, dynamic>> maps) {
     maps.forEach((table) {
-      int day = int.parse(table["day"]);
-      int time = int.parse(table["time"]);
+      int day = table["day"];
+      int time = table["time"];
       var classDataOrZero;
-      if (table["name"] != 0 && table["room"] != 0) {
-        classDataOrZero = ClassData.setRoom(table["name"], table["room"]);
-      } else {
+      print("table[name] :" + table["name"]);
+      if (table["name"] == "0") {
+        print("intです");
         classDataOrZero = 0;
+      } else {
+        print("goben");
+        classDataOrZero = ClassData.setRoom(table["name"], table["room"]);
       }
       _timetable[_intToDayOfWeek(day)]![time] = classDataOrZero;
     });
   }
 
   //データの取得
-  Future<TimeTable> getTimeTable() async {
+  Future<void> getTimeTable() async {
     final List<Map<String, dynamic>> maps = await database.query("timetable");
-    TimeTable fetchedTimeTable = TimeTable();
-    fetchedTimeTable.setAllData(maps);
-    return fetchedTimeTable;
+    this.setAllData(maps);
+  }
+
+  //データの取得の一連
+  Future<void> getInitAndGetTimeTable() async {
+    await getinitDatabase().then((_) => getTimeTable());
+    notifyListeners();
   }
 }

@@ -88,24 +88,30 @@ class _MapScreenState extends State<MapScreen> {
   // }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     if (!initialized) {
       next = NextClassData(context);
+      await next!.setTimeTableFromDB();
       String buildingNum = (next!.getThisClassData()[1]).substring(0, 2);
-      svgPhoto = 'images/${buildingNum}gou.svg';
+      if (properBuildingNum.contains(buildingNum)) {
+        svgPhoto = 'images/${buildingNum}gou.svg';
+      } else {
+        svgPhoto = 'images/00gou.svg';
+      }
       initialized = true;
 
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
-      name = next!.getThisClassData()[0];
-      className = next!.getThisClassData()[1];
-      super.didChangeDependencies();
+      setState(() {
+        name = next!.getThisClassData()[0];
+        className = next!.getThisClassData()[1];
+        super.didChangeDependencies();
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
-    // next = NextClassData(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/screens/databasetest_screen.dart';
 import 'package:nitechmap_c0de/screens/edit_timetable_screen.dart';
 import 'package:nitechmap_c0de/screens/map_screen.dart';
 import 'package:nitechmap_c0de/screens/timetable_screen.dart';
@@ -24,6 +25,7 @@ class NitechMap extends StatelessWidget {
           MapScreen.id: (context) => MapScreen(),
           TimeTableScreen.id: (context) => TimeTableScreen(),
           EditTimeTableScreen.routeName: (context) => EditTimeTableScreen(),
+          DatabaseTestScreen.id: (context) => DatabaseTestScreen(),
         },
         home: MapScreen(),
       ),
