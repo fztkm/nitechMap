@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/screens/edit_timetable_screen.dart';
@@ -16,7 +17,7 @@ class TimeTableScreen extends StatelessWidget {
     ['F', 'r', 'y'],
   ];
 
-  final timeTabel = ['微積', '線形代数', 'プログラミング', 'コンピュータアーキテクチャ', 'abc'];
+  // final timeTabel = ['微積', '線形代数', 'プログラミング', 'コンピュータアーキテクチャ', 'abc'];
 
   void startEditing(BuildContext context) {
     showModalBottomSheet(
@@ -65,9 +66,21 @@ class TimeTableScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(className),
+              Text(
+                className,
+                style: TextStyle(fontSize: 12),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
               SizedBox(height: 10),
-              Text(classroom),
+              Text(
+                classroom,
+                style: TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
             ],
           ),
           elevation: 4.0,
@@ -81,6 +94,7 @@ class TimeTableScreen extends StatelessWidget {
       return Expanded(
         child: Row(children: [
           SizedBox(width: 3.0),
+          //曜日のアルファベットをColumnで表示
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -160,20 +174,6 @@ class TimeTableScreen extends StatelessWidget {
               Navigator.of(context)
                   .pushNamed(EditTimeTableScreen.routeName, arguments: item);
             },
-            // child: TextButton.icon(
-            //   onPressed: () {
-            //     // startEditing(context);
-            //     Navigator.of(context).pushNamed(EditTimeTableScreen.routeName);
-            //   },
-            //   icon: Icon(
-            //     Icons.edit,
-            //     color: Colors.white,
-            //   ),
-            //   label: Text(
-            //     'Edit',
-            //     style: TextStyle(color: Colors.white),
-            //   ),
-            // ),
           ),
         ),
       ],

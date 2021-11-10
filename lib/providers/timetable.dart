@@ -130,7 +130,6 @@ class TimeTable with ChangeNotifier {
       var classDataOrZero;
       print("table[name] :" + table["name"]);
       if (table["name"] == "0") {
-        print("intです");
         classDataOrZero = 0;
       } else {
         print("goben");
