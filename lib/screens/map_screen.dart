@@ -4,7 +4,6 @@ import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'timetable_screen.dart';
-import 'package:intl/intl.dart';
 
 class MapScreen extends StatefulWidget {
   //initで現在時間を取得して、
@@ -69,6 +68,9 @@ class _MapScreenState extends State<MapScreen> {
     } else if (roomName.contains("講堂") || roomName.contains("ラーニングコモンズ")) {
       //講堂2階ラーニングコモンズ はNitechHallの画像
       imageString = "images/nithall.svg";
+    } else {
+      imageString = "images/00gou.svg";
+      //デフォルトの画像 00gou.svg
     }
     return imageString;
   }
@@ -87,6 +89,7 @@ class _MapScreenState extends State<MapScreen> {
         className = next!.getNextClassData()[1];
       }
       svgPhoto = getImageString(name);
+      print("svgphoto = $svgPhoto");
       currentIndex = index;
     });
   }
@@ -110,6 +113,8 @@ class _MapScreenState extends State<MapScreen> {
 
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
       setState(() {
+        print("^^^^^^^初期^^^^^^\n name = $name");
+        print("className = $className\nsvg = $svgPhoto");
         name = next!.getThisClassData()[0];
         className = next!.getThisClassData()[1];
         super.didChangeDependencies();

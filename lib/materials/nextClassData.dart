@@ -72,9 +72,8 @@ class NextClassData {
     */
     if (_thisClassIdx == 5) {
       _nextClassIdx = 0;
-    }
-    if (_thisClassIdx != 0) {
-      _nextClassIdx = _thisClassIdx + 1; //セットしよう
+    } else if (_thisClassIdx != 0) {
+      _nextClassIdx = _thisClassIdx + 1;
     }
     print("_nextClassIdx = " + _nextClassIdx.toString());
   }
