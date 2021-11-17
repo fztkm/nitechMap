@@ -18,7 +18,7 @@ class NextClassData {
   }
 
   Future<void> setTimeTableFromDB() async {
-    timeTable!.getInitAndGetTimeTable();
+    await timeTable!.getInitAndGetTimeTable();
   }
 
   bool beforeTime(int hour, int minute) {
