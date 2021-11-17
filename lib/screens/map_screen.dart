@@ -4,7 +4,6 @@ import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'timetable_screen.dart';
-import 'package:intl/intl.dart';
 
 class MapScreen extends StatefulWidget {
   //initで現在時間を取得して、
@@ -69,24 +68,29 @@ class _MapScreenState extends State<MapScreen> {
     } else if (roomName.contains("講堂") || roomName.contains("ラーニングコモンズ")) {
       //講堂2階ラーニングコモンズ はNitechHallの画像
       imageString = "images/nithall.svg";
+    } else {
+      imageString = "images/00gou.svg";
+      //デフォルトの画像 00gou.svg
     }
     return imageString;
   }
 
   void changePhoto(int index) {
+    //next(index == 0)かnow(index == 1)かに応じて　テキスト情報を変える
+    var classData;
+    if (index == 0) {
+      timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
+      classData = next!.getThisClassData();
+    }
+    if (index == 1) {
+      timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
+      classData = next!.getNextClassData();
+    }
     setState(() {
-      //nextかnowかに応じて　テキスト情報を変える
-      if (index == 0) {
-        timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
-        name = next!.getThisClassData()[0];
-        className = next!.getThisClassData()[1];
-      }
-      if (index == 1) {
-        timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
-        name = next!.getNextClassData()[0];
-        className = next!.getNextClassData()[1];
-      }
-      svgPhoto = getImageString(name);
+      name = classData[0];
+      className = classData[1];
+      svgPhoto = getImageString(className);
+      print("svgphoto = $svgPhoto");
       currentIndex = index;
     });
   }
@@ -99,19 +103,26 @@ class _MapScreenState extends State<MapScreen> {
   //   super.initState();
   // }
 
+  /*初期化関数の役割
+    時間割情報を取得する
+  */
   @override
   void didChangeDependencies() async {
+    //一度だけ実行される。実行後initializedはFalseになる
     if (!initialized) {
       next = NextClassData(context);
       await next!.setTimeTableFromDB();
-      String roomName = next!.getThisClassData()[1];
+      List<String> classData = next!.getThisClassData();
+      String roomName = classData[1];
       svgPhoto = getImageString(roomName);
       initialized = true;
 
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
       setState(() {
-        name = next!.getThisClassData()[0];
-        className = next!.getThisClassData()[1];
+        name = classData[0];
+        className = roomName;
+        print("^^^^^^^初期^^^^^^\n name = $name");
+        print("className = $className\nsvg = $svgPhoto");
         super.didChangeDependencies();
       });
     }

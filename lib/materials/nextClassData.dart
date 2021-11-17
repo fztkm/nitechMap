@@ -18,7 +18,7 @@ class NextClassData {
   }
 
   Future<void> setTimeTableFromDB() async {
-    timeTable!.getInitAndGetTimeTable();
+    await timeTable!.getInitAndGetTimeTable();
   }
 
   bool beforeTime(int hour, int minute) {
@@ -72,9 +72,8 @@ class NextClassData {
     */
     if (_thisClassIdx == 5) {
       _nextClassIdx = 0;
-    }
-    if (_thisClassIdx != 0) {
-      _nextClassIdx = _thisClassIdx + 1; //セットしよう
+    } else if (_thisClassIdx != 0) {
+      _nextClassIdx = _thisClassIdx + 1;
     }
     print("_nextClassIdx = " + _nextClassIdx.toString());
   }

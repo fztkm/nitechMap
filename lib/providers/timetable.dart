@@ -77,6 +77,7 @@ class TimeTable with ChangeNotifier {
   void setTimetable(DayOfWeek day, List<dynamic> newTimeTable) {
     _timetable[day] = newTimeTable;
     notifyListeners();
+    //データベースに保存
     getinitDatabase().then((_) => insertTimeable(day, newTimeTable));
   }
 
