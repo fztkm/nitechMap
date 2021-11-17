@@ -1,16 +1,11 @@
-# nitechmap_c0de
+# Nitech Map
 
-A new Flutter application.
+名古屋工業大学の学生の為のスマホアプリ。
+事前に時間割情報を入力すると、次の授業の場所を地図上で赤く強調します。
+アプリを開くだけで講義室を確認できます。
 
-## Getting Started
+## デモ画像
 
-This project is a starting point for a Flutter application.
+![nitmap_demo_720](https://user-images.githubusercontent.com/74134260/142148893-bd1684c0-300f-42c3-b017-a8eb79b45b51.gif)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+リリースしていません。

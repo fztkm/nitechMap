@@ -12,7 +12,7 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('NitechApp'),
+            title: Text('Nitech Map'),
             automaticallyImplyLeading: false,
           ),
           Divider(
