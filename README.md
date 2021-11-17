@@ -7,4 +7,4 @@
 
 ## デモ画像
 
-<img src="https://user-images.githubusercontent.com/74134260/142160404-5eef7dd6-129c-403c-84e4-8b03fc061e93.gif" width="150">
+<img src="https://user-images.githubusercontent.com/74134260/142160404-5eef7dd6-129c-403c-84e4-8b03fc061e93.gif" width="250">
