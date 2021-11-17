@@ -209,12 +209,12 @@ class _MapScreenState extends State<MapScreen> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.arrow_drop_down_circle_outlined),
-              label: 'Now',
+              label: 'This Class',
               backgroundColor: Colors.red,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.navigate_next),
-              label: 'Next',
+              label: 'Next Class',
               backgroundColor: Colors.pink,
             ),
           ],
