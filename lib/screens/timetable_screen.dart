@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/materials/dayOfWeek.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/screens/edit_timetable_screen.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
@@ -32,25 +33,25 @@ class TimeTableScreen extends StatelessWidget {
     );
   }
 
-  DayOfWeek intToDayOfWeek(int index) {
-    switch (index) {
-      case 0:
-        return DayOfWeek.Mon;
-      case 1:
-        return DayOfWeek.Tue;
-      case 2:
-        return DayOfWeek.Wed;
-      case 3:
-        return DayOfWeek.Thu;
-      case 4:
-        return DayOfWeek.Fry;
-      default:
-        return DayOfWeek.Mon;
-    }
-  }
+  // DayOfWeek intToDayOfWeek(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       return DayOfWeek.Mon;
+  //     case 1:
+  //       return DayOfWeek.Tue;
+  //     case 2:
+  //       return DayOfWeek.Wed;
+  //     case 3:
+  //       return DayOfWeek.Thu;
+  //     case 4:
+  //       return DayOfWeek.Fry;
+  //     default:
+  //       return DayOfWeek.Mon;
+  //   }
+  // }
 
   List<Expanded> classroomCards(int dayOfWeek, TimeTable table) {
-    DayOfWeek day = intToDayOfWeek(dayOfWeek);
+    DayOfWeek? day = intToDayOfWeek(dayOfWeek);
     List<dynamic> tableData = table.timetable()[day] as List<dynamic>;
     return List.generate(5, (index) {
       String className = '';
