@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/materials/dayOfWeek.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,50 +12,6 @@ class ClassData {
 
   void setClassroom(String room) {
     classroom = room;
-  }
-}
-
-// class TimeTabelData{
-//   List<dynamic> timetable = [0,0,0,0,0];
-// }
-
-enum DayOfWeek {
-  Mon,
-  Tue,
-  Wed,
-  Thu,
-  Fry,
-}
-
-int _dayOfWeekToInt(DayOfWeek day) {
-  switch (day) {
-    case DayOfWeek.Mon:
-      return 0;
-    case DayOfWeek.Tue:
-      return 1;
-    case DayOfWeek.Wed:
-      return 2;
-    case DayOfWeek.Thu:
-      return 3;
-    case DayOfWeek.Fry:
-      return 4;
-  }
-}
-
-DayOfWeek? _intToDayOfWeek(int day) {
-  switch (day) {
-    case 0:
-      return DayOfWeek.Mon;
-    case 1:
-      return DayOfWeek.Tue;
-    case 2:
-      return DayOfWeek.Wed;
-    case 3:
-      return DayOfWeek.Thu;
-    case 4:
-      return DayOfWeek.Fry;
-    default:
-      return null;
   }
 }
 
@@ -102,7 +59,7 @@ class TimeTable with ChangeNotifier {
   //データベースに挿入
   Future<void> insertTimeable(DayOfWeek day, List<dynamic> newTT) async {
     final Database db = await database;
-    int dayInt = _dayOfWeekToInt(day);
+    int dayInt = dayOfWeekToInt(day);
     for (int i = 0; i < 5; i++) {
       await db.insert(
         'timetable',
@@ -136,7 +93,7 @@ class TimeTable with ChangeNotifier {
         print("goben");
         classDataOrZero = ClassData.setRoom(table["name"], table["room"]);
       }
-      _timetable[_intToDayOfWeek(day)]![time] = classDataOrZero;
+      _timetable[intToDayOfWeek(day)]![time] = classDataOrZero;
     });
   }
 

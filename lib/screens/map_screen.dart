@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/materials/consts.dart';
 import 'package:nitechmap_c0de/materials/nextClassData.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
@@ -22,40 +23,12 @@ class _MapScreenState extends State<MapScreen> {
   String name = '';
   String className = '';
 
-  List<String> properBuildingNum = [
-    "00",
-    "01",
-    "02",
-    "03",
-    "04",
-    "06",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "18",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "51",
-    "52",
-    "53",
-    "54",
-    "55",
-    "56",
-    "57"
-  ];
-
   //講義室名から何号館のsvg画像が必要かをパスで返す
   String getImageString(String roomName) {
     var imageString;
     String buildingNum = roomName.substring(0, 2);
     //先頭の二文字がproperBuildingNumに含まれていれば、それが何号館に対応する
-    if (properBuildingNum.contains(buildingNum)) {
+    if (c_properBuildingNum.contains(buildingNum)) {
       imageString = "images/${buildingNum}gou.svg";
     } else if (buildingNum == "4-" ||
         buildingNum == "4ー" ||
@@ -94,14 +67,6 @@ class _MapScreenState extends State<MapScreen> {
       currentIndex = index;
     });
   }
-
-  // @override
-  // void initState() {
-  //   // Future.delayed(Duration.zero).then((_) {
-  //   //   next = NextClassData(context);
-  //   // });
-  //   super.initState();
-  // }
 
   /*初期化関数の役割
     時間割情報を取得する

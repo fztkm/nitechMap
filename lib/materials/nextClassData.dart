@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:provider/provider.dart';
 
+import 'dayOfWeek.dart';
+
 class NextClassData {
   DateTime now = DateTime.now();
   int _thisClassIdx = 0; //今何コマ目か　存在しないときは０
@@ -12,7 +14,6 @@ class NextClassData {
 
   NextClassData(BuildContext context) {
     timeTable = Provider.of<TimeTable>(context, listen: false);
-    print("コンストラクタ");
     setThisClassIdx();
     setNextClassIdx();
   }
@@ -42,7 +43,7 @@ class NextClassData {
   //
   void setThisClassIdx() {
     //平日かどうか　休日なら0
-    if (getDayOfWeek() is DayOfWeek) {
+    if (intToDayOfWeekForIntl(now.weekday) is DayOfWeek) {
       if (beforeTime(10, 20)) {
         _thisClassIdx = 1;
       } else if (beforeTime(12, 00)) {
@@ -54,9 +55,9 @@ class NextClassData {
       } else if (beforeTime(17, 50)) {
         _thisClassIdx = 5;
       } else {
-        //テストのために２にセット
+        //テストのために２にセット //0にしました。2021-12-16
         print("_thisClassIdx : set Test Index 2");
-        _thisClassIdx = 2;
+        _thisClassIdx = 0;
       }
     } else {
       _thisClassIdx = 0; //土曜・日曜は0
@@ -78,36 +79,10 @@ class NextClassData {
     print("_nextClassIdx = " + _nextClassIdx.toString());
   }
 
-  //曜日取得
-  DayOfWeek? getDayOfWeek() {
-    // int index = now.weekday; //Mon = 1, max7
-    int index = now.weekday;
-    switch (index) {
-      case 1:
-        print('Today is Mon');
-        return DayOfWeek.Mon;
-      case 2:
-        print('Today is Tue');
-        return DayOfWeek.Tue;
-      case 3:
-        print('Today is Tue');
-        return DayOfWeek.Wed;
-      case 4:
-        print('Today is Tue');
-        return DayOfWeek.Thu;
-      case 5:
-        print('Today is Tue');
-        return DayOfWeek.Fry;
-      default:
-        print('Today is Holiday');
-        return null;
-    }
-  }
-
   //今のクラスの名前と講義室名
   List<String> getThisClassData() {
     List<String> result = ["なし", "0000"];
-    DayOfWeek? dofw = getDayOfWeek();
+    DayOfWeek? dofw = intToDayOfWeekForIntl(now.weekday);
     if (dofw != null && _thisClassIdx >= 1) {
       final classData = timeTable!
           .timetable()[dofw]![_thisClassIdx - 1]; //0かClassData // １コマ目のidx=0
@@ -125,7 +100,7 @@ class NextClassData {
   //次のクラスの名前と講義室名
   List<String> getNextClassData() {
     List<String> result = ["なし", "0000"];
-    DayOfWeek? dofw = getDayOfWeek();
+    DayOfWeek? dofw = intToDayOfWeekForIntl(now.weekday);
     if (dofw != null && _nextClassIdx >= 1) {
       final classData =
           timeTable!.timetable()[dofw]![_nextClassIdx - 1]; //0かClassData
