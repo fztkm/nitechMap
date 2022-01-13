@@ -13,7 +13,11 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title:const Text('Nitech Map'),
+            title: Row(children: [
+              Image.asset("images/app_icon_rounded.png", width: AppBar().preferredSize.height * 0.85,),
+              const SizedBox(width: 20,),
+              const Text("Nitech Map"),
+            ],),
             automaticallyImplyLeading: false,
           ),
           const Divider(
@@ -66,7 +70,7 @@ class MainDrawer extends StatelessWidget {
                 context: context,
                 applicationName: "Nitech Map",
                 applicationVersion: info.version,
-                applicationIcon: Icon(Icons.map),
+                applicationIcon: Image.asset("images/app_icon_rounded.png", width: 80,),
                 applicationLegalese: "",
               );
             },
