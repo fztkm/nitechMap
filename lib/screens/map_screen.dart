@@ -10,6 +10,7 @@ class MapScreen extends StatefulWidget {
   //initで現在時間を取得して、
   // 講義室番号と授業名とコマを取得。
   static String id = 'welcome_screen';
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -97,79 +98,108 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
-      appBar:MediaQuery.of(context).orientation == Orientation.portrait
-          ? AppBar(title: const Text('Nitech Map'),) : null,
+      appBar: MediaQuery.of(context).orientation == Orientation.portrait
+          ? AppBar(
+              title: const Text('Nitech Map'),
+            )
+          : null,
       drawer: MainDrawer(),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              child: PhotoView.customChild(
-                child: SvgPicture.asset(svgPhoto),
-                backgroundDecoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
-                customSize: MediaQuery.of(context).size * 2.2,
+      body: !initialized
+          ? SafeArea(
+              child: Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
               ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: const Color(0xffB99679),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.white38, width: 2)),
-                    child: Column(
-                      children: [
-                        Container(
-                            decoration:const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.white),
-                              ),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(timeInfo, style: const TextStyle(color: Colors.white)),
-                            )),
-                        Container(
-                          width: name.length > 10 ? MediaQuery.of(context).size.width * 0.4 : null,
-                            decoration:const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: Colors.white),
-                              ),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(name, style: const TextStyle(overflow: TextOverflow.ellipsis, color: Colors.white),textAlign: TextAlign.center,), // 講義名
-                            )),
-                        Container(
-                            child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          child: Text(className, style: const TextStyle(color: Colors.white)), // 講義室名
-                        )),
-                      ],
+            ))
+          : SafeArea(
+              child: Stack(
+                children: [
+                  Container(
+                    child: PhotoView.customChild(
+                      child: SvgPicture.asset(svgPhoto),
+                      backgroundDecoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor),
+                      customSize: MediaQuery.of(context).size * 2.2,
                     ),
                   ),
-                ),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: const Color(0xffB99679),
+                              borderRadius: BorderRadius.circular(8),
+                              border:
+                                  Border.all(color: Colors.white38, width: 2)),
+                          child: Column(
+                            children: [
+                              Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(color: Colors.white),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 3.0),
+                                    child: Text(timeInfo,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold)),
+                                  )),
+                              Container(
+                                  width: name.length > 10
+                                      ? MediaQuery.of(context).size.width * 0.4
+                                      : null,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(color: Colors.white),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 3.0),
+                                    child: Text(
+                                      name,
+                                      style: const TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ), // 講義名
+                                  )),
+                              Container(
+                                  child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3.0),
+                                child: Text(className,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)), // 講義室名
+                              )),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.white,
-          selectedIconTheme: IconThemeData(color: Theme.of(context).accentColor),
+          selectedIconTheme:
+              IconThemeData(color: Theme.of(context).accentColor),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: const Icon(Icons.arrow_drop_down_circle_outlined),
               label: 'This Class',
-              backgroundColor:  Colors.red,
+              backgroundColor: Colors.red,
             ),
             BottomNavigationBarItem(
               icon: const Icon(Icons.navigate_next),
