@@ -10,10 +10,10 @@ class EditCard extends StatefulWidget {
 class _EditCardState extends State<EditCard> {
   Container inputField() {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 10, right: 20),
+      padding:const EdgeInsets.only(top: 10, bottom: 10, right: 20),
       width: MediaQuery.of(context).size.width * 0.65,
       child: Column(
-        children: [
+        children: const [
           TextField(
             decoration: InputDecoration(labelText: '講義'),
           ),

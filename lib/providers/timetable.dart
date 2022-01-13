@@ -22,7 +22,7 @@ class TimeTable with ChangeNotifier {
     DayOfWeek.Tue: [0, 0, 0, 0, 0],
     DayOfWeek.Wed: [0, 0, 0, 0, 0],
     DayOfWeek.Thu: [0, 0, 0, 0, 0],
-    DayOfWeek.Fry: [0, 0, 0, 0, 0],
+    DayOfWeek.Fri: [0, 0, 0, 0, 0],
   };
 
   var database;

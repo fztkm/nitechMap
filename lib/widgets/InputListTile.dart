@@ -52,7 +52,7 @@ class _InputListTileState extends State<InputListTile> {
         children: [
           TextFormField(
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(labelText: '講義名'),
+            decoration: const InputDecoration(labelText: '講義名'),
             initialValue: getInitialName(),
             onSaved: (value) {
               widget.setClassName(widget.classTime, value); // 講義名を格納
@@ -60,7 +60,7 @@ class _InputListTileState extends State<InputListTile> {
           ),
           TextFormField(
             textInputAction: TextInputAction.next,
-            decoration: InputDecoration(labelText: '講義室番号'),
+            decoration:const InputDecoration(labelText: '講義室番号'),
             initialValue: getInitialRoomName(),
             onSaved: (value) {
               widget.setClassroom(widget.classTime, value); // 講義室番号を格納

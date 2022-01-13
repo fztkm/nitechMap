@@ -12,17 +12,17 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('Nitech Map'),
+            title:const Text('Nitech Map'),
             automaticallyImplyLeading: false,
           ),
-          Divider(
+          const Divider(
             thickness: 1.0,
           ),
           TextButton.icon(
             onPressed: () {
               Navigator.of(context).pushReplacementNamed(MapScreen.id);
             },
-            icon: Icon(
+            icon:const Icon(
               Icons.map,
               size: 30,
             ),
@@ -34,14 +34,14 @@ class MainDrawer extends StatelessWidget {
                   .copyWith(color: Theme.of(context).primaryColor),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1.0,
           ),
           TextButton.icon(
             onPressed: () {
               Navigator.of(context).pushReplacementNamed(TimeTableScreen.id);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.apps_rounded,
               size: 30,
             ),
@@ -53,7 +53,7 @@ class MainDrawer extends StatelessWidget {
                   .copyWith(color: Theme.of(context).primaryColor),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1.0,
           ),
           TextButton.icon(
@@ -61,13 +61,13 @@ class MainDrawer extends StatelessWidget {
               final info = await PackageInfo.fromPlatform();
               showLicensePage(
                 context: context,
-                applicationName: info.appName,
+                applicationName: "Nitech Map",
                 applicationVersion: info.version,
-                applicationIcon: Icon(Icons.tag_faces),
-                applicationLegalese: "ほげほげ",
+                applicationIcon: Icon(Icons.map),
+                applicationLegalese: "",
               );
             },
-            icon: Icon(
+            icon:const Icon(
               Icons.info,
               size: 30,
             ),

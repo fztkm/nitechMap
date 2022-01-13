@@ -3,7 +3,7 @@ enum DayOfWeek {
   Tue,
   Wed,
   Thu,
-  Fry,
+  Fri,
 }
 
 int dayOfWeekToInt(DayOfWeek day) {
@@ -16,7 +16,7 @@ int dayOfWeekToInt(DayOfWeek day) {
       return 2;
     case DayOfWeek.Thu:
       return 3;
-    case DayOfWeek.Fry:
+    case DayOfWeek.Fri:
       return 4;
   }
 }
@@ -32,7 +32,7 @@ DayOfWeek? intToDayOfWeek(int day) {
     case 3:
       return DayOfWeek.Thu;
     case 4:
-      return DayOfWeek.Fry;
+      return DayOfWeek.Fri;
     default:
       return null;
   }
@@ -56,7 +56,7 @@ DayOfWeek? intToDayOfWeekForIntl(int dow) {
       return DayOfWeek.Thu;
     case 5:
       print('Today is Tue');
-      return DayOfWeek.Fry;
+      return DayOfWeek.Fri;
     default:
       print('Today is Holiday');
       return null;

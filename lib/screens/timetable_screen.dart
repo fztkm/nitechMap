@@ -8,14 +8,14 @@ import '../widgets/edit_card.dart';
 import 'package:provider/provider.dart';
 
 class TimeTableScreen extends StatelessWidget {
-  static String id = 'timetabele_screen';
-  static var weekdays = ['月', '火', '水', '木', '金'];
-  static var list = [
+  static const String id = 'timetabele_screen';
+  static const weekdays = ['月', '火', '水', '木', '金'];
+  static const list = [
     ['M', 'o', 'n'],
     ['T', 'u', 'e'],
     ['W', 'e', 'd'],
     ['T', 'h', 'u'],
-    ['F', 'r', 'y'],
+    ['F', 'r', 'i'],
   ];
 
   // final timeTabel = ['微積', '線形代数', 'プログラミング', 'コンピュータアーキテクチャ', 'abc'];
@@ -33,23 +33,6 @@ class TimeTableScreen extends StatelessWidget {
     );
   }
 
-  // DayOfWeek intToDayOfWeek(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       return DayOfWeek.Mon;
-  //     case 1:
-  //       return DayOfWeek.Tue;
-  //     case 2:
-  //       return DayOfWeek.Wed;
-  //     case 3:
-  //       return DayOfWeek.Thu;
-  //     case 4:
-  //       return DayOfWeek.Fry;
-  //     default:
-  //       return DayOfWeek.Mon;
-  //   }
-  // }
-
   List<Expanded> classroomCards(int dayOfWeek, TimeTable table) {
     DayOfWeek? day = intToDayOfWeek(dayOfWeek);
     List<dynamic> tableData = table.timetable()[day] as List<dynamic>;
@@ -63,21 +46,21 @@ class TimeTableScreen extends StatelessWidget {
       return Expanded(
         flex: 3,
         child: Card(
-          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 3),
+          margin:const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 className,
-                style: TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 classroom,
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -94,7 +77,7 @@ class TimeTableScreen extends StatelessWidget {
     return List.generate(5, (index) {
       return Expanded(
         child: Row(children: [
-          SizedBox(width: 3.0),
+          const SizedBox(width: 3.0),
           //曜日のアルファベットをColumnで表示
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +92,7 @@ class TimeTableScreen extends StatelessWidget {
               }),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             width: 5.0,
           ),
           ...classroomCards(index, timetableData),
@@ -128,12 +111,12 @@ class TimeTableScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 8),
           child: PopupMenuButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.edit,
               size: 32,
             ), //don't specify icon if you want 3 dot menu
             color: Colors.blue,
-            itemBuilder: (context) => [
+            itemBuilder: (context) => const[
               PopupMenuItem<int>(
                 value: 0,
                 child: Text(
@@ -165,7 +148,7 @@ class TimeTableScreen extends StatelessWidget {
               PopupMenuItem<int>(
                 value: 4,
                 child: Text(
-                  "Fryday",
+                  "Friday",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

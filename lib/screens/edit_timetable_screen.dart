@@ -15,7 +15,7 @@ class EditTimeTableScreen extends StatefulWidget {
 class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   DayOfWeek _dayOfWeek = DayOfWeek.Mon;
 
-  var optionsDOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fry'];
+  static const optionsDOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
   //Provider で　TimeTable()を取得。initialValueを渡す必要あり
 
@@ -47,8 +47,8 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
           _dayOfWeek = DayOfWeek.Thu;
           break;
         case 4:
-          timeTableDate = tt!.timetable()[DayOfWeek.Fry] as List<dynamic>;
-          _dayOfWeek = DayOfWeek.Fry;
+          timeTableDate = tt!.timetable()[DayOfWeek.Fri] as List<dynamic>;
+          _dayOfWeek = DayOfWeek.Fri;
           break;
       }
       initialized = true;
@@ -92,15 +92,15 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit - ' + describeEnum(_dayOfWeek)),
+        title:  Text('Edit - ' + describeEnum(_dayOfWeek)),
         actions: [
           TextButton.icon(
               onPressed: _saveTimeTable,
-              icon: Icon(
+              icon: const Icon(
                 Icons.save,
                 color: Colors.white,
               ),
-              label: Text(
+              label: const Text(
                 'Save',
                 style: TextStyle(color: Colors.white),
               )),
@@ -110,7 +110,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
         padding: const EdgeInsets.all(12.0),
         child: Form(
           key: _form,
-          autovalidate: true,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: [
               InputListTile(
@@ -119,7 +119,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 setClassroom: setClassroom,
                 initialData: timeTableDate,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
               InputListTile(
@@ -128,7 +128,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 setClassroom: setClassroom,
                 initialData: timeTableDate,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
               InputListTile(
@@ -137,7 +137,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 setClassroom: setClassroom,
                 initialData: timeTableDate,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
               InputListTile(
@@ -146,7 +146,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 setClassroom: setClassroom,
                 initialData: timeTableDate,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
               InputListTile(

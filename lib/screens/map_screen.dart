@@ -99,7 +99,7 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Nitech Map'),
+        title: const Text('Nitech Map'),
       ),
       drawer: MainDrawer(),
       body: SafeArea(
@@ -108,7 +108,7 @@ class _MapScreenState extends State<MapScreen> {
             Container(
               child: PhotoView.customChild(
                 child: SvgPicture.asset(svgPhoto),
-                backgroundDecoration: BoxDecoration(color: Colors.white),
+                backgroundDecoration: const BoxDecoration(color: Colors.white),
                 customSize: MediaQuery.of(context).size * 2.2,
               ),
             ),
@@ -119,7 +119,7 @@ class _MapScreenState extends State<MapScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: Container(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: primaryColor, width: 2)),
@@ -137,6 +137,7 @@ class _MapScreenState extends State<MapScreen> {
                               child: Text(timeInfo),
                             )),
                         Container(
+                          width: name.length > 10 ? MediaQuery.of(context).size.width * 0.4 : null,
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(color: primaryColor),
@@ -145,7 +146,7 @@ class _MapScreenState extends State<MapScreen> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(name), // 講義名
+                              child: Text(name, style: TextStyle(overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,), // 講義名
                             )),
                         Container(
                             // decoration: BoxDecoration(
@@ -173,12 +174,12 @@ class _MapScreenState extends State<MapScreen> {
           selectedLabelStyle: TextStyle(color: Colors.amber),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.arrow_drop_down_circle_outlined),
+              icon: const Icon(Icons.arrow_drop_down_circle_outlined),
               label: 'This Class',
-              backgroundColor: Colors.red,
+              backgroundColor:  Colors.red,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.navigate_next),
+              icon: const Icon(Icons.navigate_next),
               label: 'Next Class',
               backgroundColor: Colors.pink,
             ),
@@ -194,7 +195,7 @@ class _MapScreenState extends State<MapScreen> {
         onPressed: () {
           Navigator.pushReplacementNamed(context, TimeTableScreen.id);
         },
-        child: Icon(Icons.apps_rounded),
+        child: const Icon(Icons.apps_rounded),
       ),
     );
   }
