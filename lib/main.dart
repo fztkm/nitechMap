@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'screens/databasetest_screen.dart';
@@ -20,7 +21,11 @@ class NitechMap extends StatelessWidget {
       create: (context) => TimeTable(),
       child: MaterialApp(
         theme: ThemeData(
-          accentColor: Colors.amber[400],
+          accentColor: Color(0xff90e0ef),
+          scaffoldBackgroundColor: Color(0xfff8edeb),
+          iconTheme: IconThemeData(color: Color(0xff7f5539)),
+          primaryColor: Color(0xffb08968),
+          appBarTheme: AppBarTheme(backgroundColor: Color(0xffb08968))
         ),
         locale: locale,
         localizationsDelegates: const [

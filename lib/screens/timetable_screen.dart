@@ -33,6 +33,7 @@ class TimeTableScreen extends StatelessWidget {
     );
   }
 
+  //講義名と講義室番号を表示するカード
   List<Expanded> classroomCards(int dayOfWeek, TimeTable table) {
     DayOfWeek? day = intToDayOfWeek(dayOfWeek);
     List<dynamic> tableData = table.timetable()[day] as List<dynamic>;
@@ -47,12 +48,13 @@ class TimeTableScreen extends StatelessWidget {
         flex: 3,
         child: Card(
           margin:const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
+          color: const Color(0xffEBD6C1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 className,
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(fontSize: 12, color: Color(0xff463020), fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -60,7 +62,7 @@ class TimeTableScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 classroom,
-                style: const TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14, color: Color(0xff463020), fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -73,6 +75,7 @@ class TimeTableScreen extends StatelessWidget {
     });
   }
 
+  //　一覧画面の一行分のタイルを生成
   List<Expanded> tiles(TimeTable timetableData, BuildContext context) {
     return List.generate(5, (index) {
       return Expanded(
@@ -86,7 +89,7 @@ class TimeTableScreen extends StatelessWidget {
                 return Container(
                   child: Text(
                     list[index][i],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style:const TextStyle(fontWeight: FontWeight.bold, color: Color(0xff463020)),
                   ),
                 );
               }),
@@ -106,7 +109,7 @@ class TimeTableScreen extends StatelessWidget {
     final timeTableData = Provider.of<TimeTable>(context, listen: true);
 
     AppBar appBar = AppBar(
-      title: Text('TimeTable'),
+      title: const Text('TimeTable'),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
@@ -115,7 +118,7 @@ class TimeTableScreen extends StatelessWidget {
               Icons.edit,
               size: 32,
             ), //don't specify icon if you want 3 dot menu
-            color: Colors.blue,
+            color: Theme.of(context).appBarTheme.backgroundColor,
             itemBuilder: (context) => const[
               PopupMenuItem<int>(
                 value: 0,
@@ -164,11 +167,11 @@ class TimeTableScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: appBar,
-      drawer: MainDrawer(),
-      backgroundColor: Colors.white,
+      drawer: const MainDrawer(),
+
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding:const EdgeInsets.symmetric(horizontal: 8),
           height: (MediaQuery.of(context).size.height -
               appBar.preferredSize.height -
               MediaQuery.of(context).padding.top),
@@ -191,7 +194,7 @@ class TimeTableScreen extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                           (index + 1).toString(),
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xff463020)),
                         ),
                       ),
                     ),
@@ -199,7 +202,7 @@ class TimeTableScreen extends StatelessWidget {
                 ],
               ),
               ...tiles(timeTableData, context),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],

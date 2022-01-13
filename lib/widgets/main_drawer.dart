@@ -9,6 +9,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         children: [
           AppBar(
@@ -22,16 +23,17 @@ class MainDrawer extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushReplacementNamed(MapScreen.id);
             },
-            icon:const Icon(
+            icon: Icon(
               Icons.map,
               size: 30,
+              color: Theme.of(context).iconTheme.color,
             ),
             label: Text(
               'Map',
               style: Theme.of(context)
                   .textTheme
                   .headline6!
-                  .copyWith(color: Theme.of(context).primaryColor),
+                  .copyWith(color: Theme.of(context).iconTheme.color),
             ),
           ),
           const Divider(
@@ -41,16 +43,17 @@ class MainDrawer extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushReplacementNamed(TimeTableScreen.id);
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.apps_rounded,
               size: 30,
+              color: Theme.of(context).iconTheme.color,
             ),
             label: Text(
               'TimeTable',
               style: Theme.of(context)
                   .textTheme
                   .headline6!
-                  .copyWith(color: Theme.of(context).primaryColor),
+                  .copyWith(color: Theme.of(context).iconTheme.color),
             ),
           ),
           const Divider(
@@ -67,9 +70,10 @@ class MainDrawer extends StatelessWidget {
                 applicationLegalese: "",
               );
             },
-            icon:const Icon(
+            icon: Icon(
               Icons.info,
               size: 30,
+              color: Theme.of(context).iconTheme.color,
             ),
             label: Text(
               'Licenses',

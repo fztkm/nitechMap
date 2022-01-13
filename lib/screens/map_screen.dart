@@ -97,7 +97,6 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Nitech Map'),
       ),
@@ -108,7 +107,7 @@ class _MapScreenState extends State<MapScreen> {
             Container(
               child: PhotoView.customChild(
                 child: SvgPicture.asset(svgPhoto),
-                backgroundDecoration: const BoxDecoration(color: Colors.white),
+                backgroundDecoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
                 customSize: MediaQuery.of(context).size * 2.2,
               ),
             ),
@@ -121,42 +120,38 @@ class _MapScreenState extends State<MapScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
+                        color: const Color(0xffB99679),
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: primaryColor, width: 2)),
+                        border: Border.all(color: Colors.white38, width: 2)),
                     child: Column(
                       children: [
                         Container(
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                               border: Border(
-                                bottom: BorderSide(color: primaryColor),
+                                bottom: BorderSide(color: Colors.white),
                               ),
                             ),
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(timeInfo),
+                              child: Text(timeInfo, style: const TextStyle(color: Colors.white)),
                             )),
                         Container(
                           width: name.length > 10 ? MediaQuery.of(context).size.width * 0.4 : null,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                               border: Border(
-                                bottom: BorderSide(color: primaryColor),
+                                bottom: BorderSide(color: Colors.white),
                               ),
                             ),
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 3.0),
-                              child: Text(name, style: TextStyle(overflow: TextOverflow.ellipsis),textAlign: TextAlign.center,), // 講義名
+                              child: Text(name, style: const TextStyle(overflow: TextOverflow.ellipsis, color: Colors.white),textAlign: TextAlign.center,), // 講義名
                             )),
                         Container(
-                            // decoration: BoxDecoration(
-                            //   border: Border(
-                            //     bottom: BorderSide(color: primaryColor),
-                            //   ),
-                            // ),
                             child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 3.0),
-                          child: Text(className), // 講義室名
+                          child: Text(className, style: const TextStyle(color: Colors.white)), // 講義室名
                         )),
                       ],
                     ),
@@ -170,8 +165,7 @@ class _MapScreenState extends State<MapScreen> {
       bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.white,
-          selectedIconTheme: IconThemeData(color: Colors.amber),
-          selectedLabelStyle: TextStyle(color: Colors.amber),
+          selectedIconTheme: IconThemeData(color: Theme.of(context).accentColor),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: const Icon(Icons.arrow_drop_down_circle_outlined),
@@ -185,7 +179,7 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ],
           currentIndex: currentIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: Theme.of(context).accentColor,
           onTap: (index) {
             changePhoto(index);
           }),

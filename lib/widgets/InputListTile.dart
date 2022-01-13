@@ -46,7 +46,8 @@ class _InputListTileState extends State<InputListTile> {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        child: Text('${widget.classTime}限'), // 1限　とか
+        child: Text('${widget.classTime}限', style: TextStyle(color: Colors.white),), // 1限　とか
+        backgroundColor: Theme.of(context).iconTheme.color,
       ),
       title: Column(
         children: [
