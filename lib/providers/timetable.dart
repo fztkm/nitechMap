@@ -49,7 +49,7 @@ class TimeTable with ChangeNotifier {
       join(await getDatabasesPath(), 'timetable_databese.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE timetable(day INTEGER, time INTEGER, name TEXT, room TEXT)",
+          "CREATE TABLE timetable(id INTEGER PRIMARY KEY,day INTEGER, time INTEGER, name TEXT, room TEXT)",
         );
       },
       version: 1,
@@ -73,6 +73,7 @@ class TimeTable with ChangeNotifier {
   Map<String, dynamic> timeTableListPerDoWToMap(
       int day, int time, List<dynamic> tt) {
     return {
+      "id" : day*10 + time,
       "day": day,
       "time": time,
       "name": tt[time] == 0 ? 0 : (tt[time] as ClassData).className,
