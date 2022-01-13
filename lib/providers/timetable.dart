@@ -91,7 +91,6 @@ class TimeTable with ChangeNotifier {
       if (table["name"] == "0") {
         classDataOrZero = 0;
       } else {
-        print("goben");
         classDataOrZero = ClassData.setRoom(table["name"], table["room"]);
       }
       _timetable[intToDayOfWeek(day)]![time] = classDataOrZero;

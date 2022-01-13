@@ -86,8 +86,8 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         name = classData[0];
         className = roomName;
-        print("^^^^^^^初期^^^^^^\n name = $name");
-        print("className = $className\nsvg = $svgPhoto");
+        print("This/Next class name = $name");
+        print("classRoomNumber = $className\nsvg = $svgPhoto");
         super.didChangeDependencies();
       });
     }
