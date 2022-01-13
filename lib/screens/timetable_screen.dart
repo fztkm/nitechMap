@@ -172,14 +172,18 @@ class TimeTableScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding:const EdgeInsets.symmetric(horizontal: 8),
-          height: (MediaQuery.of(context).size.height -
+          height: MediaQuery.of(context).orientation == Orientation.portrait ?
+          (MediaQuery.of(context).size.height -
               appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top),
+              MediaQuery.of(context).padding.top) :
+          MediaQuery.of(context).size.height * 2,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).orientation == Orientation.portrait ?
+                MediaQuery.of(context).size.height * 0.02 :
+                MediaQuery.of(context).size.height * 0.08,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

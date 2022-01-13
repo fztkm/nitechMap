@@ -97,9 +97,8 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nitech Map'),
-      ),
+      appBar:MediaQuery.of(context).orientation == Orientation.portrait
+          ? AppBar(title: const Text('Nitech Map'),) : null,
       drawer: MainDrawer(),
       body: SafeArea(
         child: Stack(
