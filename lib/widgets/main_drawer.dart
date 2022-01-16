@@ -68,7 +68,7 @@ class MainDrawer extends StatelessWidget {
               final info = await PackageInfo.fromPlatform();
               showLicensePage(
                 context: context,
-                applicationName: "Nitech Map",
+                applicationName: "名工大Map",
                 applicationVersion: info.version,
                 applicationIcon: Image.asset("images/app_icon_rounded.png", width: 80,),
                 applicationLegalese: "",

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.c0de.nitechmap_c0de">
    <application
-        android:label="nitechmap_c0de"
+        android:label="名工大Map"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

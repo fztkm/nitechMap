@@ -81,7 +81,6 @@ class _MapScreenState extends State<MapScreen> {
       List<String> classData = next!.getThisClassData();
       String roomName = classData[1];
       svgPhoto = getImageString(roomName);
-      initialized = true;
 
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
       setState(() {
@@ -90,7 +89,9 @@ class _MapScreenState extends State<MapScreen> {
         print("This/Next class name = $name");
         print("classRoomNumber = $className\nsvg = $svgPhoto");
         super.didChangeDependencies();
+        initialized = true;
       });
+
     }
   }
 
@@ -218,7 +219,7 @@ class _MapScreenState extends State<MapScreen> {
         onPressed: () {
           Navigator.pushReplacementNamed(context, TimeTableScreen.id);
         },
-        child: const Icon(Icons.apps_rounded),
+        child: Icon(Icons.apps_rounded, color: Theme.of(context).iconTheme.color,),
       ),
     );
   }
