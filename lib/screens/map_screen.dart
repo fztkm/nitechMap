@@ -38,7 +38,7 @@ class _MapScreenState extends State<MapScreen> {
     } else if (buildingNum == "2-" ||
         buildingNum == "2ー" ||
         buildingNum == "2 ") {
-      imageString = "images/02gou.sve";
+      imageString = "images/02gou.svg";
     } else if (roomName.contains("講堂") || roomName.contains("ラーニングコモンズ")) {
       //講堂2階ラーニングコモンズ はNitechHallの画像
       imageString = "images/nithall.svg";
@@ -91,7 +91,6 @@ class _MapScreenState extends State<MapScreen> {
         super.didChangeDependencies();
         initialized = true;
       });
-
     }
   }
 
@@ -219,7 +218,10 @@ class _MapScreenState extends State<MapScreen> {
         onPressed: () {
           Navigator.pushReplacementNamed(context, TimeTableScreen.id);
         },
-        child: Icon(Icons.apps_rounded, color: Theme.of(context).iconTheme.color,),
+        child: Icon(
+          Icons.apps_rounded,
+          color: Theme.of(context).iconTheme.color,
+        ),
       ),
     );
   }

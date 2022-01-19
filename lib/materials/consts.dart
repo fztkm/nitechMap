@@ -10,6 +10,7 @@ const List<String> c_properBuildingNum = [
   "13",
   "14",
   "15",
+  "16",
   "18",
   "20",
   "21",
