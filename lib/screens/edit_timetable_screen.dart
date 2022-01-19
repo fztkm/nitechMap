@@ -92,7 +92,7 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Edit - ' + describeEnum(_dayOfWeek)),
+        title: Text('Edit - ' + describeEnum(_dayOfWeek)),
         actions: [
           TextButton.icon(
               onPressed: _saveTimeTable,
@@ -107,12 +107,44 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Form(
           key: _form,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: ListView(
             children: [
+              Container(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  iconSize: 30.0,
+                  icon: Icon(
+                    Icons.info,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: const Text("講義室番号とは"),
+                          content: const Text(
+                              '''講義室番号には時間割表に記載されている講義室名（黒の数字）を半角で入力してください。\n
+＊一部数字でない講義室名もありますがそのまま入力して下さい。\n
+（例：5224, 4-409, 講堂2階ラーニングコモンズ）'''),
+                          actions: [
+                            TextButton(
+                              child: const Text("OK"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
               InputListTile(
                 classTime: 1,
                 setClassName: setClassName,

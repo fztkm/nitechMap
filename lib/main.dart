@@ -20,6 +20,7 @@ class NitechMap extends StatelessWidget {
     return ChangeNotifierProvider<TimeTable>(
       create: (context) => TimeTable(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false, 
         theme: ThemeData(
           accentColor: Color(0xff90e0ef),
           scaffoldBackgroundColor: Color(0xfff8edeb),
