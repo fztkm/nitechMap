@@ -6,8 +6,6 @@
 アプリを開くだけで講義室を確認できます.  
 <a href="https://play.google.com/store/apps/details?id=com.c0de.nitechmap_c0de">Google Play Store</a>  
 
-libフォルダーに主要なプログラムが含まれています.
-
 ## 使用技術
 - Futter
 - Dart
