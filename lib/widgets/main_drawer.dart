@@ -13,25 +13,29 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: Row(
               children: [
                 Image.asset(
                   "images/app_icon_rounded.png",
-                  width: AppBar().preferredSize.height * 0.85,
+                  width: AppBar().preferredSize.height * 0.75,
                 ),
                 const SizedBox(
                   width: 20,
                 ),
                 const Text(
                   "Nitech Map",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.brown,
+                  ),
                 ),
               ],
             ),
             automaticallyImplyLeading: false,
           ),
-          const Divider(
-            thickness: 1.0,
+          SizedBox(
+            height: 10,
           ),
           TextButton.icon(
             onPressed: () {
@@ -104,69 +108,70 @@ class MainDrawer extends StatelessWidget {
           const Spacer(
             flex: 3,
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
+          if (MediaQuery.of(context).orientation == Orientation.portrait)
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              margin: EdgeInsets.all(15),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "時間割",
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 17,
+                        color: Theme.of(context).iconTheme.color),
+                  ),
+                  const Divider(
+                    thickness: 0.8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TimeTableText(text: '1コマ'),
+                      TimeTableText(text: "8:50 ~ 10:20")
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TimeTableText(text: "2コマ"),
+                      TimeTableText(text: "10:30 ~ 12:00")
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TimeTableText(text: "3コマ"),
+                      TimeTableText(text: "13:00 ~ 14:30")
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TimeTableText(text: "4コマ"),
+                      TimeTableText(text: "14:40 ~ 16:10")
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TimeTableText(text: "5コマ"),
+                      TimeTableText(text: "16:20 ~ 17:50")
+                    ],
+                  ),
+                ],
+              ),
             ),
-            margin: EdgeInsets.all(15),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "時間割",
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 17,
-                      color: Theme.of(context).iconTheme.color),
-                ),
-                const Divider(
-                  thickness: 0.8,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TimeTableText(text: '1コマ'),
-                    TimeTableText(text: "8:50 ~ 10:20")
-                  ],
-                ),
-                SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TimeTableText(text: "2コマ"),
-                    TimeTableText(text: "10:30 ~ 12:00")
-                  ],
-                ),
-                SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TimeTableText(text: "3コマ"),
-                    TimeTableText(text: "13:00 ~ 14:30")
-                  ],
-                ),
-                SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TimeTableText(text: "4コマ"),
-                    TimeTableText(text: "14:40 ~ 16:10")
-                  ],
-                ),
-                SizedBox(height: 2),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TimeTableText(text: "5コマ"),
-                    TimeTableText(text: "16:20 ~ 17:50")
-                  ],
-                ),
-              ],
-            ),
-          ),
           const Spacer(flex: 2)
         ],
       ),

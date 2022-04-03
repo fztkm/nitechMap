@@ -29,6 +29,8 @@ class _MapScreenState extends State<MapScreen> {
   TextStyle? _nextClassTextStyle;
   Color? _thisClassIconColor;
   Color? _nextClassIconColor;
+  double _thisClassIconSize = 25;
+  double _nextClassIconSize = 20;
 
   //講義室名から何号館のsvg画像が必要かをパスで返す
   String getImageString(String roomName) {
@@ -63,16 +65,20 @@ class _MapScreenState extends State<MapScreen> {
       classData = next!.getThisClassData();
       _thisClassTextStyle = _selectedItemTextStyle;
       _nextClassTextStyle = _notSelectedItemTextStyle;
-      _thisClassIconColor = Theme.of(context).accentColor;
-      _nextClassIconColor = Colors.white;
+      // _thisClassIconColor = Theme.of(context).accentColor;
+      // _nextClassIconColor = Colors.white;
+      _thisClassIconSize = 25;
+      _nextClassIconSize = 20;
     }
     if (index == 1) {
       timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
       classData = next!.getNextClassData();
       _thisClassTextStyle = _notSelectedItemTextStyle;
       _nextClassTextStyle = _selectedItemTextStyle;
-      _thisClassIconColor = Colors.white;
-      _nextClassIconColor = Theme.of(context).accentColor;
+      // _thisClassIconColor = Colors.white;
+      // _nextClassIconColor = Theme.of(context).accentColor;
+      _thisClassIconSize = 20;
+      _nextClassIconSize = 25;
     }
     setState(() {
       name = classData[0];
@@ -100,17 +106,17 @@ class _MapScreenState extends State<MapScreen> {
       _selectedItemTextStyle = TextStyle(
         fontSize: 17,
         fontWeight: FontWeight.bold,
-        color: Theme.of(context).accentColor,
+        color: Colors.brown,
       );
       _notSelectedItemTextStyle = TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: Colors.brown,
       );
       _thisClassTextStyle = _selectedItemTextStyle;
       _nextClassTextStyle = _notSelectedItemTextStyle;
-      _thisClassIconColor = Theme.of(context).accentColor;
-      _nextClassIconColor = Colors.white;
+      _thisClassIconColor = Colors.brown;
+      _nextClassIconColor = Colors.brown;
       setState(() {
         name = classData[0];
         className = roomName;
@@ -131,8 +137,14 @@ class _MapScreenState extends State<MapScreen> {
           ? AppBar(
               title: const Text(
                 'Nitech Map',
-                style: TextStyle(fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Colors.brown,
+                ),
               ),
+              elevation: 0,
+              backgroundColor: Color(0x00ffffff),
+              iconTheme: IconThemeData(color: Colors.brown),
             )
           : null,
       drawer: MainDrawer(),
@@ -225,69 +237,81 @@ class _MapScreenState extends State<MapScreen> {
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Colors.brown,
         onPressed: () {
           Navigator.pushReplacementNamed(context, TimeTableScreen.id);
         },
         child: Icon(
           Icons.apps_rounded,
-          color: Theme.of(context).iconTheme.color,
+          color: Colors.white,
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 6,
-        color: Theme.of(context).primaryColor,
-        child: Padding(
-          padding:
-              const EdgeInsets.only(top: 0, right: 16, bottom: 8, left: 16),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                style: TextButton.styleFrom(
-                  splashFactory: InkSplash.splashFactory,
-                  primary: Colors.white,
-                ),
-                onPressed: () {
-                  changePhoto(0);
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.arrow_drop_down_circle_outlined,
-                      color: _thisClassIconColor,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      "This Class",
-                      style: _thisClassTextStyle,
-                    ),
-                  ],
-                ),
-              ),
-              TextButton(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              spreadRadius: 8,
+              offset: Offset(0, -3))
+        ]),
+        child: BottomAppBar(
+          elevation: 20,
+          shape: CircularNotchedRectangle(),
+          notchMargin: 9,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(top: 4, right: 16, bottom: 8, left: 16),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
                   style: TextButton.styleFrom(
                     splashFactory: InkSplash.splashFactory,
                     primary: Colors.white,
                   ),
                   onPressed: () {
-                    changePhoto(1);
+                    changePhoto(0);
                   },
                   child: Row(
                     children: [
-                      Text(
-                        "Next Class",
-                        style: _nextClassTextStyle,
-                      ),
                       Icon(
-                        Icons.navigate_next,
-                        color: _nextClassIconColor,
+                        Icons.arrow_drop_down_circle_outlined,
+                        color: _thisClassIconColor,
+                        size: _thisClassIconSize,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        "This Class",
+                        style: _thisClassTextStyle,
                       ),
                     ],
-                  ))
-            ],
+                  ),
+                ),
+                TextButton(
+                    style: TextButton.styleFrom(
+                      splashFactory: InkSplash.splashFactory,
+                      primary: Colors.white,
+                    ),
+                    onPressed: () {
+                      changePhoto(1);
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          "Next Class",
+                          style: _nextClassTextStyle,
+                        ),
+                        Icon(
+                          Icons.navigate_next,
+                          color: _nextClassIconColor,
+                          size: _nextClassIconSize,
+                        ),
+                      ],
+                    ))
+              ],
+            ),
           ),
         ),
       ),

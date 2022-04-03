@@ -120,7 +120,12 @@ class TimeTableScreen extends StatelessWidget {
     final timeTableData = Provider.of<TimeTable>(context, listen: true);
 
     AppBar appBar = AppBar(
-      title: const Text('TimeTable'),
+      title: const Text(
+        'TimeTable',
+        style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
+      ),
+      iconTheme: IconThemeData(color: Colors.brown),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
@@ -180,13 +185,13 @@ class TimeTableScreen extends StatelessWidget {
       appBar: appBar,
       drawer: const MainDrawer(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).iconTheme.color,
         onPressed: () {
           Navigator.of(context).pushReplacementNamed(MapScreen.id);
         },
-        child: Icon(
+        child: const Icon(
           Icons.map,
-          color: Theme.of(context).iconTheme.color,
+          color: Colors.white,
         ),
       ),
       body: SingleChildScrollView(
