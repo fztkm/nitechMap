@@ -198,10 +198,10 @@ class _MapScreenState extends State<MapScreen> {
                                     child: Text(timeInfo,
                                         style: const TextStyle(
                                             color: Colors.brown,
-                                            fontWeight: FontWeight.normal)),
+                                            fontWeight: FontWeight.w500)),
                                   )),
                               Container(
-                                width: name.length > 10
+                                width: name.length > 7
                                     ? MediaQuery.of(context).size.width * 0.3
                                     : null,
                                 decoration: const BoxDecoration(
@@ -220,7 +220,7 @@ class _MapScreenState extends State<MapScreen> {
                                       overflow: TextOverflow.ellipsis,
                                       color: Colors.brown,
                                       fontSize: 16,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     textAlign: TextAlign.center,
                                     maxLines: 2,
@@ -228,7 +228,7 @@ class _MapScreenState extends State<MapScreen> {
                                 ),
                               ),
                               Container(
-                                width: className.length > 10
+                                width: className.length > 8
                                     ? MediaQuery.of(context).size.width * 0.3
                                     : null,
                                 child: Padding(
