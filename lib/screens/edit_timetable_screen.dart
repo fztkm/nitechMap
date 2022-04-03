@@ -109,9 +109,9 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 color: Colors.brown,
               ),
               label: const Text(
-                'Save',
+                '保存  ',
                 style:
-                    TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.brown, fontWeight: FontWeight.w500),
               )),
         ],
       ),
@@ -199,6 +199,9 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
                 setClassName: setClassName,
                 setClassroom: setClassroom,
                 initialData: timeTableDate,
+              ),
+              SizedBox(
+                height: 40,
               ),
             ],
           ),

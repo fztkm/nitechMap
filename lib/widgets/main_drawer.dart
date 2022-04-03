@@ -13,6 +13,7 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
+            elevation: 0,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             title: Row(
               children: [

@@ -50,7 +50,7 @@ class TimeTableScreen extends StatelessWidget {
         flex: 3,
         child: Card(
           margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
-          color: const Color(0xffEBD6C1),
+          color: const Color(0xddf8edeb),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -130,45 +130,58 @@ class TimeTableScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 8),
           child: PopupMenuButton(
-            icon: const Icon(
-              Icons.edit,
-              size: 32,
-            ), //don't specify icon if you want 3 dot menu
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.edit,
+                  size: 32,
+                ),
+                Text(
+                  "編集",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.brown),
+                ),
+                SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+            //don't specify icon if you want 3 dot menu
             color: Theme.of(context).appBarTheme.backgroundColor,
             itemBuilder: (context) => const [
               PopupMenuItem<int>(
                 value: 0,
                 child: Text(
                   "Monday",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.brown),
                 ),
               ),
               PopupMenuItem<int>(
                 value: 1,
                 child: Text(
                   "Tuesday",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.brown),
                 ),
               ),
               PopupMenuItem<int>(
                 value: 2,
                 child: Text(
                   "Wednesday",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.brown),
                 ),
               ),
               PopupMenuItem<int>(
                 value: 3,
                 child: Text(
                   "Thursday",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.brown),
                 ),
               ),
               PopupMenuItem<int>(
                 value: 4,
                 child: Text(
                   "Friday",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.brown),
                 ),
               ),
             ],
