@@ -20,13 +20,13 @@ class NitechMap extends StatelessWidget {
     return ChangeNotifierProvider<TimeTable>(
       create: (context) => TimeTable(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false, 
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           accentColor: Color(0xff90e0ef),
           scaffoldBackgroundColor: Color(0xfff8edeb),
           iconTheme: IconThemeData(color: Color(0xff7f5539)),
           primaryColor: Color(0xffb08968),
-          appBarTheme: AppBarTheme(backgroundColor: Color(0xffb08968))
+          appBarTheme: AppBarTheme(backgroundColor: Color(0xffb08968)),
         ),
         locale: locale,
         localizationsDelegates: const [

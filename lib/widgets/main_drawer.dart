@@ -13,11 +13,18 @@ class MainDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Row(children: [
-              Image.asset("images/app_icon_rounded.png", width: AppBar().preferredSize.height * 0.85,),
-              const SizedBox(width: 20,),
-              const Text("Nitech Map"),
-            ],),
+            title: Row(
+              children: [
+                Image.asset(
+                  "images/app_icon_rounded.png",
+                  width: AppBar().preferredSize.height * 0.85,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                const Text("Nitech Map"),
+              ],
+            ),
             automaticallyImplyLeading: false,
           ),
           const Divider(
@@ -70,7 +77,10 @@ class MainDrawer extends StatelessWidget {
                 context: context,
                 applicationName: "名工大Map",
                 applicationVersion: info.version,
-                applicationIcon: Image.asset("images/app_icon_rounded.png", width: 80,),
+                applicationIcon: Image.asset(
+                  "images/app_icon_rounded.png",
+                  width: 80,
+                ),
                 applicationLegalese: "",
               );
             },
@@ -86,8 +96,88 @@ class MainDrawer extends StatelessWidget {
                   ),
             ),
           ),
+          const Divider(
+            thickness: 1.0,
+          ),
+          const Spacer(
+            flex: 3,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            margin: EdgeInsets.all(15),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "時間割",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).iconTheme.color),
+                ),
+                const Divider(
+                  thickness: 0.8,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeTableText(text: '1コマ'),
+                    TimeTableText(text: "8:50 ~ 10:20")
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeTableText(text: "2コマ"),
+                    TimeTableText(text: "10:30 ~ 12:00")
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeTableText(text: "3コマ"),
+                    TimeTableText(text: "13:00 ~ 14:30")
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeTableText(text: "4コマ"),
+                    TimeTableText(text: "14:40 ~ 16:10")
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TimeTableText(text: "5コマ"),
+                    TimeTableText(text: "16:20 ~ 17:50")
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Spacer(flex: 2)
         ],
       ),
+    );
+  }
+}
+
+class TimeTableText extends StatelessWidget {
+  final String text;
+  const TimeTableText({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).iconTheme.color),
     );
   }
 }
