@@ -129,7 +129,10 @@ class _MapScreenState extends State<MapScreen> {
       extendBody: true,
       appBar: MediaQuery.of(context).orientation == Orientation.portrait
           ? AppBar(
-              title: const Text('Nitech Map'),
+              title: const Text(
+                'Nitech Map',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
             )
           : null,
       drawer: MainDrawer(),
@@ -178,7 +181,7 @@ class _MapScreenState extends State<MapScreen> {
                                     child: Text(timeInfo,
                                         style: const TextStyle(
                                             color: Colors.white,
-                                            fontWeight: FontWeight.bold)),
+                                            fontWeight: FontWeight.normal)),
                                   )),
                               Container(
                                   width: name.length > 10
@@ -197,7 +200,8 @@ class _MapScreenState extends State<MapScreen> {
                                       style: const TextStyle(
                                           overflow: TextOverflow.ellipsis,
                                           color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.normal),
                                       textAlign: TextAlign.center,
                                     ), // 講義名
                                   )),

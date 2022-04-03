@@ -115,8 +115,12 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
             children: [
               Container(
                 alignment: Alignment.centerRight,
-                child: IconButton(
-                  iconSize: 30.0,
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(primary: Colors.brown),
+                  label: Text(
+                    "講義室番号とは",
+                    style: TextStyle(color: Colors.grey),
+                  ),
                   icon: Icon(
                     Icons.info,
                     color: Theme.of(context).primaryColor,

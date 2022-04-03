@@ -47,14 +47,18 @@ class TimeTableScreen extends StatelessWidget {
       return Expanded(
         flex: 3,
         child: Card(
-          margin:const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
+          margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
           color: const Color(0xffEBD6C1),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 className,
-                style: const TextStyle(fontSize: 12, color: Color(0xff463020), fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Color(0xff463020),
+                  fontWeight: FontWeight.normal,
+                ),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -62,7 +66,11 @@ class TimeTableScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 classroom,
-                style: const TextStyle(fontSize: 14, color: Color(0xff463020), fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color(0xff463020),
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -89,7 +97,8 @@ class TimeTableScreen extends StatelessWidget {
                 return Container(
                   child: Text(
                     list[index][i],
-                    style:const TextStyle(fontWeight: FontWeight.bold, color: Color(0xff463020)),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xff463020)),
                   ),
                 );
               }),
@@ -119,7 +128,7 @@ class TimeTableScreen extends StatelessWidget {
               size: 32,
             ), //don't specify icon if you want 3 dot menu
             color: Theme.of(context).appBarTheme.backgroundColor,
-            itemBuilder: (context) => const[
+            itemBuilder: (context) => const [
               PopupMenuItem<int>(
                 value: 0,
                 child: Text(
@@ -168,22 +177,22 @@ class TimeTableScreen extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       drawer: const MainDrawer(),
-
       body: SingleChildScrollView(
         child: Container(
-          padding:const EdgeInsets.symmetric(horizontal: 8),
-          height: MediaQuery.of(context).orientation == Orientation.portrait ?
-          (MediaQuery.of(context).size.height -
-              appBar.preferredSize.height -
-              MediaQuery.of(context).padding.top) :
-          MediaQuery.of(context).size.height * 2,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          height: MediaQuery.of(context).orientation == Orientation.portrait
+              ? (MediaQuery.of(context).size.height -
+                  appBar.preferredSize.height -
+                  MediaQuery.of(context).padding.top)
+              : MediaQuery.of(context).size.height * 2,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).orientation == Orientation.portrait ?
-                MediaQuery.of(context).size.height * 0.02 :
-                MediaQuery.of(context).size.height * 0.08,
+                height:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? MediaQuery.of(context).size.height * 0.02
+                        : MediaQuery.of(context).size.height * 0.08,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -198,7 +207,9 @@ class TimeTableScreen extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                           (index + 1).toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xff463020)),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff463020)),
                         ),
                       ),
                     ),

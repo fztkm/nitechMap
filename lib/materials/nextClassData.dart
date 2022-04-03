@@ -81,7 +81,7 @@ class NextClassData {
 
   //今のクラスの名前と講義室名
   List<String> getThisClassData() {
-    List<String> result = ["なし", "0000"];
+    List<String> result = ["no data", "0000"];
     DayOfWeek? dofw = intToDayOfWeekForIntl(now.weekday);
     if (dofw != null && _thisClassIdx >= 1) {
       final classData = timeTable!
@@ -99,7 +99,7 @@ class NextClassData {
 
   //次のクラスの名前と講義室名
   List<String> getNextClassData() {
-    List<String> result = ["なし", "0000"];
+    List<String> result = ["no data", "0000"];
     DayOfWeek? dofw = intToDayOfWeekForIntl(now.weekday);
     if (dofw != null && _nextClassIdx >= 1) {
       final classData =

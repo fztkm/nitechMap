@@ -22,7 +22,10 @@ class MainDrawer extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                const Text("Nitech Map"),
+                const Text(
+                  "Nitech Map",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             automaticallyImplyLeading: false,
@@ -41,10 +44,10 @@ class MainDrawer extends StatelessWidget {
             ),
             label: Text(
               'Map',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Theme.of(context).iconTheme.color),
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: Theme.of(context).iconTheme.color,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ),
           const Divider(
@@ -61,10 +64,9 @@ class MainDrawer extends StatelessWidget {
             ),
             label: Text(
               'TimeTable',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Theme.of(context).iconTheme.color),
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Theme.of(context).iconTheme.color,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           const Divider(
@@ -116,7 +118,8 @@ class MainDrawer extends StatelessWidget {
                 Text(
                   "時間割",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 17,
                       color: Theme.of(context).iconTheme.color),
                 ),
                 const Divider(
