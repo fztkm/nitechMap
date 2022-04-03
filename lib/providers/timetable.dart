@@ -18,11 +18,11 @@ class ClassData {
 class TimeTable with ChangeNotifier {
   //Map<String, List<0 or ClassData> >
   Map<DayOfWeek, List<dynamic>> _timetable = {
-    DayOfWeek.Mon: [0, 0, 0, 0, 0],
-    DayOfWeek.Tue: [0, 0, 0, 0, 0],
-    DayOfWeek.Wed: [0, 0, 0, 0, 0],
-    DayOfWeek.Thu: [0, 0, 0, 0, 0],
-    DayOfWeek.Fri: [0, 0, 0, 0, 0],
+    DayOfWeek.Monday: [0, 0, 0, 0, 0],
+    DayOfWeek.Tuesday: [0, 0, 0, 0, 0],
+    DayOfWeek.Wednesday: [0, 0, 0, 0, 0],
+    DayOfWeek.Thursday: [0, 0, 0, 0, 0],
+    DayOfWeek.Friday: [0, 0, 0, 0, 0],
   };
 
   var database;
@@ -73,7 +73,7 @@ class TimeTable with ChangeNotifier {
   Map<String, dynamic> timeTableListPerDoWToMap(
       int day, int time, List<dynamic> tt) {
     return {
-      "id" : day*10 + time,
+      "id": day * 10 + time,
       "day": day,
       "time": time,
       "name": tt[time] == 0 ? 0 : (tt[time] as ClassData).className,

@@ -1,22 +1,22 @@
 enum DayOfWeek {
-  Mon,
-  Tue,
-  Wed,
-  Thu,
-  Fri,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
 }
 
 int dayOfWeekToInt(DayOfWeek day) {
   switch (day) {
-    case DayOfWeek.Mon:
+    case DayOfWeek.Monday:
       return 0;
-    case DayOfWeek.Tue:
+    case DayOfWeek.Tuesday:
       return 1;
-    case DayOfWeek.Wed:
+    case DayOfWeek.Wednesday:
       return 2;
-    case DayOfWeek.Thu:
+    case DayOfWeek.Thursday:
       return 3;
-    case DayOfWeek.Fri:
+    case DayOfWeek.Friday:
       return 4;
   }
 }
@@ -24,15 +24,15 @@ int dayOfWeekToInt(DayOfWeek day) {
 DayOfWeek? intToDayOfWeek(int day) {
   switch (day) {
     case 0:
-      return DayOfWeek.Mon;
+      return DayOfWeek.Monday;
     case 1:
-      return DayOfWeek.Tue;
+      return DayOfWeek.Tuesday;
     case 2:
-      return DayOfWeek.Wed;
+      return DayOfWeek.Wednesday;
     case 3:
-      return DayOfWeek.Thu;
+      return DayOfWeek.Thursday;
     case 4:
-      return DayOfWeek.Fri;
+      return DayOfWeek.Friday;
     default:
       return null;
   }
@@ -44,19 +44,19 @@ DayOfWeek? intToDayOfWeekForIntl(int dow) {
   switch (dow) {
     case 1:
       print('Today is Mon');
-      return DayOfWeek.Mon;
+      return DayOfWeek.Monday;
     case 2:
       print('Today is Tue');
-      return DayOfWeek.Tue;
+      return DayOfWeek.Tuesday;
     case 3:
       print('Today is Tue');
-      return DayOfWeek.Wed;
+      return DayOfWeek.Wednesday;
     case 4:
       print('Today is Tue');
-      return DayOfWeek.Thu;
+      return DayOfWeek.Thursday;
     case 5:
       print('Today is Tue');
-      return DayOfWeek.Fri;
+      return DayOfWeek.Friday;
     default:
       print('Today is Holiday');
       return null;

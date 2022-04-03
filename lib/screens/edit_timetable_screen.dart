@@ -13,7 +13,7 @@ class EditTimeTableScreen extends StatefulWidget {
 }
 
 class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
-  DayOfWeek _dayOfWeek = DayOfWeek.Mon;
+  DayOfWeek _dayOfWeek = DayOfWeek.Monday;
 
   static const optionsDOW = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
 
@@ -31,24 +31,24 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
       final routeArg = ModalRoute.of(context)!.settings.arguments;
       switch (routeArg as int) {
         case 0:
-          timeTableDate = tt!.timetable()[DayOfWeek.Mon] as List<dynamic>;
-          _dayOfWeek = DayOfWeek.Mon;
+          timeTableDate = tt!.timetable()[DayOfWeek.Monday] as List<dynamic>;
+          _dayOfWeek = DayOfWeek.Monday;
           break;
         case 1:
-          timeTableDate = tt!.timetable()[DayOfWeek.Tue] as List<dynamic>;
-          _dayOfWeek = DayOfWeek.Tue;
+          timeTableDate = tt!.timetable()[DayOfWeek.Tuesday] as List<dynamic>;
+          _dayOfWeek = DayOfWeek.Tuesday;
           break;
         case 2:
-          timeTableDate = tt!.timetable()[DayOfWeek.Wed] as List<dynamic>;
-          _dayOfWeek = DayOfWeek.Wed;
+          timeTableDate = tt!.timetable()[DayOfWeek.Wednesday] as List<dynamic>;
+          _dayOfWeek = DayOfWeek.Wednesday;
           break;
         case 3:
-          timeTableDate = tt!.timetable()[DayOfWeek.Thu] as List<dynamic>;
-          _dayOfWeek = DayOfWeek.Thu;
+          timeTableDate = tt!.timetable()[DayOfWeek.Thursday] as List<dynamic>;
+          _dayOfWeek = DayOfWeek.Thursday;
           break;
         case 4:
-          timeTableDate = tt!.timetable()[DayOfWeek.Fri] as List<dynamic>;
-          _dayOfWeek = DayOfWeek.Fri;
+          timeTableDate = tt!.timetable()[DayOfWeek.Friday] as List<dynamic>;
+          _dayOfWeek = DayOfWeek.Friday;
           break;
       }
       initialized = true;

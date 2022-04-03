@@ -31,7 +31,7 @@ class _DatabaseTestScreenState extends State<DatabaseTestScreen> {
                   ClassData.setRoom("tesuting", "5331"),
                   0,
                 ];
-                tt.setTimetable(DayOfWeek.Mon, newTT);
+                tt.setTimetable(DayOfWeek.Monday, newTT);
               },
             ),
             TextButton(
@@ -40,9 +40,9 @@ class _DatabaseTestScreenState extends State<DatabaseTestScreen> {
                   TimeTable data = Provider.of<TimeTable>(context);
                   await data.getInitAndGetTimeTable();
                   print(data);
-                  print(data.timetable()[DayOfWeek.Mon]);
+                  print(data.timetable()[DayOfWeek.Monday]);
                   for (int i = 0; i < 5; i++) {
-                    print((data.timetable()[DayOfWeek.Mon]![i] as ClassData)
+                    print((data.timetable()[DayOfWeek.Monday]![i] as ClassData)
                         .className);
                   }
                 })
