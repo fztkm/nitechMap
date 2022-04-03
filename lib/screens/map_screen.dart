@@ -175,16 +175,18 @@ class _MapScreenState extends State<MapScreen> {
                         child: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: const Color(0xffB99679),
+                              color: Color(0x99ffffff),
                               borderRadius: BorderRadius.circular(8),
                               border:
-                                  Border.all(color: Colors.white38, width: 2)),
+                                  Border.all(color: Colors.brown, width: 2)),
                           child: Column(
                             children: [
                               Container(
                                   decoration: const BoxDecoration(
                                     border: Border(
-                                      bottom: BorderSide(color: Colors.white),
+                                      bottom: BorderSide(
+                                        color: Colors.brown,
+                                      ),
                                     ),
                                   ),
                                   child: Padding(
@@ -192,38 +194,43 @@ class _MapScreenState extends State<MapScreen> {
                                         vertical: 3.0),
                                     child: Text(timeInfo,
                                         style: const TextStyle(
-                                            color: Colors.white,
+                                            color: Colors.brown,
                                             fontWeight: FontWeight.normal)),
                                   )),
                               Container(
-                                  width: name.length > 10
-                                      ? MediaQuery.of(context).size.width * 0.4
-                                      : null,
-                                  decoration: const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(color: Colors.white),
+                                width: name.length > 10
+                                    ? MediaQuery.of(context).size.width * 0.3
+                                    : null,
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: Colors.brown,
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 3.0),
-                                    child: Text(
-                                      name,
-                                      style: const TextStyle(
-                                          overflow: TextOverflow.ellipsis,
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal),
-                                      textAlign: TextAlign.center,
-                                    ), // 講義名
-                                  )),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 3.0),
+                                  child: Text(
+                                    name,
+                                    style: const TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      color: Colors.brown,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                  ), // 講義名
+                                ),
+                              ),
                               Container(
                                   child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 3.0),
                                 child: Text(className,
                                     style: const TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.brown,
                                         fontWeight: FontWeight.bold)), // 講義室名
                               )),
                             ],
