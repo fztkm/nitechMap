@@ -27,6 +27,8 @@ class NitechMap extends StatelessWidget {
           iconTheme: IconThemeData(color: Color(0xff7f5539)),
           primaryColor: Color(0xffb08968),
           appBarTheme: AppBarTheme(backgroundColor: Color(0xffb08968)),
+          highlightColor: Colors.white,
+          splashColor: Colors.white,
         ),
         locale: locale,
         localizationsDelegates: const [

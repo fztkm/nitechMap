@@ -23,6 +23,12 @@ class _MapScreenState extends State<MapScreen> {
   String timeInfo = '';
   String name = '';
   String className = '';
+  TextStyle? _selectedItemTextStyle;
+  TextStyle? _notSelectedItemTextStyle;
+  TextStyle? _thisClassTextStyle;
+  TextStyle? _nextClassTextStyle;
+  Color? _thisClassIconColor;
+  Color? _nextClassIconColor;
 
   //講義室名から何号館のsvg画像が必要かをパスで返す
   String getImageString(String roomName) {
@@ -55,10 +61,18 @@ class _MapScreenState extends State<MapScreen> {
     if (index == 0) {
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
       classData = next!.getThisClassData();
+      _thisClassTextStyle = _selectedItemTextStyle;
+      _nextClassTextStyle = _notSelectedItemTextStyle;
+      _thisClassIconColor = Theme.of(context).accentColor;
+      _nextClassIconColor = Colors.white;
     }
     if (index == 1) {
       timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
       classData = next!.getNextClassData();
+      _thisClassTextStyle = _notSelectedItemTextStyle;
+      _nextClassTextStyle = _selectedItemTextStyle;
+      _thisClassIconColor = Colors.white;
+      _nextClassIconColor = Theme.of(context).accentColor;
     }
     setState(() {
       name = classData[0];
@@ -83,6 +97,20 @@ class _MapScreenState extends State<MapScreen> {
       svgPhoto = getImageString(roomName);
 
       timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
+      _selectedItemTextStyle = TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).accentColor,
+      );
+      _notSelectedItemTextStyle = TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      );
+      _thisClassTextStyle = _selectedItemTextStyle;
+      _nextClassTextStyle = _notSelectedItemTextStyle;
+      _thisClassIconColor = Theme.of(context).accentColor;
+      _nextClassIconColor = Colors.white;
       setState(() {
         name = classData[0];
         className = roomName;
@@ -98,6 +126,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
+      extendBody: true,
       appBar: MediaQuery.of(context).orientation == Orientation.portrait
           ? AppBar(
               title: const Text('Nitech Map'),
@@ -190,28 +219,6 @@ class _MapScreenState extends State<MapScreen> {
                 ],
               ),
             ),
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Colors.white,
-          selectedIconTheme:
-              IconThemeData(color: Theme.of(context).accentColor),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.arrow_drop_down_circle_outlined),
-              label: 'This Class',
-              backgroundColor: Colors.red,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.navigate_next),
-              label: 'Next Class',
-              backgroundColor: Colors.pink,
-            ),
-          ],
-          currentIndex: currentIndex,
-          selectedItemColor: Theme.of(context).accentColor,
-          onTap: (index) {
-            changePhoto(index);
-          }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).accentColor,
@@ -221,6 +228,63 @@ class _MapScreenState extends State<MapScreen> {
         child: Icon(
           Icons.apps_rounded,
           color: Theme.of(context).iconTheme.color,
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        notchMargin: 6,
+        color: Theme.of(context).primaryColor,
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 0, right: 16, bottom: 8, left: 16),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(
+                  splashFactory: InkSplash.splashFactory,
+                  primary: Colors.white,
+                ),
+                onPressed: () {
+                  changePhoto(0);
+                },
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.arrow_drop_down_circle_outlined,
+                      color: _thisClassIconColor,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      "This Class",
+                      style: _thisClassTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+              TextButton(
+                  style: TextButton.styleFrom(
+                    splashFactory: InkSplash.splashFactory,
+                    primary: Colors.white,
+                  ),
+                  onPressed: () {
+                    changePhoto(1);
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Next Class",
+                        style: _nextClassTextStyle,
+                      ),
+                      Icon(
+                        Icons.navigate_next,
+                        color: _nextClassIconColor,
+                      ),
+                    ],
+                  ))
+            ],
+          ),
         ),
       ),
     );
