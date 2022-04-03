@@ -106,6 +106,13 @@ class MainDrawer extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Theme.of(context).primaryColor,
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(0, 5))
+              ],
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
             ),
@@ -132,6 +139,7 @@ class MainDrawer extends StatelessWidget {
                     TimeTableText(text: "8:50 ~ 10:20")
                   ],
                 ),
+                SizedBox(height: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -139,6 +147,7 @@ class MainDrawer extends StatelessWidget {
                     TimeTableText(text: "10:30 ~ 12:00")
                   ],
                 ),
+                SizedBox(height: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -146,6 +155,7 @@ class MainDrawer extends StatelessWidget {
                     TimeTableText(text: "13:00 ~ 14:30")
                   ],
                 ),
+                SizedBox(height: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -153,6 +163,7 @@ class MainDrawer extends StatelessWidget {
                     TimeTableText(text: "14:40 ~ 16:10")
                   ],
                 ),
+                SizedBox(height: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
