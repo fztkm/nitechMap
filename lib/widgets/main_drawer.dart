@@ -50,7 +50,7 @@ class MainDrawer extends StatelessWidget {
               'Map',
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     color: Theme.of(context).iconTheme.color,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w500,
                   ),
             ),
           ),
@@ -70,7 +70,7 @@ class MainDrawer extends StatelessWidget {
               'TimeTable',
               style: Theme.of(context).textTheme.headline6!.copyWith(
                   color: Theme.of(context).iconTheme.color,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.w500),
             ),
           ),
           const Divider(
@@ -188,7 +188,7 @@ class TimeTableText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
           color: Theme.of(context).iconTheme.color),
     );
   }
