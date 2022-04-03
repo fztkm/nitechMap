@@ -7,6 +7,8 @@ import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import '../widgets/edit_card.dart';
 import 'package:provider/provider.dart';
 
+import 'map_screen.dart';
+
 class TimeTableScreen extends StatelessWidget {
   static const String id = 'timetabele_screen';
   static const weekdays = ['月', '火', '水', '木', '金'];
@@ -177,13 +179,21 @@ class TimeTableScreen extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       drawer: const MainDrawer(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).accentColor,
+        onPressed: () {
+          Navigator.of(context).pushReplacementNamed(MapScreen.id);
+        },
+        child: Icon(
+          Icons.map,
+          color: Theme.of(context).iconTheme.color,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           height: MediaQuery.of(context).orientation == Orientation.portrait
-              ? (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top)
+              ? MediaQuery.of(context).size.height
               : MediaQuery.of(context).size.height * 2,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -217,8 +227,9 @@ class TimeTableScreen extends StatelessWidget {
                 ],
               ),
               ...tiles(timeTableData, context),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: appBar.preferredSize.height +
+                    MediaQuery.of(context).padding.top,
               ),
             ],
           ),

@@ -106,13 +106,6 @@ class MainDrawer extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Theme.of(context).primaryColor,
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(0, 5))
-              ],
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
             ),
