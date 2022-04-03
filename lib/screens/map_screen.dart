@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/materials/consts.dart';
 import 'package:nitechmap_c0de/materials/nextClassData.dart';
@@ -107,11 +108,13 @@ class _MapScreenState extends State<MapScreen> {
         fontSize: 17,
         fontWeight: FontWeight.bold,
         color: Colors.brown,
+        fontFamily: 'Comfortaa',
       );
       _notSelectedItemTextStyle = TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
         color: Colors.brown,
+        fontFamily: 'Comfortaa',
       );
       _thisClassTextStyle = _selectedItemTextStyle;
       _nextClassTextStyle = _notSelectedItemTextStyle;
@@ -225,14 +228,25 @@ class _MapScreenState extends State<MapScreen> {
                                 ),
                               ),
                               Container(
-                                  child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 3.0),
-                                child: Text(className,
+                                width: className.length > 10
+                                    ? MediaQuery.of(context).size.width * 0.3
+                                    : null,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 3.0),
+                                  child: Text(
+                                    className,
                                     style: const TextStyle(
-                                        color: Colors.brown,
-                                        fontWeight: FontWeight.bold)), // 講義室名
-                              )),
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize: 16,
+                                      color: Colors.brown,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                  ), // 講義室名
+                                ),
+                              ),
                             ],
                           ),
                         ),

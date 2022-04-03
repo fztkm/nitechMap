@@ -57,9 +57,9 @@ class TimeTableScreen extends StatelessWidget {
               Text(
                 className,
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                   color: Color(0xff463020),
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
@@ -71,7 +71,7 @@ class TimeTableScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14,
                   color: Color(0xff463020),
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,

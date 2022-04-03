@@ -26,8 +26,13 @@ class NitechMap extends StatelessWidget {
             scaffoldBackgroundColor: Color(0xfff8edeb),
             iconTheme: IconThemeData(color: Color(0xff7f5539)),
             primaryColor: Color(0xffb08968),
-            appBarTheme: AppBarTheme(backgroundColor: Color(0xffb08968)),
-            fontFamily: 'Comfortaa'),
+            appBarTheme: AppBarTheme(
+                backgroundColor: Color(0xffb08968),
+                titleTextStyle: TextStyle(
+                    fontFamily: 'Comfortaa',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20)),
+            fontFamily: 'MPLUSRounded1c'),
         locale: locale,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
