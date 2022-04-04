@@ -24,10 +24,10 @@ class _MapScreenState extends State<MapScreen> {
   var currentIndex = 0;
   NextClassData? next;
   bool initialized = false;
-  TextStyle? _selectedItemTextStyle;
-  TextStyle? _notSelectedItemTextStyle;
-  TextStyle? _thisClassTextStyle;
-  TextStyle? _nextClassTextStyle;
+  TextStyle _selectedItemTextStyle = TextStyle();
+  TextStyle _notSelectedItemTextStyle = TextStyle();
+  TextStyle _thisClassTextStyle = TextStyle();
+  TextStyle _nextClassTextStyle = TextStyle();
   Color? _thisClassIconColor;
   Color? _nextClassIconColor;
   double _thisClassIconSize = 25;
@@ -263,15 +263,21 @@ class _MapScreenState extends State<MapScreen> {
                   },
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.arrow_drop_down_circle_outlined,
-                        color: _thisClassIconColor,
-                        size: _thisClassIconSize,
+                      AnimatedSize(
+                        duration: Duration(milliseconds: 400),
+                        child: Icon(
+                          Icons.arrow_drop_down_circle_outlined,
+                          color: _thisClassIconColor,
+                          size: _thisClassIconSize,
+                        ),
                       ),
                       SizedBox(width: 8),
-                      Text(
-                        "This Class",
+                      AnimatedDefaultTextStyle(
                         style: _thisClassTextStyle,
+                        duration: Duration(milliseconds: 300),
+                        child: Text(
+                          "This Class",
+                        ),
                       ),
                     ],
                   ),
@@ -286,14 +292,20 @@ class _MapScreenState extends State<MapScreen> {
                   },
                   child: Row(
                     children: [
-                      Text(
-                        "Next Class",
+                      AnimatedDefaultTextStyle(
                         style: _nextClassTextStyle,
+                        duration: Duration(milliseconds: 300),
+                        child: Text(
+                          "Next Class",
+                        ),
                       ),
-                      Icon(
-                        Icons.navigate_next,
-                        color: _nextClassIconColor,
-                        size: _nextClassIconSize,
+                      AnimatedSize(
+                        duration: Duration(milliseconds: 400),
+                        child: Icon(
+                          Icons.navigate_next,
+                          color: _nextClassIconColor,
+                          size: _nextClassIconSize,
+                        ),
                       ),
                     ],
                   ),
