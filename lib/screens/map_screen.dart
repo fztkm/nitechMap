@@ -24,8 +24,6 @@ class _MapScreenState extends State<MapScreen> {
   var currentIndex = 0;
   NextClassData? next;
   bool initialized = false;
-  String name = '';
-  String className = '';
   TextStyle? _selectedItemTextStyle;
   TextStyle? _notSelectedItemTextStyle;
   TextStyle? _thisClassTextStyle;
@@ -83,30 +81,24 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void changePhoto(int index) {
-    //next(index == 0)かnow(index == 1)かに応じて　テキスト情報を変える
-    var classData;
+    //next(index == 0)かnow(index == 1)かに応じて　ボトムバーのテキストスタイル・画像を変える
+    var classNum;
     if (index == 0) {
-      classData = next!.getThisClassData();
       _thisClassTextStyle = _selectedItemTextStyle;
       _nextClassTextStyle = _notSelectedItemTextStyle;
-      // _thisClassIconColor = Theme.of(context).accentColor;
-      // _nextClassIconColor = Colors.white;
       _thisClassIconSize = 25;
       _nextClassIconSize = 20;
+      classNum = thisTimeData[2];
     }
     if (index == 1) {
-      classData = next!.getNextClassData();
       _thisClassTextStyle = _notSelectedItemTextStyle;
       _nextClassTextStyle = _selectedItemTextStyle;
-      // _thisClassIconColor = Colors.white;
-      // _nextClassIconColor = Theme.of(context).accentColor;
       _thisClassIconSize = 20;
       _nextClassIconSize = 25;
+      classNum = nextTimeData[2];
     }
     setState(() {
-      name = classData[0];
-      className = classData[1];
-      svgPhoto = getImageString(className);
+      svgPhoto = getImageString(classNum);
       print("svgphoto = $svgPhoto");
       currentIndex = index;
     });
@@ -356,6 +348,8 @@ class ClassInfoTextDataContainer extends StatelessWidget {
   }
 }
 
+//currentIndexに応じて、今の講義か次の講義のどちらのテキスト情報を表示するか変える。
+//切り替え時にはアニメーションで切り替わる。
 class DisplayClassCrossFadeText extends StatelessWidget {
   const DisplayClassCrossFadeText({
     Key? key,
