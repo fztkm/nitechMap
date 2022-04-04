@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:nitechmap_c0de/materials/consts.dart';
 import 'package:nitechmap_c0de/materials/nextClassData.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
@@ -21,7 +24,6 @@ class _MapScreenState extends State<MapScreen> {
   var currentIndex = 0;
   NextClassData? next;
   bool initialized = false;
-  String timeInfo = '';
   String name = '';
   String className = '';
   TextStyle? _selectedItemTextStyle;
@@ -58,11 +60,32 @@ class _MapScreenState extends State<MapScreen> {
     return imageString;
   }
 
+  //例：[ "4/2 - 5コマ", "線形代数", "1121"]
+  List<String> thisTimeData = [
+    "no data",
+    "no data",
+    "no data",
+  ];
+  List<String> nextTimeData = [
+    "no data",
+    "no data",
+    "no data",
+  ];
+
+  void initClassData() {
+    thisTimeData[0] = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
+    thisTimeData[1] = next!.getThisClassData()[0];
+    thisTimeData[2] = next!.getThisClassData()[1];
+
+    nextTimeData[0] = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
+    nextTimeData[1] = next!.getNextClassData()[0];
+    nextTimeData[2] = next!.getNextClassData()[1];
+  }
+
   void changePhoto(int index) {
     //next(index == 0)かnow(index == 1)かに応じて　テキスト情報を変える
     var classData;
     if (index == 0) {
-      timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
       classData = next!.getThisClassData();
       _thisClassTextStyle = _selectedItemTextStyle;
       _nextClassTextStyle = _notSelectedItemTextStyle;
@@ -72,7 +95,6 @@ class _MapScreenState extends State<MapScreen> {
       _nextClassIconSize = 20;
     }
     if (index == 1) {
-      timeInfo = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
       classData = next!.getNextClassData();
       _thisClassTextStyle = _notSelectedItemTextStyle;
       _nextClassTextStyle = _selectedItemTextStyle;
@@ -99,11 +121,8 @@ class _MapScreenState extends State<MapScreen> {
     if (!initialized) {
       next = NextClassData(context);
       await next!.setTimeTableFromDB();
-      List<String> classData = next!.getThisClassData();
-      String roomName = classData[1];
-      svgPhoto = getImageString(roomName);
-
-      timeInfo = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
+      initClassData();
+      svgPhoto = getImageString(thisTimeData[2]);
       _selectedItemTextStyle = TextStyle(
         fontSize: 17,
         fontWeight: FontWeight.bold,
@@ -120,11 +139,8 @@ class _MapScreenState extends State<MapScreen> {
       _nextClassTextStyle = _notSelectedItemTextStyle;
       _thisClassIconColor = Colors.brown;
       _nextClassIconColor = Colors.brown;
+
       setState(() {
-        name = classData[0];
-        className = roomName;
-        print("This/Next class name = $name");
-        print("classRoomNumber = $className\nsvg = $svgPhoto");
         super.didChangeDependencies();
         initialized = true;
       });
@@ -133,7 +149,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryColor = Theme.of(context).primaryColor;
     return Scaffold(
       extendBody: true,
       appBar: MediaQuery.of(context).orientation == Orientation.portrait
@@ -172,10 +187,14 @@ class _MapScreenState extends State<MapScreen> {
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0,
                     child: Container(
-                      alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.all(30.0),
+                        padding: const EdgeInsets.all(30),
                         child: Container(
+                          constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? MediaQuery.of(context).size.width * 0.3
+                                  : MediaQuery.of(context).size.width * 0.2),
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
                               color: Color(0x99ffffff),
@@ -184,68 +203,23 @@ class _MapScreenState extends State<MapScreen> {
                                   Border.all(color: Colors.brown, width: 2)),
                           child: Column(
                             children: [
-                              Container(
-                                  decoration: const BoxDecoration(
-                                    border: Border(
-                                      bottom: BorderSide(
-                                        color: Colors.brown,
-                                      ),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 3.0),
-                                    child: Text(timeInfo,
-                                        style: const TextStyle(
-                                            color: Colors.brown,
-                                            fontWeight: FontWeight.w500)),
-                                  )),
-                              Container(
-                                width: name.length > 7
-                                    ? MediaQuery.of(context).size.width * 0.3
-                                    : null,
-                                decoration: const BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.brown,
-                                    ),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 3.0),
-                                  child: Text(
-                                    name,
-                                    style: const TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.brown,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                  ), // 講義名
-                                ),
+                              ClassInfoTextDataContainer(
+                                thisTimeData: thisTimeData[0],
+                                nextTimeData: nextTimeData[0],
+                                currentIndex: currentIndex,
+                                needBottomBorder: true,
                               ),
-                              Container(
-                                width: className.length > 8
-                                    ? MediaQuery.of(context).size.width * 0.3
-                                    : null,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 3.0),
-                                  child: Text(
-                                    className,
-                                    style: const TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: 16,
-                                      color: Colors.brown,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                  ), // 講義室名
-                                ),
+                              ClassInfoTextDataContainer(
+                                thisTimeData: thisTimeData[1],
+                                nextTimeData: nextTimeData[1],
+                                currentIndex: currentIndex,
+                                needBottomBorder: true,
+                              ),
+                              ClassInfoTextDataContainer(
+                                thisTimeData: thisTimeData[2],
+                                nextTimeData: nextTimeData[2],
+                                currentIndex: currentIndex,
+                                needBottomBorder: false,
                               ),
                             ],
                           ),
@@ -311,31 +285,115 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                 ),
                 TextButton(
-                    style: TextButton.styleFrom(
-                      splashFactory: InkSplash.splashFactory,
-                      primary: Colors.white,
-                    ),
-                    onPressed: () {
-                      changePhoto(1);
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          "Next Class",
-                          style: _nextClassTextStyle,
-                        ),
-                        Icon(
-                          Icons.navigate_next,
-                          color: _nextClassIconColor,
-                          size: _nextClassIconSize,
-                        ),
-                      ],
-                    ))
+                  style: TextButton.styleFrom(
+                    splashFactory: InkSplash.splashFactory,
+                    primary: Colors.white,
+                  ),
+                  onPressed: () {
+                    changePhoto(1);
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Next Class",
+                        style: _nextClassTextStyle,
+                      ),
+                      Icon(
+                        Icons.navigate_next,
+                        color: _nextClassIconColor,
+                        size: _nextClassIconSize,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class ClassInfoTextDataContainer extends StatelessWidget {
+  const ClassInfoTextDataContainer({
+    Key? key,
+    required this.thisTimeData,
+    required this.nextTimeData,
+    required this.currentIndex,
+    required this.needBottomBorder,
+    this.width,
+  }) : super(key: key);
+
+  final String thisTimeData;
+  final String nextTimeData;
+  final int currentIndex;
+  final bool needBottomBorder;
+  final double? width;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      width: width,
+      decoration: needBottomBorder
+          ? const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.brown,
+                ),
+              ),
+            )
+          : null,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3.0),
+        child: DisplayClassCrossFadeText(
+            thisTimeData: thisTimeData,
+            nextTimeData: nextTimeData,
+            currentIndex: currentIndex),
+      ),
+    );
+  }
+}
+
+class DisplayClassCrossFadeText extends StatelessWidget {
+  const DisplayClassCrossFadeText({
+    Key? key,
+    required this.thisTimeData,
+    required this.nextTimeData,
+    required this.currentIndex,
+  }) : super(key: key);
+
+  final String thisTimeData;
+  final String nextTimeData;
+  final int currentIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    TextStyle textStyle = const TextStyle(
+      overflow: TextOverflow.ellipsis,
+      color: Colors.brown,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+    );
+
+    return AnimatedCrossFade(
+      firstChild: Text(
+        thisTimeData,
+        style: textStyle,
+        textAlign: TextAlign.center,
+        maxLines: 2,
+      ),
+      secondChild: Text(
+        nextTimeData,
+        style: textStyle,
+        textAlign: TextAlign.center,
+        maxLines: 2,
+      ),
+      crossFadeState: currentIndex == 0
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond,
+      duration: Duration(milliseconds: 500),
     );
   }
 }
