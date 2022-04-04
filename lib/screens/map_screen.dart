@@ -1,10 +1,7 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:nitechmap_c0de/materials/consts.dart';
 import 'package:nitechmap_c0de/materials/nextClassData.dart';
+import 'package:nitechmap_c0de/widgets/classInfoTextData_container.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -48,7 +45,9 @@ class _MapScreenState extends State<MapScreen> {
         buildingNum == "2ー" ||
         buildingNum == "2 ") {
       imageString = "images/02gou.svg";
-    } else if (roomName.contains("講堂") || roomName.contains("ラーニングコモンズ")) {
+    } else if (roomName.contains("講堂") ||
+        roomName.contains("ラーニング") ||
+        roomName.toLowerCase().contains("nitech hall")) {
       //講堂2階ラーニングコモンズ はNitechHallの画像
       imageString = "images/nithall.svg";
     } else {
@@ -168,13 +167,11 @@ class _MapScreenState extends State<MapScreen> {
           : SafeArea(
               child: Stack(
                 children: [
-                  Container(
-                    child: PhotoView.customChild(
-                      child: SvgPicture.asset(svgPhoto),
-                      backgroundDecoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor),
-                      customSize: MediaQuery.of(context).size * 2.2,
-                    ),
+                  PhotoView.customChild(
+                    child: SvgPicture.asset(svgPhoto),
+                    backgroundDecoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor),
+                    customSize: MediaQuery.of(context).size * 2.2,
                   ),
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0,
@@ -315,91 +312,6 @@ class _MapScreenState extends State<MapScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ClassInfoTextDataContainer extends StatelessWidget {
-  const ClassInfoTextDataContainer({
-    Key? key,
-    required this.thisTimeData,
-    required this.nextTimeData,
-    required this.currentIndex,
-    required this.needBottomBorder,
-    this.width,
-  }) : super(key: key);
-
-  final String thisTimeData;
-  final String nextTimeData;
-  final int currentIndex;
-  final bool needBottomBorder;
-  final double? width;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: width,
-      decoration: needBottomBorder
-          ? const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.brown,
-                ),
-              ),
-            )
-          : null,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 3.0),
-        child: DisplayClassCrossFadeText(
-            thisTimeData: thisTimeData,
-            nextTimeData: nextTimeData,
-            currentIndex: currentIndex),
-      ),
-    );
-  }
-}
-
-//currentIndexに応じて、今の講義か次の講義のどちらのテキスト情報を表示するか変える。
-//切り替え時にはアニメーションで切り替わる。
-class DisplayClassCrossFadeText extends StatelessWidget {
-  const DisplayClassCrossFadeText({
-    Key? key,
-    required this.thisTimeData,
-    required this.nextTimeData,
-    required this.currentIndex,
-  }) : super(key: key);
-
-  final String thisTimeData;
-  final String nextTimeData;
-  final int currentIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    TextStyle textStyle = const TextStyle(
-      overflow: TextOverflow.ellipsis,
-      color: Colors.brown,
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-    );
-
-    return AnimatedCrossFade(
-      firstChild: Text(
-        thisTimeData,
-        style: textStyle,
-        textAlign: TextAlign.center,
-        maxLines: 2,
-      ),
-      secondChild: Text(
-        nextTimeData,
-        style: textStyle,
-        textAlign: TextAlign.center,
-        maxLines: 2,
-      ),
-      crossFadeState: currentIndex == 0
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond,
-      duration: Duration(milliseconds: 500),
     );
   }
 }

@@ -40,9 +40,9 @@ class NextClassData {
   }
 
   //今何コマ目か
-  //
+  //休日の場合は常に0
   void setThisClassIdx() {
-    //平日かどうか　休日なら0
+    //平日かどうか
     if (intToDayOfWeekForIntl(now.weekday) is DayOfWeek) {
       if (beforeTime(10, 20)) {
         _thisClassIdx = 1;
@@ -55,7 +55,7 @@ class NextClassData {
       } else if (beforeTime(17, 50)) {
         _thisClassIdx = 5;
       } else {
-        //テストのために２にセット //0にしました。2021-12-16
+        //テストのために２にセット //本番用に0にしました。2021-12-16
         print("_thisClassIdx : set Test Index 2");
         _thisClassIdx = 0;
       }
