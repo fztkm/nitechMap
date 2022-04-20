@@ -62,16 +62,14 @@ class _MemoScreenState extends State<MemoScreen> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .scaffoldBackgroundColor
-                        .withOpacity(0.8),
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     boxShadow: <BoxShadow>[
                       BoxShadow(
                           spreadRadius: 1,
                           blurRadius: 2,
                           color: Colors.brown,
                           blurStyle: BlurStyle.outer,
-                          offset: Offset(0, 2))
+                          offset: Offset(0, 4))
                     ]),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
