@@ -6,9 +6,12 @@ import 'package:sqflite/sqflite.dart';
 class ClassData {
   String className;
   String classroom = '0000';
+  int day = 0; //0~4
+  int time = 0; //0~4
 
   ClassData(this.className);
   ClassData.setRoom(this.className, this.classroom);
+  ClassData.setAll(this.className, this.classroom, this.day, this.time);
 
   void setClassroom(String room) {
     classroom = room;
@@ -31,6 +34,13 @@ class TimeTable with ChangeNotifier {
     return _timetable;
   }
 
+  ClassData getClassDataByID(int id) {
+    final int day = id ~/ 10;
+    final int classTime = id - day * 10;
+    DayOfWeek? dayOfWeek = intToDayOfWeek(day);
+    return timetable()[dayOfWeek]![classTime];
+  }
+
   void setTimetable(DayOfWeek day, List<dynamic> newTimeTable) {
     _timetable[day] = newTimeTable;
     notifyListeners();
@@ -44,6 +54,7 @@ class TimeTable with ChangeNotifier {
   }
 
   //データベースに接続 getinitDatabaseでdatabase変数に代入する
+  //id は曜日*10 + コマ数　とする(水曜２コマ目: 32)
   Future<Database> openTimeTableDatabase() async {
     return openDatabase(
       join(await getDatabasesPath(), 'timetable_databese.db'),
@@ -91,7 +102,8 @@ class TimeTable with ChangeNotifier {
       if (table["name"] == "0") {
         classDataOrZero = 0;
       } else {
-        classDataOrZero = ClassData.setRoom(table["name"], table["room"]);
+        classDataOrZero = ClassData.setAll(
+            table["name"], table["room"], table["day"], table["time"]);
       }
       _timetable[intToDayOfWeek(day)]![time] = classDataOrZero;
     });

@@ -21,6 +21,23 @@ int dayOfWeekToInt(DayOfWeek day) {
   }
 }
 
+String getDayOfWeekStringByInt(int day) {
+  switch (day) {
+    case 0:
+      return "月";
+    case 1:
+      return "火";
+    case 2:
+      return "水";
+    case 3:
+      return "木";
+    case 4:
+      return "金";
+    default:
+      return "エラー";
+  }
+}
+
 DayOfWeek? intToDayOfWeek(int day) {
   switch (day) {
     case 0:
@@ -43,19 +60,19 @@ DayOfWeek? intToDayOfWeekForIntl(int dow) {
   // int index = now.weekday; //Mon = 1, max7
   switch (dow) {
     case 1:
-      print('Today is Mon');
+      print('Today is Monday');
       return DayOfWeek.Monday;
     case 2:
-      print('Today is Tue');
+      print('Today is Tuesday');
       return DayOfWeek.Tuesday;
     case 3:
-      print('Today is Tue');
+      print('Today is Wednesday');
       return DayOfWeek.Wednesday;
     case 4:
-      print('Today is Tue');
+      print('Today is Thursday');
       return DayOfWeek.Thursday;
     case 5:
-      print('Today is Tue');
+      print('Today is Friday');
       return DayOfWeek.Friday;
     default:
       print('Today is Holiday');

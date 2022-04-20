@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/materials/dayOfWeek.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/screens/edit_timetable_screen.dart';
+import 'package:nitechmap_c0de/screens/memo_screen.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import '../widgets/edit_card.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,8 @@ class TimeTableScreen extends StatelessWidget {
   }
 
   //講義名と講義室番号を表示するカード
-  List<Expanded> classroomCards(int dayOfWeek, TimeTable table) {
+  List<Expanded> classroomCards(
+      int dayOfWeek, TimeTable table, BuildContext context) {
     DayOfWeek? day = intToDayOfWeek(dayOfWeek);
     List<dynamic> tableData = table.timetable()[day] as List<dynamic>;
     return List.generate(5, (index) {
@@ -47,39 +49,58 @@ class TimeTableScreen extends StatelessWidget {
         classroom = (tableData[index] as ClassData).classroom;
       }
       return Expanded(
-        flex: 3,
-        child: Card(
-          margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
-          color: const Color(0xddf8edeb),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                className,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Color(0xff463020),
-                  fontWeight: FontWeight.w500,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              child: Card(
+                margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 3),
+                color: const Color(0xddf8edeb),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      className,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Color(0xff463020),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      classroom,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff463020),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ],
                 ),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+                elevation: 4.0,
               ),
-              const SizedBox(height: 10),
-              Text(
-                classroom,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Color(0xff463020),
-                  fontWeight: FontWeight.w500,
+            ),
+            if (classroom.isNotEmpty)
+              Positioned(
+                right: -10,
+                bottom: -2,
+                child: IconButton(
+                  icon: Icon(Icons.description),
+                  onPressed: () {
+                    final int classDataId = dayOfWeek * 10 + index;
+                    Navigator.of(context)
+                        .pushNamed(MemoScreen.id, arguments: classDataId);
+                  },
                 ),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            ],
-          ),
-          elevation: 4.0,
+              )
+          ],
         ),
       );
     });
@@ -109,7 +130,7 @@ class TimeTableScreen extends StatelessWidget {
           const SizedBox(
             width: 5.0,
           ),
-          ...classroomCards(index, timetableData),
+          ...classroomCards(index, timetableData, context),
         ]),
       );
     });
