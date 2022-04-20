@@ -90,9 +90,12 @@ class TimeTableScreen extends StatelessWidget {
             if (classroom.isNotEmpty)
               Positioned(
                 right: -10,
-                bottom: -2,
+                top: -2,
                 child: IconButton(
-                  icon: Icon(Icons.description),
+                  icon: Icon(
+                    Icons.bookmark,
+                    color: Colors.brown,
+                  ),
                   onPressed: () {
                     final int classDataId = dayOfWeek * 10 + index;
                     Navigator.of(context)
