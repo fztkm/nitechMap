@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/materials/dayOfWeek.dart';
 import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
+import 'package:nitechmap_c0de/screens/add_memo_screen.dart';
 import 'package:provider/provider.dart';
 
 class MemoScreen extends StatefulWidget {
@@ -19,7 +20,9 @@ class _MemoScreenState extends State<MemoScreen> {
   int classTime = 0;
   String classroom = "no data";
 
-  List<Memo>? memoList;
+  List<Memo> memoList = [];
+
+  bool deleteMode = false;
 
   @override
   void didChangeDependencies() async {
@@ -65,7 +68,28 @@ class _MemoScreenState extends State<MemoScreen> {
               Divider(
                 thickness: 1,
               ),
-              Text(memo.bodyText),
+              Expanded(child: Text(memo.bodyText)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  deleteMode
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            //memoを削除する
+                          },
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            //memoを編集する
+                          },
+                        )
+                ],
+              )
             ],
           ),
         ),
@@ -91,6 +115,21 @@ class _MemoScreenState extends State<MemoScreen> {
       shadowColor: Colors.white,
       backgroundColor: Color(0x00ffffff),
       iconTheme: IconThemeData(color: Colors.brown),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: IconButton(
+              onPressed: () {
+                setState(() {
+                  deleteMode = !deleteMode;
+                });
+              },
+              icon: Icon(
+                Icons.delete,
+                color: deleteMode ? Colors.red : Colors.grey,
+              )),
+        )
+      ],
     );
     return Scaffold(
       appBar: appbar,
@@ -123,7 +162,7 @@ class _MemoScreenState extends State<MemoScreen> {
                     child: Text(
                       className,
                       style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 28,
                           fontWeight: FontWeight.w500,
                           color: Colors.brown),
                     ),
@@ -149,17 +188,19 @@ class _MemoScreenState extends State<MemoScreen> {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                padding:
-                    EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 10),
-                height: (MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).padding.top -
-                        appbar.preferredSize.height) *
-                    0.85,
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  children: [...memoItemList(memoList!)],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  padding:
+                      EdgeInsets.only(top: 10, right: 5, left: 5, bottom: 10),
+                  height: (MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top -
+                          appbar.preferredSize.height) *
+                      0.85,
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    children: [...memoItemList(memoList)],
+                  ),
                 ),
               ),
             ),
@@ -167,7 +208,10 @@ class _MemoScreenState extends State<MemoScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed(AddMemoScreen.id, arguments: classData);
+        },
         backgroundColor: Colors.brown,
         child: Icon(
           Icons.note_add,
