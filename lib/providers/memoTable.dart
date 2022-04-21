@@ -3,12 +3,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Memo {
-  int id;
+  int? id = 0;
   int parentClassId; //どの授業についてのメモであるかを判別。ClassDataのidをセット
   String title;
   String bodyText;
   Memo({
-    required this.id,
+    this.id,
     required this.parentClassId,
     required this.title,
     required this.bodyText,
@@ -24,6 +24,18 @@ class Memo {
 }
 
 class MemoDatabase with ChangeNotifier {
+  int selectedClassID = 0;
+
+  List<Memo> _memoList = [];
+
+  List<Memo> getMemoList() {
+    return _memoList;
+  }
+
+  void setMemoList(List<Memo> items) {
+    _memoList = items;
+  }
+
   var database;
 
   //一番最初にやる。データベースに接続する
@@ -52,6 +64,7 @@ class MemoDatabase with ChangeNotifier {
       memo.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    _memoList.add(memo);
     notifyListeners();
   }
 
@@ -94,6 +107,8 @@ class MemoDatabase with ChangeNotifier {
       whereArgs: [memo.id],
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
+    int index = _memoList.lastIndexWhere((element) => element.id == memo.id);
+    _memoList[index] = memo;
     notifyListeners();
   }
 
@@ -105,6 +120,7 @@ class MemoDatabase with ChangeNotifier {
       where: "id = ?",
       whereArgs: [id],
     );
+    _memoList.removeWhere((memo) => memo.id == id);
     notifyListeners();
   }
 

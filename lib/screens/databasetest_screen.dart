@@ -28,7 +28,7 @@ class _DatabaseTestScreenState extends State<DatabaseTestScreen> {
                   0,
                   0,
                   ClassData.setRoom("テスト", "1200"),
-                  ClassData.setRoom("tesuting", "5331"),
+                  ClassData.setRoom("testing", "5331"),
                   0,
                 ];
                 tt.setTimetable(DayOfWeek.Monday, newTT);

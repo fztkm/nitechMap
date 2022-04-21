@@ -29,32 +29,20 @@ class _MemoScreenState extends State<MemoScreen> {
   @override
   void didChangeDependencies() async {
     if (!initialized) {
-      TimeTable timeTable = Provider.of<TimeTable>(context);
+      TimeTable timeTable = Provider.of<TimeTable>(context, listen: false);
       await timeTable.getInitAndGetTimeTable();
       final classDataId = ModalRoute.of(context)!.settings.arguments;
-      classData = timeTable.getClassDataByID(classDataId as int);
-      className = classData!.className;
-      dayOfWeekChar = getDayOfWeekStringByInt(classData!.day);
-      classTime = classData!.time + 1;
-      classroom = classData!.classroom;
 
-      memoList = [
-        Memo(
-            id: 1,
-            parentClassId: 21,
-            title: "テスト形式",
-            bodyText:
-                "期末レポートがかされる期末レポートがかされる期末レポートがかされる期末レポートがかされる期末レポートがかされる期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
-      ];
-      initialized = true;
+      setState(() {
+        classData = timeTable.getClassDataByID(classDataId as int);
+        className = classData!.className;
+        print(className);
+        dayOfWeekChar = getDayOfWeekStringByInt(classData!.day);
+        classTime = classData!.time + 1;
+        classroom = classData!.classroom;
+
+        initialized = true;
+      });
     }
     super.didChangeDependencies();
   }
@@ -78,53 +66,57 @@ class _MemoScreenState extends State<MemoScreen> {
                 thickness: 1,
               ),
               Expanded(
-                  child: Stack(
-                children: [
-                  Text(
-                    memo.bodyText,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 5,
-                  ),
-                  deleteMode
-                      ? Positioned(
-                          right: -10,
-                          bottom: 0,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.red,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Text(
+                      memo.bodyText,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 5,
+                    ),
+                    deleteMode
+                        ? Positioned(
+                            right: -10,
+                            bottom: 0,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () async {
+                                //memoを削除する
+                                setState(() {
+                                  MemoDatabase db = Provider.of<MemoDatabase>(
+                                      context,
+                                      listen: false);
+                                  db.deleteMemo(memo.id!);
+                                });
+                              },
                             ),
-                            onPressed: () {
-                              //memoを削除する
-                            },
-                          ),
-                        )
-                      : Positioned(
-                          right: -10,
-                          bottom: 0,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.edit,
-                              color: Colors.blueAccent,
+                          )
+                        : Positioned(
+                            right: -10,
+                            bottom: 0,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.edit,
+                                color: Colors.blueAccent,
+                              ),
+                              onPressed: () {
+                                //memoを編集する
+                                final dataset = ClassDataAndMemoData(
+                                  classData: classData!,
+                                  memo: memo,
+                                );
+                                //MemoとClassDataを渡す
+                                Navigator.pushNamed(context, EditMemoScreen.id,
+                                    arguments: dataset);
+                              },
                             ),
-                            onPressed: () {
-                              //memoを編集する
-                              final dataset = ClassDataAndMemoData(
-                                classData: classData!,
-                                memo: memo,
-                              );
-                              //MemoとClassDataを渡す
-                              Navigator.pushNamed(context, EditMemoScreen.id,
-                                  arguments: dataset);
-                            },
                           ),
-                        ),
-                ],
-              )),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [],
-              )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -138,6 +130,9 @@ class _MemoScreenState extends State<MemoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var db = Provider.of<MemoDatabase>(context, listen: false);
+    memoList = db.getMemoList();
+
     AppBar appbar = AppBar(
       title: const Text(
         'Memo',
@@ -232,9 +227,13 @@ class _MemoScreenState extends State<MemoScreen> {
                           MediaQuery.of(context).padding.top -
                           appbar.preferredSize.height) *
                       0.85,
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    children: [...memoItemList(memoList)],
+                  child: Consumer<MemoDatabase>(
+                    builder: (context, model, child) {
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        children: [...memoItemList(memoList)],
+                      );
+                    },
                   ),
                 ),
               ),

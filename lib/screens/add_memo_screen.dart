@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
+import 'package:provider/provider.dart';
 
 class AddMemoScreen extends StatefulWidget {
   const AddMemoScreen({Key? key}) : super(key: key);
@@ -52,7 +54,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                 maxLines: 1,
                 decoration: InputDecoration(hintText: "Title"),
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
-                onSaved: (value) {
+                onChanged: (value) {
                   title = value.toString();
                 },
               ),
@@ -67,7 +69,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                         fontWeight: FontWeight.normal,
                         fontSize: 15,
                       ),
-                      onFieldSubmitted: (value) {
+                      onChanged: (value) {
                         body = value.toString();
                       },
                     ),
@@ -84,12 +86,20 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
           Icons.save,
           color: Colors.white,
         ),
-        onPressed: () {
+        onPressed: () async {
           if (title.isNotEmpty) {
+            final parentId = classData!.day * 10 + classData!.time;
             //Add Memo
-          } else {
-            Navigator.pop(context);
+            MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);
+            db.insertMemo(
+              Memo(
+                parentClassId: parentId,
+                title: title,
+                bodyText: body,
+              ),
+            );
           }
+          Navigator.pop(context);
         },
       ),
     );

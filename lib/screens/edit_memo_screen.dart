@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/materials/classDataAndMemoData.dart';
 import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
+import 'package:provider/provider.dart';
 
 class EditMemoScreen extends StatefulWidget {
   static const id = "edit_memo";
@@ -60,7 +61,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                 decoration: InputDecoration(hintText: "Title"),
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 initialValue: title,
-                onSaved: (value) {
+                onChanged: (value) {
                   title = value.toString();
                 },
               ),
@@ -76,7 +77,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                         fontWeight: FontWeight.normal,
                         fontSize: 15,
                       ),
-                      onSaved: (value) {
+                      onChanged: (value) {
                         body = value.toString();
                       },
                     ),
@@ -93,12 +94,18 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
           Icons.save,
           color: Colors.white,
         ),
-        onPressed: () {
-          if (title.isNotEmpty) {
-            //Add Memo
-          } else {
-            Navigator.pop(context);
-          }
+        onPressed: () async {
+          final int parentId = classData!.day * 10 + classData!.time;
+          MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);
+          db.updateMemo(
+            Memo(
+              id: memo!.id,
+              parentClassId: parentId,
+              title: title,
+              bodyText: body,
+            ),
+          );
+          Navigator.of(context).pop();
         },
       ),
     );

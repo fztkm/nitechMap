@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/screens/add_memo_screen.dart';
 import 'package:nitechmap_c0de/screens/edit_memo_screen.dart';
 import 'package:nitechmap_c0de/screens/memo_screen.dart';
@@ -19,8 +20,15 @@ class NitechMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const locale = Locale("ja", "JP");
-    return ChangeNotifierProvider<TimeTable>(
-      create: (context) => TimeTable(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TimeTable>(
+          create: (context) => TimeTable(),
+        ),
+        ChangeNotifierProvider<MemoDatabase>(
+          create: (context) => MemoDatabase(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

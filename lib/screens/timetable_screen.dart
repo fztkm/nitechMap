@@ -97,8 +97,15 @@ class TimeTableScreen extends StatelessWidget {
                     Icons.bookmark,
                     color: Colors.brown,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     final int classDataId = dayOfWeek * 10 + index;
+                    MemoDatabase db = Provider.of<MemoDatabase>(
+                      context,
+                      listen: false,
+                    );
+                    db.selectedClassID = classDataId;
+                    await db.getinitDatabase();
+                    db.setMemoList(await db.getMemosByClassID(classDataId));
                     Navigator.of(context)
                         .pushNamed(MemoScreen.id, arguments: classDataId);
                   },
@@ -219,65 +226,62 @@ class TimeTableScreen extends StatelessWidget {
         ),
       ],
     );
-    return ChangeNotifierProvider<MemoDatabase>(
-      create: (context) => MemoDatabase(),
-      child: Scaffold(
-        appBar: appBar,
-        drawer: const MainDrawer(),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).iconTheme.color,
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed(MapScreen.id);
-          },
-          child: const Icon(
-            Icons.map,
-            color: Colors.white,
-          ),
+    return Scaffold(
+      appBar: appBar,
+      drawer: const MainDrawer(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).iconTheme.color,
+        onPressed: () {
+          Navigator.of(context).pushReplacementNamed(MapScreen.id);
+        },
+        child: const Icon(
+          Icons.map,
+          color: Colors.white,
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            height: MediaQuery.of(context).orientation == Orientation.portrait
-                ? MediaQuery.of(context).size.height
-                : MediaQuery.of(context).size.height * 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.height * 0.02
-                          : MediaQuery.of(context).size.height * 0.08,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                    ),
-                    ...List.generate(
-                      5,
-                      (index) => Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            (index + 1).toString(),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff463020)),
-                          ),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          height: MediaQuery.of(context).orientation == Orientation.portrait
+              ? MediaQuery.of(context).size.height
+              : MediaQuery.of(context).size.height * 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                height:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? MediaQuery.of(context).size.height * 0.02
+                        : MediaQuery.of(context).size.height * 0.08,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  ...List.generate(
+                    5,
+                    (index) => Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          (index + 1).toString(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff463020)),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                ...tiles(timeTableData, context),
-                SizedBox(
-                  height: appBar.preferredSize.height +
-                      MediaQuery.of(context).padding.top,
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              ...tiles(timeTableData, context),
+              SizedBox(
+                height: appBar.preferredSize.height +
+                    MediaQuery.of(context).padding.top,
+              ),
+            ],
           ),
         ),
       ),
