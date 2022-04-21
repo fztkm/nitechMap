@@ -52,6 +52,7 @@ class MemoDatabase with ChangeNotifier {
       memo.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    notifyListeners();
   }
 
   //メモを取得
@@ -93,6 +94,7 @@ class MemoDatabase with ChangeNotifier {
       whereArgs: [memo.id],
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
+    notifyListeners();
   }
 
   //データの削除
@@ -103,6 +105,7 @@ class MemoDatabase with ChangeNotifier {
       where: "id = ?",
       whereArgs: [id],
     );
+    notifyListeners();
   }
 
   //TimeTableのIDで検索して削除する（ある授業に対応するメモを全て消す）
@@ -113,5 +116,6 @@ class MemoDatabase with ChangeNotifier {
       where: "parent = ?",
       whereArgs: [parentId],
     );
+    notifyListeners();
   }
 }

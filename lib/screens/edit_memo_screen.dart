@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/materials/classDataAndMemoData.dart';
+import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 
-class AddMemoScreen extends StatefulWidget {
-  const AddMemoScreen({Key? key}) : super(key: key);
-  static const id = "add_memo";
+class EditMemoScreen extends StatefulWidget {
+  static const id = "edit_memo";
 
   @override
-  State<AddMemoScreen> createState() => _AddMemoScreenState();
+  State<EditMemoScreen> createState() => _EditMemoScreenState();
 }
 
-class _AddMemoScreenState extends State<AddMemoScreen> {
+class _EditMemoScreenState extends State<EditMemoScreen> {
   ClassData? classData;
+  Memo? memo;
   bool initialized = false;
   String className = "";
   String title = "";
@@ -19,7 +21,12 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
   @override
   void didChangeDependencies() {
     if (!initialized) {
-      classData = ModalRoute.of(context)!.settings.arguments as ClassData;
+      final dataset =
+          ModalRoute.of(context)!.settings.arguments as ClassDataAndMemoData;
+      classData = dataset.classData;
+      memo = dataset.memo;
+      title = memo!.title;
+      body = memo!.bodyText;
       className = classData!.className;
       initialized = true;
     }
@@ -52,6 +59,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                 maxLines: 1,
                 decoration: InputDecoration(hintText: "Title"),
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                initialValue: title,
                 onSaved: (value) {
                   title = value.toString();
                 },
@@ -63,11 +71,12 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
                     TextFormField(
                       maxLines: 40,
                       decoration: InputDecoration(hintText: "Input body text"),
+                      initialValue: body,
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 15,
                       ),
-                      onFieldSubmitted: (value) {
+                      onSaved: (value) {
                         body = value.toString();
                       },
                     ),

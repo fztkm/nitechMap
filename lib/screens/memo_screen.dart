@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nitechmap_c0de/materials/classDataAndMemoData.dart';
 import 'package:nitechmap_c0de/materials/dayOfWeek.dart';
 import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/providers/timetable.dart';
 import 'package:nitechmap_c0de/screens/add_memo_screen.dart';
+import 'package:nitechmap_c0de/screens/edit_memo_screen.dart';
 import 'package:provider/provider.dart';
 
 class MemoScreen extends StatefulWidget {
@@ -37,7 +39,12 @@ class _MemoScreenState extends State<MemoScreen> {
       classroom = classData!.classroom;
 
       memoList = [
-        Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
+        Memo(
+            id: 1,
+            parentClassId: 21,
+            title: "テスト形式",
+            bodyText:
+                "期末レポートがかされる期末レポートがかされる期末レポートがかされる期末レポートがかされる期末レポートがかされる期末レポートがかされる"),
         Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
         Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
         Memo(id: 1, parentClassId: 21, title: "テスト形式", bodyText: "期末レポートがかされる"),
@@ -63,32 +70,60 @@ class _MemoScreenState extends State<MemoScreen> {
             children: [
               Text(
                 memo.title,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               Divider(
                 thickness: 1,
               ),
-              Expanded(child: Text(memo.bodyText)),
+              Expanded(
+                  child: Stack(
+                children: [
+                  Text(
+                    memo.bodyText,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 5,
+                  ),
+                  deleteMode
+                      ? Positioned(
+                          right: -10,
+                          bottom: 0,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              //memoを削除する
+                            },
+                          ),
+                        )
+                      : Positioned(
+                          right: -10,
+                          bottom: 0,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.blueAccent,
+                            ),
+                            onPressed: () {
+                              //memoを編集する
+                              final dataset = ClassDataAndMemoData(
+                                classData: classData!,
+                                memo: memo,
+                              );
+                              //MemoとClassDataを渡す
+                              Navigator.pushNamed(context, EditMemoScreen.id,
+                                  arguments: dataset);
+                            },
+                          ),
+                        ),
+                ],
+              )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  deleteMode
-                      ? IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                          onPressed: () {
-                            //memoを削除する
-                          },
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {
-                            //memoを編集する
-                          },
-                        )
-                ],
+                children: [],
               )
             ],
           ),

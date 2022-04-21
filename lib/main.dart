@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nitechmap_c0de/screens/add_memo_screen.dart';
+import 'package:nitechmap_c0de/screens/edit_memo_screen.dart';
 import 'package:nitechmap_c0de/screens/memo_screen.dart';
 import 'screens/databasetest_screen.dart';
 import 'screens/edit_timetable_screen.dart';
@@ -51,6 +52,7 @@ class NitechMap extends StatelessWidget {
           EditTimeTableScreen.routeName: (context) => EditTimeTableScreen(),
           MemoScreen.id: (context) => MemoScreen(),
           AddMemoScreen.id: (context) => AddMemoScreen(),
+          EditMemoScreen.id: (context) => EditMemoScreen(),
           DatabaseTestScreen.id: (context) => DatabaseTestScreen(),
         },
         home: MapScreen(),
