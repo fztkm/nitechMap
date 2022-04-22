@@ -45,11 +45,32 @@ class TimeTableScreen extends StatelessWidget {
     return List.generate(5, (index) {
       String className = '';
       String classroom = '';
+      var flex = 1;
       if (tableData[index] != 0) {
         className = (tableData[index] as ClassData).className;
         classroom = (tableData[index] as ClassData).classroom;
+
+        for (int i = index + 1; i < 5; i++) {
+          var item = tableData[i];
+          if (item is ClassData) {
+            if (className == item.className && classroom == item.classroom) {
+              flex += 1;
+            }
+          }
+        }
+        if (index > 0) {
+          var prevItem = tableData[index - 1];
+          if (prevItem is ClassData) {
+            if (className == prevItem.className &&
+                classroom == prevItem.classroom) {
+              print("リセットくんです");
+              return Expanded(flex: 0, child: Container());
+            }
+          }
+        }
       }
       return Expanded(
+        flex: flex,
         child: Stack(
           fit: StackFit.expand,
           children: [
