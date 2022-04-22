@@ -174,46 +174,49 @@ class _MapScreenState extends State<MapScreen> {
                     customSize: MediaQuery.of(context).size * 2.2,
                   ),
                   Positioned(
-                    top: MediaQuery.of(context).size.height * 0,
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(30),
-                        child: Container(
-                          constraints: BoxConstraints(
-                              maxWidth: MediaQuery.of(context).orientation ==
-                                      Orientation.portrait
-                                  ? MediaQuery.of(context).size.width * 0.3
-                                  : MediaQuery.of(context).size.width * 0.2),
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: Color(0x99ffffff),
-                              borderRadius: BorderRadius.circular(8),
-                              border:
-                                  Border.all(color: Colors.brown, width: 2)),
-                          child: Column(
-                            children: [
-                              ClassInfoTextDataContainer(
-                                thisTimeData: thisTimeData[0],
-                                nextTimeData: nextTimeData[0],
-                                currentIndex: currentIndex,
-                                needBottomBorder: true,
-                              ),
-                              ClassInfoTextDataContainer(
-                                thisTimeData: thisTimeData[1],
-                                nextTimeData: nextTimeData[1],
-                                currentIndex: currentIndex,
-                                needBottomBorder: true,
-                              ),
-                              ClassInfoTextDataContainer(
-                                thisTimeData: thisTimeData[2],
-                                nextTimeData: nextTimeData[2],
-                                currentIndex: currentIndex,
-                                needBottomBorder: false,
-                              ),
-                            ],
+                    top: 0,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(30),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                    ? MediaQuery.of(context).size.width * 0.3
+                                    : MediaQuery.of(context).size.width * 0.2),
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Color(0x99ffffff),
+                                borderRadius: BorderRadius.circular(8),
+                                border:
+                                    Border.all(color: Colors.brown, width: 2)),
+                            child: Column(
+                              children: [
+                                ClassInfoTextDataContainer(
+                                  thisTimeData: thisTimeData[0],
+                                  nextTimeData: nextTimeData[0],
+                                  currentIndex: currentIndex,
+                                  needBottomBorder: true,
+                                ),
+                                ClassInfoTextDataContainer(
+                                  thisTimeData: thisTimeData[1],
+                                  nextTimeData: nextTimeData[1],
+                                  currentIndex: currentIndex,
+                                  needBottomBorder: true,
+                                ),
+                                ClassInfoTextDataContainer(
+                                  thisTimeData: thisTimeData[2],
+                                  nextTimeData: nextTimeData[2],
+                                  currentIndex: currentIndex,
+                                  needBottomBorder: false,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                        IconButton(onPressed: () {}, icon: Icon(Icons.paste)),
+                      ],
                     ),
                   )
                 ],
