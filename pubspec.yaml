@@ -38,6 +38,12 @@ dependencies:
   intl: ^0.17.0
   package_info: ^2.0.2
   platform: ^3.1.0
+  
+dependency_overrides:
+  photo_view:
+    git:
+      url: https://github.com/bluefireteam/photo_view
+      ref: master
 
 dev_dependencies:
   flutter_test:

@@ -266,7 +266,7 @@ class _MapScreenState extends State<MapScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.brown,
         onPressed: () {
-          Navigator.pushNamed(context, TimeTableScreen.id);
+          Navigator.pushReplacementNamed(context, TimeTableScreen.id);
         },
         child: Icon(
           Icons.apps_rounded,
