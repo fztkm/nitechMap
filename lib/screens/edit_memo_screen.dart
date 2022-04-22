@@ -41,15 +41,15 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
         title: Text(
           'Memo $className',
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w700,
             color: Colors.brown,
           ),
         ),
         elevation: 0,
         shadowColor: Colors.white,
-        backgroundColor: Color(0x00ffffff),
-        iconTheme: IconThemeData(color: Colors.brown),
+        backgroundColor: const Color(0x00ffffff),
+        iconTheme: const IconThemeData(color: Colors.brown),
       ),
       body: SafeArea(
         child: Padding(
@@ -58,8 +58,9 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
             children: [
               TextFormField(
                 maxLines: 1,
-                decoration: InputDecoration(hintText: "Title"),
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                decoration: const InputDecoration(hintText: "Title"),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 initialValue: title,
                 onChanged: (value) {
                   title = value.toString();
@@ -71,9 +72,10 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
                   children: [
                     TextFormField(
                       maxLines: 40,
-                      decoration: InputDecoration(hintText: "Input body text"),
+                      decoration:
+                          const InputDecoration(hintText: "Input body text"),
                       initialValue: body,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 15,
                       ),
@@ -90,7 +92,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
-        child: Icon(
+        child: const Icon(
           Icons.save,
           color: Colors.white,
         ),

@@ -122,7 +122,7 @@ class TimeTableScreen extends StatelessWidget {
                 right: -10,
                 top: -2,
                 child: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.bookmark,
                     color: Colors.blue,
                   ),

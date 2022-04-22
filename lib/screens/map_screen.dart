@@ -127,13 +127,13 @@ class _MapScreenState extends State<MapScreen> {
       await next!.setTimeTableFromDB();
       initClassData();
       svgPhoto = getImageString(thisTimeData[2]);
-      _selectedItemTextStyle = TextStyle(
+      _selectedItemTextStyle = const TextStyle(
         fontSize: 17,
         fontWeight: FontWeight.bold,
         color: Colors.brown,
         fontFamily: 'Comfortaa',
       );
-      _notSelectedItemTextStyle = TextStyle(
+      _notSelectedItemTextStyle = const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.bold,
         color: Colors.brown,
@@ -243,7 +243,7 @@ class _MapScreenState extends State<MapScreen> {
                                 Navigator.of(context).pushNamed(MemoScreen.id,
                                     arguments: _parentIdForMemoScreen);
                               },
-                              child: CircleAvatar(
+                              child: const CircleAvatar(
                                 maxRadius: 18,
                                 backgroundColor: Colors.blue,
                                 child: Center(

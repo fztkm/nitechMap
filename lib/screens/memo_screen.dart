@@ -60,9 +60,9 @@ class _MemoScreenState extends State<MemoScreen> {
                 memo.title,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontWeight: FontWeight.w500),
+                style: const TextStyle(fontWeight: FontWeight.w500),
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
               Expanded(
@@ -79,7 +79,7 @@ class _MemoScreenState extends State<MemoScreen> {
                             right: -10,
                             bottom: 0,
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete,
                                 color: Colors.red,
                               ),
@@ -98,7 +98,7 @@ class _MemoScreenState extends State<MemoScreen> {
                             right: -10,
                             bottom: 0,
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.edit,
                                 color: Colors.blueAccent,
                               ),
