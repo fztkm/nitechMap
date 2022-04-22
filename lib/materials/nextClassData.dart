@@ -113,7 +113,7 @@ class NextClassData {
       } else {
         //テストのために２にセット //本番用に0にしました。2021-12-16
         print("_thisClassIdx : set Test Index 2");
-        _thisClassIdx = 5;
+        _thisClassIdx = 0;
       }
     } else {
       _thisClassIdx = 0; //土曜・日曜は0

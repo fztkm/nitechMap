@@ -39,7 +39,7 @@ class _MapScreenState extends State<MapScreen> {
   //講義室名から何号館のsvg画像が必要かをパスで返す
   String getImageString(String? roomName) {
     var imageString = "images/00gou.svg"; //デフォルトの画像
-    if (roomName != null && roomName.isNotEmpty) {
+    if (roomName != null && roomName.isNotEmpty && roomName.length >= 2) {
       String buildingNum = roomName.substring(0, 2);
       //先頭の二文字がproperBuildingNumに含まれていれば、それが何号館に対応する
       if (c_properBuildingNum.contains(buildingNum)) {
