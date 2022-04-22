@@ -105,7 +105,7 @@ class TimeTableScreen extends StatelessWidget {
                     );
                     db.selectedClassID = classDataId;
                     await db.getinitDatabase();
-                    db.setMemoList(await db.getMemosByClassID(classDataId));
+                    await db.getMemosByClassID(classDataId);
                     Navigator.of(context)
                         .pushNamed(MemoScreen.id, arguments: classDataId);
                   },

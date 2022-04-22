@@ -131,7 +131,7 @@ class _MemoScreenState extends State<MemoScreen> {
   @override
   Widget build(BuildContext context) {
     var db = Provider.of<MemoDatabase>(context, listen: false);
-    memoList = db.getMemoList();
+    memoList = db.getSelectedMemoList();
 
     AppBar appbar = AppBar(
       title: const Text(

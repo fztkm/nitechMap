@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nitechmap_c0de/providers/memoTable.dart';
 import 'package:nitechmap_c0de/screens/add_memo_screen.dart';
@@ -13,6 +14,11 @@ import 'package:provider/provider.dart';
 import 'providers/timetable.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  //向き指定
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp, //縦固定
+  ]);
   runApp(NitechMap());
 }
 
