@@ -87,7 +87,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
           color: Colors.white,
         ),
         onPressed: () async {
-          if (title.isNotEmpty) {
+          if (title.isNotEmpty || body.isNotEmpty) {
             final parentId = classData!.id();
             //Add Memo
             MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);

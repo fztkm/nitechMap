@@ -37,28 +37,27 @@ class _MapScreenState extends State<MapScreen> {
   int? _parentIdForMemoScreen;
 
   //講義室名から何号館のsvg画像が必要かをパスで返す
-  String getImageString(String roomName) {
-    var imageString;
-    String buildingNum = roomName.substring(0, 2);
-    //先頭の二文字がproperBuildingNumに含まれていれば、それが何号館に対応する
-    if (c_properBuildingNum.contains(buildingNum)) {
-      imageString = "images/${buildingNum}gou.svg";
-    } else if (buildingNum == "4-" ||
-        buildingNum == "4ー" ||
-        buildingNum == "4 ") {
-      imageString = "images/04gou.svg";
-    } else if (buildingNum == "2-" ||
-        buildingNum == "2ー" ||
-        buildingNum == "2 ") {
-      imageString = "images/02gou.svg";
-    } else if (roomName.contains("講堂") ||
-        roomName.contains("ラーニング") ||
-        roomName.toLowerCase().contains("nitech hall")) {
-      //講堂2階ラーニングコモンズ はNitechHallの画像
-      imageString = "images/nithall.svg";
-    } else {
-      imageString = "images/00gou.svg";
-      //デフォルトの画像 00gou.svg
+  String getImageString(String? roomName) {
+    var imageString = "images/00gou.svg"; //デフォルトの画像
+    if (roomName != null && roomName.isNotEmpty) {
+      String buildingNum = roomName.substring(0, 2);
+      //先頭の二文字がproperBuildingNumに含まれていれば、それが何号館に対応する
+      if (c_properBuildingNum.contains(buildingNum)) {
+        imageString = "images/${buildingNum}gou.svg";
+      } else if (buildingNum == "4-" ||
+          buildingNum == "4ー" ||
+          buildingNum == "4 ") {
+        imageString = "images/04gou.svg";
+      } else if (buildingNum == "2-" ||
+          buildingNum == "2ー" ||
+          buildingNum == "2 ") {
+        imageString = "images/02gou.svg";
+      } else if (roomName.contains("講堂") ||
+          roomName.contains("ラーニング") ||
+          roomName.toLowerCase().contains("nitech hall")) {
+        //講堂2階ラーニングコモンズ はNitechHallの画像
+        imageString = "images/nithall.svg";
+      }
     }
     return imageString;
   }

@@ -40,6 +40,8 @@ class NextClassData {
   }
 
   //setTimeTableFromDBのあとに実行
+  //メモ画面に遷移するために、classdataのidを渡す
+  //ただし、講義が連結している場合は、最初のコマの講義のidを渡すことに注意
   int? thisClassParentIdForMemoScreen() {
     DayOfWeek? dow = intToDayOfWeekForIntl(now.weekday);
     if (_thisClassIdx >= 1) {
@@ -67,6 +69,8 @@ class NextClassData {
   }
 
   //setTimeTableFromDBのあとに実行
+  //メモ画面に遷移するために、classdataのidを渡す
+  //ただし、講義が連結している場合は、最初のコマの講義のidを渡すことに注意
   int? nextClassParentIdForMemoScreen() {
     DayOfWeek? dow = intToDayOfWeekForIntl(now.weekday);
     if (_nextClassIdx >= 1) {
@@ -75,10 +79,9 @@ class NextClassData {
           var index = _nextClassIdx - 1;
           var thisData = timeTable!.classDataByDayAndTime(dow, index);
           int? id = thisData is ClassData ? thisData.id() : null;
-          if (index == 1) return id;
+          if (index == 0) return id;
           var prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
-          while (index > 0 &&
-              thisData is ClassData &&
+          while (thisData is ClassData &&
               prevData is ClassData &&
               thisData.className == prevData.className &&
               thisData.classroom == prevData.classroom) {
@@ -112,7 +115,7 @@ class NextClassData {
       } else {
         //テストのために２にセット //本番用に0にしました。2021-12-16
         print("_thisClassIdx : set Test Index 2");
-        _thisClassIdx = 2;
+        _thisClassIdx = 5;
       }
     } else {
       _thisClassIdx = 0; //土曜・日曜は0
