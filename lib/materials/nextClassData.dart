@@ -54,8 +54,7 @@ class NextClassData {
           var prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
           while (thisData is ClassData &&
               prevData is ClassData &&
-              thisData.className == prevData.className &&
-              thisData.classroom == prevData.classroom) {
+              thisData.className == prevData.className) {
             id = prevData.id();
             if (index <= 1) break;
             index -= 1;
@@ -83,8 +82,7 @@ class NextClassData {
           var prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
           while (thisData is ClassData &&
               prevData is ClassData &&
-              thisData.className == prevData.className &&
-              thisData.classroom == prevData.classroom) {
+              thisData.className == prevData.className) {
             id = prevData.id();
             if (index <= 1) break;
             index -= 1;

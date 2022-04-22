@@ -46,21 +46,19 @@ class TimeTableScreen extends StatelessWidget {
       String className = '';
       String classroom = '';
 
-      //2コマ以上の講義は連結させるので、
-      //何コマ続くかによって
-      //flexを変化させる
-      //（講義名と講義室が同じであれば連結する）
-      //(正確には連結ではなく、先頭の幅を二倍にして後ろの要素を消す)
       var flex = 1;
       if (tableData[index] != 0) {
         className = (tableData[index] as ClassData).className;
         classroom = (tableData[index] as ClassData).classroom;
 
+        //2コマ以上の講義は連結させる (先頭の幅を二倍にして後ろの要素を消す)
+        //（講義名が同じであれば連結する）
+
         //連続して同じ講義の場合のみループが続く
         for (int i = index + 1; i < 5; i++) {
           var item = tableData[i];
           if (item is ClassData) {
-            if (className == item.className && classroom == item.classroom) {
+            if (className == item.className) {
               flex += 1;
             } else {
               break;
@@ -73,8 +71,7 @@ class TimeTableScreen extends StatelessWidget {
         if (index > 0) {
           var prevItem = tableData[index - 1];
           if (prevItem is ClassData) {
-            if (className == prevItem.className &&
-                classroom == prevItem.classroom) {
+            if (className == prevItem.className) {
               return Expanded(flex: 0, child: Container());
             }
           }
