@@ -229,10 +229,14 @@ class _MemoScreenState extends State<MemoScreen> {
                       0.85,
                   child: Consumer<MemoDatabase>(
                     builder: (context, model, child) {
-                      return GridView.count(
-                        crossAxisCount: 2,
-                        children: [...memoItemList(memoList)],
-                      );
+                      return memoList.length > 0
+                          ? GridView.count(
+                              crossAxisCount: 2,
+                              children: [...memoItemList(memoList)],
+                            )
+                          : Center(
+                              child: Text("No notes"),
+                            );
                     },
                   ),
                 ),
@@ -246,12 +250,13 @@ class _MemoScreenState extends State<MemoScreen> {
           Navigator.of(context)
               .pushNamed(AddMemoScreen.id, arguments: classData);
         },
-        backgroundColor: Colors.brown,
+        backgroundColor: Colors.blue,
         child: Icon(
           Icons.note_add,
           color: Colors.white,
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

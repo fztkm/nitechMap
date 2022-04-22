@@ -39,7 +39,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Add Memo $className',
+          'Memo $className',
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontWeight: FontWeight.w700,
@@ -89,7 +89,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.brown,
+        backgroundColor: Colors.blue,
         child: Icon(
           Icons.save,
           color: Colors.white,

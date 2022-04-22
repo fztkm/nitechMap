@@ -81,7 +81,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.brown,
+        backgroundColor: Colors.blue,
         child: Icon(
           Icons.save,
           color: Colors.white,
