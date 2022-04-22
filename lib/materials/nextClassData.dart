@@ -39,6 +39,61 @@ class NextClassData {
     return _nextClassIdx;
   }
 
+  //setTimeTableFromDBのあとに実行
+  int? thisClassParentIdForMemoScreen() {
+    DayOfWeek? dow = intToDayOfWeekForIntl(now.weekday);
+    if (_thisClassIdx >= 1) {
+      if (dow is DayOfWeek) {
+        if (timeTable != null) {
+          var index = _thisClassIdx - 1;
+          var thisData = timeTable!.classDataByDayAndTime(dow, index);
+          int? id = thisData is ClassData ? thisData.id() : null;
+          if (index == 0) return id;
+          var prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
+          while (thisData is ClassData &&
+              prevData is ClassData &&
+              thisData.className == prevData.className &&
+              thisData.classroom == prevData.classroom) {
+            id = prevData.id();
+            if (index <= 1) break;
+            index -= 1;
+            prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
+          }
+          return id;
+        }
+      }
+    }
+    return null;
+  }
+
+  //setTimeTableFromDBのあとに実行
+  int? nextClassParentIdForMemoScreen() {
+    DayOfWeek? dow = intToDayOfWeekForIntl(now.weekday);
+    if (_nextClassIdx >= 1) {
+      if (dow is DayOfWeek) {
+        if (timeTable != null) {
+          var index = _nextClassIdx - 1;
+          var thisData = timeTable!.classDataByDayAndTime(dow, index);
+          int? id = thisData is ClassData ? thisData.id() : null;
+          if (index == 1) return id;
+          var prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
+          while (index > 0 &&
+              thisData is ClassData &&
+              prevData is ClassData &&
+              thisData.className == prevData.className &&
+              thisData.classroom == prevData.classroom) {
+            id = prevData.id();
+            if (index <= 1) break;
+            index -= 1;
+            prevData = timeTable!.classDataByDayAndTime(dow, index - 1);
+          }
+          return id;
+        }
+      }
+    }
+    return null;
+  }
+
   //今何コマ目か
   //休日の場合は常に0
   void setThisClassIdx() {
@@ -57,7 +112,7 @@ class NextClassData {
       } else {
         //テストのために２にセット //本番用に0にしました。2021-12-16
         print("_thisClassIdx : set Test Index 2");
-        _thisClassIdx = 0;
+        _thisClassIdx = 2;
       }
     } else {
       _thisClassIdx = 0; //土曜・日曜は0

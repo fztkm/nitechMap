@@ -71,7 +71,7 @@ class MemoDatabase with ChangeNotifier {
     //_memoList.add(memo);　<- これだとダメ
 
     //更新されたメモリストをセットし直す.
-    getMemosByClassID(memo.parentClassId);
+    settingMemosByClassID(memo.parentClassId);
     notifyListeners();
   }
 
@@ -92,7 +92,7 @@ class MemoDatabase with ChangeNotifier {
 
   //TimeTableのIDから検索
   //授業ごとのメモのリストを_selectedMemoListに格納
-  Future<void> getMemosByClassID(int parentId) async {
+  Future<void> settingMemosByClassID(int parentId) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps =
         await db.query('memo', where: "parent = ?", whereArgs: [parentId]);

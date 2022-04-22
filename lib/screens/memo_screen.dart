@@ -252,7 +252,7 @@ class _MemoScreenState extends State<MemoScreen> {
         },
         backgroundColor: Colors.blue,
         child: Icon(
-          Icons.note_add,
+          Icons.add,
           color: Colors.white,
         ),
       ),

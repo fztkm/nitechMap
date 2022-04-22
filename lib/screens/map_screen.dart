@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nitechmap_c0de/materials/consts.dart';
 import 'package:nitechmap_c0de/materials/nextClassData.dart';
+import 'package:nitechmap_c0de/providers/memoTable.dart';
+import 'package:nitechmap_c0de/screens/memo_screen.dart';
 import 'package:nitechmap_c0de/widgets/classInfoTextData_container.dart';
 import 'package:nitechmap_c0de/widgets/main_drawer.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'timetable_screen.dart';
 
 class MapScreen extends StatefulWidget {
@@ -29,6 +32,9 @@ class _MapScreenState extends State<MapScreen> {
   Color? _nextClassIconColor;
   double _thisClassIconSize = 25;
   double _nextClassIconSize = 20;
+  int? _thisParentIdForMemoScreen;
+  int? _nextParentIdForMemoScreen;
+  int? _parentIdForMemoScreen;
 
   //講義室名から何号館のsvg画像が必要かをパスで返す
   String getImageString(String roomName) {
@@ -73,14 +79,19 @@ class _MapScreenState extends State<MapScreen> {
     thisTimeData[0] = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
     thisTimeData[1] = next!.getThisClassData()[0];
     thisTimeData[2] = next!.getThisClassData()[1];
+    _thisParentIdForMemoScreen = next!.thisClassParentIdForMemoScreen();
+    _parentIdForMemoScreen = _thisParentIdForMemoScreen;
+    print("THIS IS: $_thisParentIdForMemoScreen");
 
     nextTimeData[0] = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
     nextTimeData[1] = next!.getNextClassData()[0];
     nextTimeData[2] = next!.getNextClassData()[1];
+    _nextParentIdForMemoScreen = next!.nextClassParentIdForMemoScreen();
+    print("NEXT IS: $_nextParentIdForMemoScreen");
   }
 
   void changePhoto(int index) {
-    //next(index == 0)かnow(index == 1)かに応じて　ボトムバーのテキストスタイル・画像を変える
+    //this(index == 0)かnext(index == 1)かに応じて　ボトムバーのテキストスタイル・画像を変える
     var classNum;
     if (index == 0) {
       _thisClassTextStyle = _selectedItemTextStyle;
@@ -88,6 +99,7 @@ class _MapScreenState extends State<MapScreen> {
       _thisClassIconSize = 25;
       _nextClassIconSize = 20;
       classNum = thisTimeData[2];
+      _parentIdForMemoScreen = _thisParentIdForMemoScreen;
     }
     if (index == 1) {
       _thisClassTextStyle = _notSelectedItemTextStyle;
@@ -95,10 +107,12 @@ class _MapScreenState extends State<MapScreen> {
       _thisClassIconSize = 20;
       _nextClassIconSize = 25;
       classNum = nextTimeData[2];
+      _parentIdForMemoScreen = _nextParentIdForMemoScreen;
     }
     setState(() {
       svgPhoto = getImageString(classNum);
       print("svgphoto = $svgPhoto");
+      print("parent Id idididid: $_parentIdForMemoScreen");
       currentIndex = index;
     });
   }
@@ -175,11 +189,14 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   Positioned(
                     top: 0,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
                             constraints: BoxConstraints(
                                 maxWidth: MediaQuery.of(context).orientation ==
                                         Orientation.portrait
@@ -214,9 +231,33 @@ class _MapScreenState extends State<MapScreen> {
                               ],
                             ),
                           ),
-                        ),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.paste)),
-                      ],
+                          if (_parentIdForMemoScreen != null)
+                            TextButton(
+                              onPressed: () async {
+                                MemoDatabase db = Provider.of<MemoDatabase>(
+                                  context,
+                                  listen: false,
+                                );
+                                await db.getinitDatabase();
+                                await db.settingMemosByClassID(
+                                    _parentIdForMemoScreen!);
+                                Navigator.of(context).pushNamed(MemoScreen.id,
+                                    arguments: _parentIdForMemoScreen);
+                              },
+                              child: CircleAvatar(
+                                maxRadius: 18,
+                                backgroundColor: Colors.blue,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Icon(Icons.bookmark_add,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -226,7 +267,7 @@ class _MapScreenState extends State<MapScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.brown,
         onPressed: () {
-          Navigator.pushReplacementNamed(context, TimeTableScreen.id);
+          Navigator.pushNamed(context, TimeTableScreen.id);
         },
         child: Icon(
           Icons.apps_rounded,

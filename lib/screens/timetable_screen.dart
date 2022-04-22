@@ -116,7 +116,7 @@ class TimeTableScreen extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(
                     Icons.bookmark,
-                    color: Colors.brown,
+                    color: Colors.blue,
                   ),
                   onPressed: () async {
                     final int classDataId = dayOfWeek * 10 + index;
@@ -126,7 +126,7 @@ class TimeTableScreen extends StatelessWidget {
                     );
                     db.selectedClassID = classDataId;
                     await db.getinitDatabase();
-                    await db.getMemosByClassID(classDataId);
+                    await db.settingMemosByClassID(classDataId);
                     Navigator.of(context)
                         .pushNamed(MemoScreen.id, arguments: classDataId);
                   },

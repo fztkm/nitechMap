@@ -88,7 +88,7 @@ class _AddMemoScreenState extends State<AddMemoScreen> {
         ),
         onPressed: () async {
           if (title.isNotEmpty) {
-            final parentId = classData!.day * 10 + classData!.time;
+            final parentId = classData!.id();
             //Add Memo
             MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);
             db.insertMemo(

@@ -16,6 +16,10 @@ class ClassData {
   void setClassroom(String room) {
     classroom = room;
   }
+
+  int id() {
+    return (day * 10 + time);
+  }
 }
 
 class TimeTable with ChangeNotifier {
@@ -32,6 +36,10 @@ class TimeTable with ChangeNotifier {
 
   Map<DayOfWeek, List<dynamic>> timetable() {
     return _timetable;
+  }
+
+  Object classDataByDayAndTime(DayOfWeek dow, int time) {
+    return _timetable[dow]![time];
   }
 
   ClassData getClassDataByID(int id) {

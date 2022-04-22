@@ -95,7 +95,7 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
           color: Colors.white,
         ),
         onPressed: () async {
-          final int parentId = classData!.day * 10 + classData!.time;
+          final int parentId = classData!.id();
           MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);
           db.updateMemo(
             Memo(
