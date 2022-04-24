@@ -2,14 +2,35 @@
 
 ## 概要
 名古屋工業大学の学生の為のスマホアプリ.  
-入力された時間割情報と現在時刻から、次の授業の場所を地図上で赤く強調します.  
-アプリを開くだけで講義室を確認できます.  
-<a href="https://play.google.com/store/apps/details?id=com.c0de.nitechmap_c0de">Google Play Store</a>  
+時間割情報と現在時刻から、次の授業の場所を地図上で赤く強調.  
+講義ごとのメモ機能.
+<a href="https://play.google.com/store/apps/details?id=com.c0de.nitechmap_c0de">Google Play Store</a>で公開
 
-## 使用技術
+## リリース
+<table>
+  <th>日付</th>
+  <th>更新内容</th>
+  <tr>
+    <td>2022/1/19</td>
+    <td>最初のリリース</td>
+  </tr>
+  <tr>
+    <td>2022/4/5</td>
+    <td>UIを変更,切り替えアニメーション追加,時間割の時刻表をドロワーに追加</td>
+  </tr>
+  <tr>
+    <td>2022/4/25</td>
+    <td>メモ機能を追加, 連続授業を連結して表示</td>
+  </tr>
+</table>
+ 
+
+## 使用フレームワーク・パッケージ
 - Futter
 - Dart
-- Providerパッケージ
+- Provider
+- photo_view
+- SQflite
 
 <table>
   <tr>
