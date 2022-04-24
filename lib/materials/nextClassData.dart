@@ -95,6 +95,11 @@ class NextClassData {
     return null;
   }
 
+  String parentClassRoom(int parentId) {
+    final roomName = timeTable!.getClassDataByID(parentId).classroom;
+    return roomName;
+  }
+
   //今何コマ目か
   //休日の場合は常に0
   void setThisClassIdx() {
@@ -137,16 +142,16 @@ class NextClassData {
 
   //今のクラスの名前と講義室名
   List<String> getThisClassData() {
-    List<String> result = ["no data", "0000"];
+    List<String> result = ["no data", ""];
     DayOfWeek? dofw = intToDayOfWeekForIntl(now.weekday);
     if (dofw != null && _thisClassIdx >= 1) {
-      final classData = timeTable!
-          .timetable()[dofw]![_thisClassIdx - 1]; //0かClassData // １コマ目のidx=0
+      final classData = timeTable!.classDataByDayAndTime(
+        dofw,
+        _thisClassIdx - 1,
+      ); //0かClassData  １コマ目のidx=0
       if (classData is ClassData) {
-        if (classData.className != "" && classData.classroom != "") {
-          result[0] = classData.className;
-          result[1] = classData.classroom;
-        }
+        result[0] = classData.className;
+        result[1] = classData.classroom;
         print("now : " + result.toString());
       }
     }

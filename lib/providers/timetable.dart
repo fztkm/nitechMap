@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 class ClassData {
   String className;
-  String classroom = '0000';
+  String classroom = '';
   int day = 0; //0~4
   int time = 0; //0~4
 

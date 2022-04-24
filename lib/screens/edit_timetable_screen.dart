@@ -19,7 +19,13 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
 
   //Provider で　TimeTable()を取得。initialValueを渡す必要あり
 
-  List<dynamic> timeTableDate = [0, 0, 0, 0, 0];
+  List<List<dynamic>> timeTableDate = [
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ];
   TimeTable? tt;
   bool initialized = false;
   final _form = GlobalKey<FormState>();
@@ -31,26 +37,22 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
       final routeArg = ModalRoute.of(context)!.settings.arguments;
       switch (routeArg as int) {
         case 0:
-          timeTableDate = tt!.timetable()[DayOfWeek.Monday] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Monday;
           break;
         case 1:
-          timeTableDate = tt!.timetable()[DayOfWeek.Tuesday] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Tuesday;
           break;
         case 2:
-          timeTableDate = tt!.timetable()[DayOfWeek.Wednesday] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Wednesday;
           break;
         case 3:
-          timeTableDate = tt!.timetable()[DayOfWeek.Thursday] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Thursday;
           break;
         case 4:
-          timeTableDate = tt!.timetable()[DayOfWeek.Friday] as List<dynamic>;
           _dayOfWeek = DayOfWeek.Friday;
           break;
       }
+      setInitialData();
       initialized = true;
     }
     super.didChangeDependencies();
@@ -58,9 +60,16 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
 
   void _saveTimeTable() {
     print(timeTableDate);
-    _form.currentState!.save(); //onSavedをトリガー
+    // _form.currentState!.save(); //onSavedをトリガー
+    List<dynamic> resultList = [0, 0, 0, 0, 0];
+    timeTableDate.asMap().forEach((i, value) {
+      if (value[0] != 0) {
+        resultList[i] = ClassData(value[0] as String);
+        if (value[1] != 0) (resultList[i] as ClassData).setClassroom(value[1]);
+      }
+    });
     Provider.of<TimeTable>(context, listen: false)
-        .setTimetable(_dayOfWeek, timeTableDate);
+        .setTimetable(_dayOfWeek, resultList);
     Navigator.of(context).pop();
   }
 
@@ -69,22 +78,28 @@ class _EditTimeTableScreenState extends State<EditTimeTableScreen> {
   void setClassName(int classTime, String? value) {
     if (value != null && value != '' && value.isNotEmpty) {
       print(value);
-      timeTableDate[classTime - 1] = ClassData(value);
+      timeTableDate[classTime - 1][0] = value;
     } else {
-      timeTableDate[classTime - 1] = 0;
+      timeTableDate[classTime - 1][0] = 0;
     }
   }
 
   void setClassroom(int classTime, String? value) {
-    if (timeTableDate[classTime - 1] is ClassData) {
-      timeTableDate[classTime - 1].setClassroom(value);
+    if (value != null) {
+      timeTableDate[classTime - 1][1] = value;
     }
   }
 
   void setInitialData() {
     //曜日に応じた以前のClassDataのリストを格納
     setState(() {
-      timeTableDate = tt!.timetable()[_dayOfWeek] as List<dynamic>;
+      final ttData = tt!.timetable()[_dayOfWeek] as List<dynamic>;
+      ttData.asMap().forEach((i, value) {
+        if (value is ClassData) {
+          timeTableDate[i][0] = value.className;
+          timeTableDate[i][1] = value.classroom;
+        }
+      });
     });
   }
 

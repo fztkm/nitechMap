@@ -12,7 +12,8 @@ class InputListTile extends StatefulWidget {
     required this.setClassName,
     required this.setClassroom,
     required this.initialData,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   _InputListTileState createState() => _InputListTileState();
@@ -20,9 +21,9 @@ class InputListTile extends StatefulWidget {
 
 class _InputListTileState extends State<InputListTile> {
   String? getInitialName() {
-    if (widget.initialData[widget.classTime - 1] is ClassData) {
+    if (widget.initialData[widget.classTime - 1][0] != 0) {
       print('classData');
-      return (widget.initialData[widget.classTime - 1] as ClassData).className;
+      return widget.initialData[widget.classTime - 1][0];
     } else {
       print('initial is null');
       return null;
@@ -30,8 +31,8 @@ class _InputListTileState extends State<InputListTile> {
   }
 
   String? getInitialRoomName() {
-    if (widget.initialData[widget.classTime - 1] is ClassData) {
-      return (widget.initialData[widget.classTime - 1] as ClassData).classroom;
+    if (widget.initialData[widget.classTime - 1][1] != 0) {
+      return widget.initialData[widget.classTime - 1][1];
     } else {
       return null;
     }
@@ -77,7 +78,7 @@ class _InputListTileState extends State<InputListTile> {
               ),
             ),
             initialValue: getInitialName(),
-            onSaved: (value) {
+            onChanged: (value) {
               widget.setClassName(widget.classTime, value); // 講義名を格納
             },
           ),
@@ -96,7 +97,7 @@ class _InputListTileState extends State<InputListTile> {
               ),
             ),
             initialValue: getInitialRoomName(),
-            onSaved: (value) {
+            onChanged: (value) {
               widget.setClassroom(widget.classTime, value); // 講義室番号を格納
             },
           ),

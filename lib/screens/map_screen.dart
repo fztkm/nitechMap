@@ -77,15 +77,24 @@ class _MapScreenState extends State<MapScreen> {
   void initClassData() {
     thisTimeData[0] = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
     thisTimeData[1] = next!.getThisClassData()[0];
-    thisTimeData[2] = next!.getThisClassData()[1];
+    print("thisTimeData[1]::::::${thisTimeData[1]}");
     _thisParentIdForMemoScreen = next!.thisClassParentIdForMemoScreen();
+    var thisClassRoom = next!.getThisClassData()[1];
+    if (thisClassRoom.isEmpty && _thisParentIdForMemoScreen != null) {
+      thisClassRoom = next!.parentClassRoom(_thisParentIdForMemoScreen!);
+    }
+    thisTimeData[2] = thisClassRoom;
     _parentIdForMemoScreen = _thisParentIdForMemoScreen;
     print("THIS IS: $_thisParentIdForMemoScreen");
 
     nextTimeData[0] = '${next!.getToday()} - ${next!.getNextClassIdx()}コマ';
     nextTimeData[1] = next!.getNextClassData()[0];
-    nextTimeData[2] = next!.getNextClassData()[1];
     _nextParentIdForMemoScreen = next!.nextClassParentIdForMemoScreen();
+    var nextClassRoom = next!.getNextClassData()[1];
+    if (nextClassRoom.isEmpty && _nextParentIdForMemoScreen != null) {
+      nextClassRoom = next!.parentClassRoom(_nextParentIdForMemoScreen!);
+    }
+    nextTimeData[2] = nextClassRoom;
     print("NEXT IS: $_nextParentIdForMemoScreen");
   }
 
