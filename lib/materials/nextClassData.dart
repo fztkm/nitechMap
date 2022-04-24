@@ -160,7 +160,7 @@ class NextClassData {
 
   //次のクラスの名前と講義室名
   List<String> getNextClassData() {
-    List<String> result = ["no data", "0000"];
+    List<String> result = ["no data", ""];
     DayOfWeek? dofw = intToDayOfWeekForIntl(now.weekday);
     if (dofw != null && _nextClassIdx >= 1) {
       final classData =

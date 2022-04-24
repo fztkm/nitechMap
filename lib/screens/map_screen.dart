@@ -77,7 +77,6 @@ class _MapScreenState extends State<MapScreen> {
   void initClassData() {
     thisTimeData[0] = '${next!.getToday()} - ${next!.getThisClassIdx()}コマ';
     thisTimeData[1] = next!.getThisClassData()[0];
-    print("thisTimeData[1]::::::${thisTimeData[1]}");
     _thisParentIdForMemoScreen = next!.thisClassParentIdForMemoScreen();
     var thisClassRoom = next!.getThisClassData()[1];
     if (thisClassRoom.isEmpty && _thisParentIdForMemoScreen != null) {

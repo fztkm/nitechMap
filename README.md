@@ -37,13 +37,19 @@
     <th colspan=2>地図画面</th>
     <th>時間割画面</th>
     <th>時間割編集</th>
+  </tr>
+  <tr>
+    <td><img src="https://user-images.githubusercontent.com/74134260/164989017-7ddc7d28-c498-45e9-ad71-0dd301baecd7.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/74134260/164989097-7e00edaa-3190-487c-b1ad-100223cffdc4.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/74134260/161441571-460a342e-cf2e-450a-af7b-525fd2be88c5.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/74134260/161440734-e4e0f261-cd97-47fc-b136-d6550a1287bd.png" width="200"></td>
+  </tr>
+  <tr>
+    <th>メモ</th>
     <th>ドロワー</th>
   </tr>
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/74134260/161440782-f6cdfc37-6f30-4aaf-a7f1-0a4f3d10ac8e.png" width="200"></td>
-    <td><img src="https://user-images.githubusercontent.com/74134260/161440724-c3045ac8-d32d-4dd4-9263-eecfc9cba087.png" width="200"></td>
-    <td><img src="https://user-images.githubusercontent.com/74134260/161441571-460a342e-cf2e-450a-af7b-525fd2be88c5.png" width="200"></td>
-    <td><img src="https://user-images.githubusercontent.com/74134260/161440734-e4e0f261-cd97-47fc-b136-d6550a1287bd.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/74134260/164989221-674543f6-c104-4297-98c9-919ede08f290.png" width="200"></td>
     <td><img src="https://user-images.githubusercontent.com/74134260/161440731-4cd18b64-486b-4ddf-b20d-21c967cc254d.png" width="200"></td>
   </tr>
 </table>
