@@ -148,12 +148,16 @@ class _MemoScreenState extends State<MemoScreen> {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
-          child: IconButton(
+          child: TextButton.icon(
               onPressed: () {
                 setState(() {
                   deleteMode = !deleteMode;
                 });
               },
+              label: Text(
+                "削除",
+                style: TextStyle(color: Colors.black54),
+              ),
               icon: Icon(
                 Icons.delete,
                 color: deleteMode ? Colors.red : Colors.grey,

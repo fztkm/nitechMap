@@ -90,25 +90,43 @@ class _EditMemoScreenState extends State<EditMemoScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        child: const Icon(
-          Icons.save,
-          color: Colors.white,
-        ),
-        onPressed: () async {
-          final int parentId = classData!.id();
-          MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);
-          db.updateMemo(
-            Memo(
-              id: memo!.id,
-              parentClassId: parentId,
-              title: title,
-              bodyText: body,
+      floatingActionButton: SizedBox(
+        height: 50,
+        width: 88,
+        child: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          backgroundColor: Colors.blue,
+          child: FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(
+                  Icons.save,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  "保存",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
             ),
-          );
-          Navigator.of(context).pop();
-        },
+          ),
+          onPressed: () async {
+            final int parentId = classData!.id();
+            MemoDatabase db = Provider.of<MemoDatabase>(context, listen: false);
+            db.updateMemo(
+              Memo(
+                id: memo!.id,
+                parentClassId: parentId,
+                title: title,
+                bodyText: body,
+              ),
+            );
+            Navigator.of(context).pop();
+          },
+        ),
       ),
     );
   }
