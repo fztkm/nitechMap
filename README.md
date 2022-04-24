@@ -18,7 +18,7 @@
   <th>更新内容</th>
   <tr>
     <td>2022/1/19</td>
-    <td>最初のリリース(Google Play Store)</td>
+    <td>最初のリリース(Google Play Store)　地図画面と時間割一覧</td>
   </tr>
   <tr>
     <td>2022/4/5</td>
@@ -51,10 +51,12 @@
   </tr>
   <tr>
     <th>メモ</th>
+    <th>メモ追加</th>
     <th>ドロワー</th>
   </tr>
   <tr>
     <td><img src="https://user-images.githubusercontent.com/74134260/164989221-674543f6-c104-4297-98c9-919ede08f290.png" width="200"></td>
+    <td><img src="https://user-images.githubusercontent.com/74134260/164990064-6dfd7e7d-d442-41b9-a527-938cc40e9023.png" width="200"></td>
     <td><img src="https://user-images.githubusercontent.com/74134260/161440731-4cd18b64-486b-4ddf-b20d-21c967cc254d.png" width="200"></td>
   </tr>
 </table>
