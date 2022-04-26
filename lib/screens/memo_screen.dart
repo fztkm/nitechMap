@@ -99,8 +99,9 @@ class _MemoScreenState extends State<MemoScreen> {
                             bottom: 0,
                             child: IconButton(
                               icon: const Icon(
-                                Icons.edit,
+                                Icons.keyboard_double_arrow_right_rounded,
                                 color: Colors.blueAccent,
+                                size: 30,
                               ),
                               onPressed: () {
                                 //memoを編集する

@@ -19,7 +19,7 @@ class MapScreen extends StatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
   var svgPhoto = 'images/00gou.svg';
   var currentIndex = 0;
   NextClassData? next;
@@ -151,11 +151,33 @@ class _MapScreenState extends State<MapScreen> {
       _nextClassTextStyle = _notSelectedItemTextStyle;
       _thisClassIconColor = Colors.brown;
       _nextClassIconColor = Colors.brown;
-
       setState(() {
         super.didChangeDependencies();
         initialized = true;
       });
+      print("Initialized");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  //バックグラウンドから再開したときに初期化する.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print("state = $state");
+    if (state == AppLifecycleState.resumed) {
+      initialized = false;
+      didChangeDependencies();
     }
   }
 
