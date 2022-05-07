@@ -214,7 +214,7 @@ class _MapScreenState extends State<MapScreen> with WidgetsBindingObserver {
                     child: SvgPicture.asset(svgPhoto),
                     backgroundDecoration: BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor),
-                    customSize: MediaQuery.of(context).size * 2.2,
+                    customSize: MediaQuery.of(context).size * 1.65,
                   ),
                   Positioned(
                     top: 0,
